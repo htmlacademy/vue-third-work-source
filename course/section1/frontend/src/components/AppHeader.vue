@@ -44,7 +44,7 @@
 </template>
 
 <style lang="scss" scoped>
-@import "@/assets/scss/ds-system/ds";
+@import "@/assets/scss/ds-system/ds-system";
 
 .header {
   position: relative;
