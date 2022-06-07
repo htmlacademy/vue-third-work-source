@@ -1,0 +1,19 @@
+import { createRouter, createWebHistory } from "vue-router";
+
+const router = createRouter({
+  history: createWebHistory(import.meta.env.BASE_URL),
+  routes: [
+    {
+      path: "/",
+      name: "home",
+      component: () => import("../DemoMenu.vue"),
+    },
+    {
+      path: "/counter",
+      name: "counter",
+      component: () => import("../demo0/DemoCounter.vue"),
+    },
+  ],
+});
+
+export default router;
