@@ -6,59 +6,39 @@
         <div class="desk__filters">
           <div class="desk__user-filter">
             <ul class="user-filter">
-              <li class="user-filter__item">
+              <li
+                v-for="user in users"
+                :key="user.id"
+                :title="user.name"
+                class="user-filter__item"
+              >
                 <a class="user-filter__button">
-                  <img src="@/assets/img/user1.jpg" alt="Вика Некрасова" width="24" height="24">
-                </a>
-              </li>
-              <li class="user-filter__item">
-                <a class="user-filter__button">
-                  <span>А</span>
-                </a>
-              </li>
-              <li class="user-filter__item">
-                <a class="user-filter__button">
-                  <img src="@/assets/img/user3.jpg" alt="Михаил Валерьевич Тян-Шанский" width="24" height="24">
-                </a>
-              </li>
-              <li class="user-filter__item">
-                <a class="user-filter__button">
-                  <span>В</span>
-                </a>
-              </li>
-              <li class="user-filter__item">
-                <a class="user-filter__button">
-                  <img src="@/assets/img/user4.jpg" alt="Анастасия Овсянкина" width="24" height="24">
+                  <img
+                    :src="getImage(user.avatar)"
+                    alt="Аватар юзера"
+                    width="24"
+                    height="24"
+                  />
                 </a>
               </li>
             </ul>
           </div>
-
           <div class="desk__meta-filter">
             <ul class="meta-filter">
-              <li class="meta-filter__item">
-                <a class="meta-filter__status meta-filter__status--color meta-filter__status--green"
-                   title="Важно, не срочно"></a>
-              </li>
-              <li class="meta-filter__item">
-                <a class="meta-filter__status meta-filter__status--color meta-filter__status--orange"
-                   title="Срочно, не важно"></a>
-              </li>
-              <li class="meta-filter__item">
-                <a class="meta-filter__status meta-filter__status--color meta-filter__status--red"
-                   title="Срочно, важно"></a>
-              </li>
-              <li class="meta-filter__item">
-                <a class="meta-filter__status meta-filter__status--time" title="Дедлайн"></a>
-              </li>
-              <li class="meta-filter__item">
-                <a class="meta-filter__status meta-filter__status--alert" title="Просрочено"></a>
+              <li
+                v-for="({ value, label }) in STATUSES"
+                :key="value"
+                class="meta-filter__item"
+              >
+                <a
+                  class="meta-filter__status"
+                  :class="`meta-filter__status meta-filter__status--color meta-filter__status--${value}`"
+                  :title="label"
+                />
               </li>
             </ul>
           </div>
-
         </div>
-
       </div>
 
       <div v-if="columns.length" class="desk__columns">
@@ -134,8 +114,10 @@
 
 <script setup>
 import columns from '@/mocks/columns.json'
+import users from '@/mocks/users.json'
 import rawTasks from '@/mocks/tasks.json'
 import { normalizeTask, getTagsArrayFromString } from '../common/helpers'
+import { STATUSES } from '../common/constants'
 
 const normalizedTasks = rawTasks.map(task => normalizeTask(task))
 const columnTasks = normalizedTasks
