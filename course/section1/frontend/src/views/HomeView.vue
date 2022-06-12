@@ -548,7 +548,7 @@
       width: 16px;
       height: 16px;
 
-      background-image: url("../img/status-time.svg");
+      background-image: url("@/assets/img/status-time.svg");
       background-repeat: no-repeat;
       background-size: cover;
     }
@@ -557,7 +557,7 @@
       width: 16px;
       height: 16px;
 
-      background-image: url("../img/status-alert.svg");
+      background-image: url("@/assets/img/status-alert.svg");
       background-repeat: no-repeat;
       background-size: cover;
     }
@@ -730,7 +730,7 @@
       width: 16px;
       height: 16px;
 
-      background-image: url("../img/status-time.svg");
+      background-image: url("@/assets/img/status-time.svg");
       background-repeat: no-repeat;
       background-size: cover;
     }
@@ -739,7 +739,7 @@
       width: 16px;
       height: 16px;
 
-      background-image: url("../img/status-alert.svg");
+      background-image: url("@/assets/img/status-alert.svg");
       background-repeat: no-repeat;
       background-size: cover;
     }
