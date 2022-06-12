@@ -61,298 +61,110 @@
 
       </div>
 
-      <div class="desk__columns">
-        <div class="column">
-          <h2 class="column__name">Аналитика</h2>
-
+      <div v-if="columns.length" class="desk__columns">
+        <div v-for="column in columns" :key="column.id" class="column">
+          <h2 class="column__name">{{ column.title }}</h2>
           <div class="column__target-area">
-
-            <div class="column__task">
-
+            <div
+                v-for="task in columnTasks[column.id]"
+                class="column__task"
+            >
               <div class="task">
-
-                <div class="task__user">
+                <div
+                    v-if="task.user"
+                    class="task__user"
+                >
                   <div class="task__avatar">
-                    <img src="@/assets/img/user1.jpg" class="task__avatar" width="20" height="20" alt="Вика Некрасова">
+                    <img
+                        :src="getImage(task.user.avatar)"
+                        :alt="task.user.name"
+                        width="20"
+                        height="20"
+                    />
                   </div>
-                  Вика Некрасова
+                  {{ task.user.name }}
                 </div>
 
                 <div class="task__statuses">
-                  <span class="task__status task__status--color task__status--orange"></span>
+                <span
+                    v-if="task.status"
+                    class="task__status"
+                    :class="`task__status--${task.status}`"
+                />
+                  <span
+                      v-if="task.timeStatus"
+                      class="task__status"
+                      :class="`task__status--${task.timeStatus}`"
+                  />
                 </div>
 
-                <h4 class="task__title">Проверить реализацию кредита</h4>
-
-                <ul class="task__tags">
-                  <li>
-                    <span class="tag tag--orange">аналитика</span>
-                  </li>
-                  <li>
-                    <span class="tag tag--blue">ui</span>
-                  </li>
-                </ul>
-              </div>
-
-            </div>
-
-            <div class="column__task">
-              <div class="task">
-                <div class="task__user">
-                  <div class="task__avatar">
-                    <img src="@/assets/img/user1.jpg" class="task__avatar" width="20" height="20" alt="Вика Некрасова">
-                  </div>
-                  Вика Некрасова
-                </div>
-                <div class="task__statuses">
-                  <span class="task__status task__status--color task__status--green"></span>
-                  <span class="task__status task__status--alert"></span>
-                </div>
-                <h4 class="task__title">Подготовить план развития стажера Юлии Х.</h4>
-
-                <ul class="task__tags">
-                  <li>
-                    <span class="tag tag--yellow">менеджмент</span>
-                  </li>
-                  <li>
-                    <span class="tag tag--pink">HR</span>
-                  </li>
-                </ul>
-              </div>
-            </div>
-
-            <div class="column__task">
-              <div class="task">
-                <div class="task__user">
-                  <div class="task__avatar">
-                    <img src="@/assets/img/user1.jpg" class="task__avatar" width="20" height="20" alt="Вика Некрасова">
-                  </div>
-                  Вика Некрасова
-                </div>
-                <div class="task__statuses">
-                  <span class="task__status task__status--time"></span>
-                </div>
-                <h4 class="task__title">Подготовить план развития стажера Виктора Р.</h4>
-
-                <ul class="task__tags">
-                  <li>
-                    <span class="tag tag--yellow">менеджмент</span>
-                  </li>
-                  <li>
-                    <span class="tag tag--pink">HR</span>
+                <h5
+                    class="task__title"
+                    :class="{ 'task__title--first': !task.user }"
+                >
+                  {{ task.title }}
+                </h5>
+                <ul
+                    v-if="task.tags && task.tags.length"
+                    class="task__tags"
+                >
+                  <li
+                      v-for="(tag, index) in task.tags"
+                      :key="index"
+                  >
+                  <span class="tag tag--blue">
+                    {{ tag }}
+                  </span>
                   </li>
                 </ul>
               </div>
             </div>
-
           </div>
         </div>
-
-
-        <div class="column">
-          <h2 class="column__name">В работе</h2>
-
-          <div class="column__target-area">
-
-            <div class="column__task">
-
-              <div class="task">
-
-                <div class="task__user">
-                  <div class="task__avatar">
-                    <img src="@/assets/img/user1.jpg" class="task__avatar" width="20" height="20" alt="Вика Некрасова">
-                  </div>
-                  Вика Некрасова
-                </div>
-
-                <div class="task__statuses">
-                  <span class="task__status task__status--color task__status--red"></span>
-                  <span class="task__status task__status--time"></span>
-                </div>
-
-                <h4 class="task__title">Написать письмо подрядчику “Coffe Brand”</h4>
-
-                <ul class="task__tags">
-                  <li>
-                    <span class="tag tag--violet">банк</span>
-                  </li>
-                  <li>
-                    <span class="tag tag--green">маркетинг</span>
-                  </li>
-                </ul>
-              </div>
-
-            </div>
-
-            <div class="column__task">
-              <div class="task">
-                <div class="task__user">
-                  <div class="task__avatar">
-                    <img src="@/assets/img/user1.jpg" class="task__avatar" width="20" height="20" alt="Вика Некрасова">
-                  </div>
-                  Вика Некрасова
-                </div>
-                <h4 class="task__title">Новые пуши в СБП</h4>
-
-                <ul class="task__tags">
-                  <li>
-                    <span class="tag tag--orange">аналитика</span>
-                  </li>
-                  <li>
-                    <span class="tag tag--blue">ui</span>
-                  </li>
-                </ul>
-              </div>
-            </div>
-
-            <div class="column__task">
-              <div class="task">
-                <div class="task__user">
-                  <div class="task__avatar">
-                    <img src="@/assets/img/user1.jpg" class="task__avatar" width="20" height="20" alt="Вика Некрасова">
-                  </div>
-                  Настя Овсянкина
-                </div>
-                <div class="task__statuses">
-                  <span class="task__status task__status--time"></span>
-                </div>
-                <h4 class="task__title">Подготовить план развития стажера Олеси П.</h4>
-
-                <ul class="task__tags">
-                  <li>
-                    <span class="tag tag--orange">аналитика</span>
-                  </li>
-                  <li>
-                    <span class="tag tag--blue">ui</span>
-                  </li>
-                </ul>
-              </div>
-            </div>
-
-          </div>
-        </div>
-
-        <div class="column">
-          <h2 class="column__name">Ждет приемки</h2>
-
-          <div class="column__target-area">
-
-            <div class="column__task">
-
-              <div class="task">
-
-                <div class="task__user">
-                  <div class="task__avatar">
-                    <img src="@/assets/img/user1.jpg" class="task__avatar" width="20" height="20" alt="Вика Некрасова">
-                  </div>
-                  Вика Некрасова
-                </div>
-
-                <h4 class="task__title">Отчет по бюджету 2021</h4>
-
-                <ul class="task__tags">
-                  <li>
-                    <span class="tag tag--green">маркетинг</span>
-                  </li>
-                </ul>
-              </div>
-
-            </div>
-
-            <div class="column__task">
-              <div class="task">
-                <div class="task__user">
-                  <div class="task__avatar">
-                    <img src="@/assets/img/user1.jpg" class="task__avatar" width="20" height="20" alt="Вика Некрасова">
-                  </div>
-                  Настя Овсянкина
-                </div>
-
-                <div class="task__statuses">
-                  <span class="task__status task__status--color task__status--green"></span>
-                  <span class="task__status task__status--time"></span>
-                </div>
-
-                <h4 class="task__title">Подготовить план развития стажера Юлии Х.</h4>
-
-                <ul class="task__tags">
-                  <li>
-                    <span class="tag tag--orange">аналитика</span>
-                  </li>
-                  <li>
-                    <span class="tag tag--blue">ui</span>
-                  </li>
-                </ul>
-              </div>
-            </div>
-
-          </div>
-        </div>
-
-        <div class="column">
-          <h2 class="column__name">Готово</h2>
-
-          <div class="column__target-area">
-
-            <div class="column__task">
-
-              <div class="task">
-
-                <div class="task__user">
-                  <div class="task__avatar">
-                    <img src="@/assets/img/user1.jpg" class="task__avatar" width="20" height="20" alt="Вика Некрасова">
-                  </div>
-                  Вика Некрасова
-                </div>
-
-                <h4 class="task__title">Макет DS для Юры</h4>
-              </div>
-
-            </div>
-
-            <div class="column__task">
-              <div class="task">
-                <div class="task__user">
-                  <div class="task__avatar">
-                    <img src="@/assets/img/user1.jpg" class="task__avatar" width="20" height="20" alt="Вика Некрасова">
-                  </div>
-                  Макс Печкин
-                </div>
-
-                <div class="task__statuses">
-                  <span class="task__status task__status--color task__status--green"></span>
-                </div>
-
-                <h4 class="task__title">Презентация годового отчета</h4>
-
-                <ul class="task__tags">
-                  <li>
-                    <span class="tag tag--violet">банк</span>
-                  </li>
-                </ul>
-              </div>
-            </div>
-
-          </div>
-        </div>
-
       </div>
+      <p
+          v-else
+          class="desk__emptiness"
+      >
+        Пока нет ни одной колонки
+      </p>
     </section>
   </main>
 </template>
 
 <script setup>
+import columns from '@/mocks/columns.json'
+import rawTasks from '@/mocks/tasks.json'
+import { normalizeTask, getTagsArrayFromString } from '../common/helpers'
+
+const normalizedTasks = rawTasks.map(task => normalizeTask(task))
+const columnTasks = normalizedTasks
+    .filter(({ columnId }) => columnId)
+    .reduce((accumulator, task) => {
+      task.tags = getTagsArrayFromString(task.tags)
+      if (accumulator[task.columnId]) {
+        accumulator[task.columnId] = [...accumulator[task.columnId], task]
+      } else {
+        accumulator[task.columnId] = [task]
+      }
+      return accumulator
+    }, {})
+const getImage = image => {
+  // https://vitejs.dev/guide/assets.html#new-url-url-import-meta-url
+  return new URL(`../assets/img/${image}`, import.meta.url).href
+}
 </script>
 
 <style lang="scss" scoped>
 @import "@/assets/scss/app.scss";
+
 .content {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-flex: 1;
-      -ms-flex-positive: 1;
-          flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
 }
 
 .desk {
