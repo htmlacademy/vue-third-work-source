@@ -1,3 +1,43 @@
 <template>
-  <router-link to="/counter">Counter</router-link>
+  <div class="main-container">
+    <div class="cards">
+      <demo-menu-card
+        v-for="({ name, text, link }, index) in cards"
+        :key="index"
+        :name="name"
+        :text="text"
+        :link="link"/>
+    </div>
+  </div>
 </template>
+
+<script setup>
+import DemoMenuCard from './DemoMenuCard.vue'
+
+const cards = [
+  {
+    name: 'Counter',
+    link: '/counter'
+  }
+]
+</script>
+
+<style lang="scss" scoped>
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+@media (max-width: 1600px) {
+  .cards {
+    justify-content: center;
+  }
+}
+</style>
