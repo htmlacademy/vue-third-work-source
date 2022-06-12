@@ -2,7 +2,7 @@
   <div class="card">
     <h2 class="card__title">{{ name }}</h2>
     <p class="card__apply">
-      <router-link class="card__link" :to="link">Перейти к демонстрации<i class="fas fa-arrow-right"></i></router-link>
+      <router-link class="card__link" :to="link">Перейти к демонстрации</router-link>
     </p>
   </div>
 </template>
@@ -31,7 +31,7 @@ const props = defineProps({
   border-radius: 10px;
   box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.25);
   transition: all 0.2s;
-  background: radial-gradient(#1fe4f5, #3fbafe);
+  background: radial-gradient(#6a797b, #343838);
 }
 
 .card:hover {

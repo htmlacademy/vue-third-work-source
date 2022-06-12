@@ -23,12 +23,6 @@ const cards = [
 </script>
 
 <style lang="scss" scoped>
-
-body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
-    Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-}
-
 .cards {
   display: flex;
   flex-wrap: wrap;
