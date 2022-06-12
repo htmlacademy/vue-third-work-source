@@ -16,6 +16,10 @@ run_tests:
 	cd frontend; echo "...Starting frontend tests" && \
 	npm run test:unit
 
+run_template:
+	cd template; echo "...Starting frontend tests" && \
+	npm start
+
 install_backend_dependencies:
 	cd backend; echo "...Installing server dependencies" && \
 	npm install
