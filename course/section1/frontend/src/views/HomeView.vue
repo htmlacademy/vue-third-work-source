@@ -364,7 +364,7 @@ const getImage = image => {
 }
 
 .column {
-  $bl: ".column";
+  $bl: &;
 
   display: flex;
   flex-direction: column;
