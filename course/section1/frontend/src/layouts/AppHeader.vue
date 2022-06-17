@@ -1,7 +1,7 @@
 <template>
   <header class="header">
     <div class="header__logo">
-      <a href="/" class="logo">
+      <a href="/course/section1/frontend/public" class="logo">
         <img
           src="@/assets/img/logo.svg"
           alt="VueWork logo"
@@ -11,14 +11,14 @@
       </a>
     </div>
 
-    <form action="/" class="header__search">
+    <form action="/course/section1/frontend/public" class="header__search">
       <input type="search" name="search" required placeholder="Поиск" />
       <button type="submit">Найти</button>
     </form>
 
-    <a href="/" class="header__create-task">Создать карточку</a>
+    <a href="/course/section1/frontend/public" class="header__create-task">Создать карточку</a>
 
-    <a href="/" class="header__user">
+    <a href="/course/section1/frontend/public" class="header__user">
       <img
         src="@/assets/img/admin.jpg"
         alt="Администратор"
@@ -36,8 +36,8 @@
           alt="Администратор"
         />
         <span>Администратор</span>
-        <a href="/" class="user-menu__link">Мой аккаунт</a>
-        <a href="/" class="user-menu__link">Выйти</a>
+        <a href="/course/section1/frontend/public" class="user-menu__link">Мой аккаунт</a>
+        <a href="/course/section1/frontend/public" class="user-menu__link">Выйти</a>
       </div>
     </div>
   </header>
