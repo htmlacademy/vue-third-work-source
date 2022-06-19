@@ -1,10 +1,12 @@
 <template>
   <main class="content">
     <section class="desk">
+<!--      Шапка доски-->
       <div class="desk__header">
         <h1 class="desk__title">Design Coffee Lab</h1>
         <div class="desk__filters">
           <div class="desk__user-filter">
+<!--            Список пользователей-->
             <ul class="user-filter">
               <li
                 v-for="user in users"
@@ -24,6 +26,7 @@
             </ul>
           </div>
           <div class="desk__meta-filter">
+<!--            Список статусов-->
             <ul class="meta-filter">
               <li
                 v-for="({ value, label }) in STATUSES"
@@ -40,11 +43,12 @@
           </div>
         </div>
       </div>
-
+<!--      Колонки и задачи-->
       <div v-if="columns.length" class="desk__columns">
         <div v-for="column in columns" :key="column.id" class="column">
           <h2 class="column__name">{{ column.title }}</h2>
           <div class="column__target-area">
+<!--            Задачи-->
             <div
                 v-for="task in columnTasks[column.id]"
                 class="column__task"
@@ -102,6 +106,7 @@
           </div>
         </div>
       </div>
+<!--      Пустая доска-->
       <p
           v-else
           class="desk__emptiness"
