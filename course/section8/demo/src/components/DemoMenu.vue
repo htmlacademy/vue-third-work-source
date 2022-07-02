@@ -16,9 +16,9 @@ import DemoMenuCard from './DemoMenuCard.vue'
 
 const cards = [
   {
-    name: 'Counter',
+    name: 'Counter Base',
     link: '/counter-0'
-  }
+  },
 ]
 </script>
 
