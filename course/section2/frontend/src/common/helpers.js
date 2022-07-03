@@ -51,24 +51,6 @@ export const addActive = (active, toTask, tasks) => {
     tasks.push(active);
   }
   return tasks;
-	// -------
-  // const activeClone = structuredClone(active);
-	// const tasksClone = structuredClone(tasks);
-  // const activeIndex = tasksClone.findIndex(task => task.id === active.id);
-  // if (~activeIndex) {
-  //   tasksClone.splice(activeIndex, 1);
-  // }
-	//
-  // tasksClone.sort((a, b) => a.sortOrder - b.sortOrder);
-	//
-  // if (toTask) {
-  //   const toTaskIndex = tasksClone.findIndex(task => task.id === toTask.id);
-  //   tasksClone.splice(toTaskIndex, 0, activeClone);
-  // } else {
-  //   tasksClone.push(activeClone);
-  // }
-	//
-  // return tasksClone;
 };
 
 export const getImage = image => {

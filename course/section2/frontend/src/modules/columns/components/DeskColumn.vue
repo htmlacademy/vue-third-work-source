@@ -63,9 +63,9 @@ const props = defineProps({
     required: true
   }
 })
+const columnTitle = ref(null)
 const state = reactive({ isInputShowed: false, columnTitle: props.column.title })
 const emits = defineEmits(['update', 'updateTasks'])
-const columnTitle = ref(null)
 
 const columnTasks = computed(() => {
   return props.tasks
@@ -91,17 +91,20 @@ function updateInput () {
 }
 
 function moveTask (active, toTask) {
-  // Note: prevent update if task is not moving
+  // Не обновлять если нет изменений
   if (toTask && active.id === toTask.id) {
     return
   }
 
   const toColumnId = props.column ? props.column.id : null
+  // Получить задачи для текущей колонки
   const targetColumnTasks = getTargetColumnTasks(toColumnId, props.tasks)
   const activeClone = { ...active, columnId: toColumnId }
+  // Добавить активную задачу в колонку
   const resultTasks = addActive(activeClone, toTask, targetColumnTasks)
   const tasksToUpdate = []
 
+  // Отсортировать задачи в колонке
   resultTasks.forEach((task, index) => {
     if (task.sortOrder !== index || task.id === active.id) {
       const newTask = { ...task, sortOrder: index }
@@ -110,7 +113,6 @@ function moveTask (active, toTask) {
   })
   emits('updateTasks', tasksToUpdate)
 }
-
 </script>
 
 <style lang="scss" scoped>

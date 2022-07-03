@@ -81,11 +81,14 @@ function moveTask (active, toTask) {
   }
 
   const toColumnId = null
+  // Получить задачи для текущей колонки
   const targetColumnTasks = getTargetColumnTasks(toColumnId, props.tasks)
   const activeClone = { ...active, columnId: toColumnId }
+  // Добавить активную задачу в колонку
   const resultTasks = addActive(activeClone, toTask, targetColumnTasks)
   const tasksToUpdate = []
 
+  // Отсортировать задачи в колонке
   resultTasks.forEach((task, index) => {
     if (task.sortOrder !== index || task.id === active.id) {
       const newTask = { ...task, sortOrder: index }
