@@ -10,7 +10,7 @@
 
       <input
           v-else
-          ref="title"
+          ref="columnTitle"
           v-model="state.columnTitle"
           type="text"
           class="column__input"
@@ -43,7 +43,7 @@
 </template>
 
 <script setup>
-import { defineProps, reactive } from 'vue'
+import { defineProps, reactive, defineEmits, computed, nextTick, ref } from 'vue'
 import AppDrop from '@/common/components/AppDrop.vue'
 import AppIcon from '@/common/components/AppIcon.vue'
 import TaskCard from '@/modules/tasks/components/TaskCard.vue'
@@ -65,15 +65,18 @@ const props = defineProps({
 })
 const state = reactive({ isInputShowed: false, columnTitle: props.column.title })
 const emits = defineEmits(['update', 'updateTasks'])
+const columnTitle = ref(null)
 
-const columnTasks = props.tasks
+const columnTasks = computed(() => {
+  return props.tasks
     .filter(task => task.columnId === props.column.id)
     .sort((a, b) => a.sortOrder - b.sortOrder)
+})
 
 async function showInput () {
   state.isInputShowed = true
-  // await this.$nextTick()
-  // this.$refs.title.focus()
+  await nextTick()
+  columnTitle.value.focus()
 }
 
 function updateInput () {
@@ -94,14 +97,14 @@ function moveTask (active, toTask) {
   }
 
   const toColumnId = props.column ? props.column.id : null
-  const targetColumnTasks = getTargetColumnTasks(toColumnId, state.tasks)
-  const activeClone = structuredClone({ ...active, columnId: toColumnId })
+  const targetColumnTasks = getTargetColumnTasks(toColumnId, props.tasks)
+  const activeClone = { ...active, columnId: toColumnId }
   const resultTasks = addActive(activeClone, toTask, targetColumnTasks)
   const tasksToUpdate = []
 
   resultTasks.forEach((task, index) => {
     if (task.sortOrder !== index || task.id === active.id) {
-      const newTask = structuredClone({ ...task, sortOrder: index })
+      const newTask = { ...task, sortOrder: index }
       tasksToUpdate.push(newTask)
     }
   })

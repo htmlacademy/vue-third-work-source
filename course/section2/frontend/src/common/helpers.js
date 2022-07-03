@@ -1,3 +1,4 @@
+import { toRaw } from 'vue'
 import {
   DAY_IN_MILLISEC,
   TAG_SEPARATOR
@@ -32,27 +33,42 @@ export const normalizeTask = task => {
 };
 
 export const getTargetColumnTasks = (toColumnId, tasks) => {
-  return tasks.filter(task => task.columnId === toColumnId);
+  return tasks.filter(task => task.columnId === toColumnId).map(task => toRaw(task));
 };
 
 export const addActive = (active, toTask, tasks) => {
-  const activeClone = cloneDeep(active);
-  const tasksClone = cloneDeep(tasks);
-  const activeIndex = tasksClone.findIndex(task => task.id === active.id);
+  const activeIndex = tasks.findIndex(task => task.id === active.id);
   if (~activeIndex) {
-    tasksClone.splice(activeIndex, 1);
+    tasks.splice(activeIndex, 1);
   }
 
-  tasksClone.sort((a, b) => a.sortOrder - b.sortOrder);
+  tasks.sort((a, b) => a.sortOrder - b.sortOrder);
 
   if (toTask) {
-    const toTaskIndex = tasksClone.findIndex(task => task.id === toTask.id);
-    tasksClone.splice(toTaskIndex, 0, activeClone);
+    const toTaskIndex = tasks.findIndex(task => task.id === toTask.id);
+    tasks.splice(toTaskIndex, 0, active);
   } else {
-    tasksClone.push(activeClone);
+    tasks.push(active);
   }
-
-  return tasksClone;
+  return tasks;
+	// -------
+  // const activeClone = structuredClone(active);
+	// const tasksClone = structuredClone(tasks);
+  // const activeIndex = tasksClone.findIndex(task => task.id === active.id);
+  // if (~activeIndex) {
+  //   tasksClone.splice(activeIndex, 1);
+  // }
+	//
+  // tasksClone.sort((a, b) => a.sortOrder - b.sortOrder);
+	//
+  // if (toTask) {
+  //   const toTaskIndex = tasksClone.findIndex(task => task.id === toTask.id);
+  //   tasksClone.splice(toTaskIndex, 0, activeClone);
+  // } else {
+  //   tasksClone.push(activeClone);
+  // }
+	//
+  // return tasksClone;
 };
 
 export const getImage = image => {
