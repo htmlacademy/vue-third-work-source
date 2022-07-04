@@ -15,7 +15,7 @@ export const getTimeStatus = dueDate => {
   if (!dueDate) {
     return '';
   }
-  const currentTime = +new Date();
+  const currentTime = Date.now();
   const taskTime = Date.parse(dueDate);
   const timeDelta = taskTime - currentTime;
   if (timeDelta > DAY_IN_MILLISEC) {
