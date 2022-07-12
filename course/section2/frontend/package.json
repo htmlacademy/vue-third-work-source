@@ -9,6 +9,7 @@
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore"
   },
   "dependencies": {
+    "lodash": "^4.17.21",
     "pinia": "^2.0.14",
     "vue": "^3.2.35",
     "vue-router": "^4.0.15"

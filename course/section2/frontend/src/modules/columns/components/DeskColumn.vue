@@ -1,13 +1,16 @@
 <template>
+<!--  Отслеживает в какую колонку передана задача-->
   <AppDrop
       class="column"
       @drop="moveTask"
   >
     <h2 class="column__name">
+<!--      Показывает наименование колонки-->
       <span v-if="!state.isInputShowed">
         {{ state.columnTitle }}
       </span>
 
+<!--      Показывает инпут если колонка редактируется-->
       <input
           v-else
           ref="columnTitle"
@@ -18,11 +21,14 @@
           @blur="updateInput"
       />
 
+<!--      Показывает иконку редактирования задачи-->
       <AppIcon
           v-if="!state.isInputShowed"
           class="icon--edit"
           @click="showInput"
       />
+<!--      Показывает иконку удаления колонки-->
+<!--      Иконка не будет отображаться если в колонке есть задачи-->
       <AppIcon
           v-if="!state.isInputShowed && !columnTasks.length"
           class="icon--trash"
@@ -31,6 +37,7 @@
     </h2>
 
     <div class="column__target-area">
+<!--      Вынесли задачи в отдельный компонент-->
       <TaskCard
           v-for="task in columnTasks"
           :key="task.id"
@@ -58,23 +65,23 @@ const props = defineProps({
     type: Array,
     required: true
   },
-  filters: {
-    type: Object,
-    required: true
-  }
 })
 const columnTitle = ref(null)
 const state = reactive({ isInputShowed: false, columnTitle: props.column.title })
 const emits = defineEmits(['update', 'updateTasks'])
 
+// Фильтруем задачи, которые относятся к конкретной колонке
 const columnTasks = computed(() => {
   return props.tasks
     .filter(task => task.columnId === props.column.id)
     .sort((a, b) => a.sortOrder - b.sortOrder)
 })
 
+// Показывает инпут для редактирования колонки и наводим фокус
 async function showInput () {
   state.isInputShowed = true
+  // Функция nextTick ожидает когда произойдет ререндер компонента
+  // Так как мы изменили span ни input, нам нужно подождать когда отрисуется инпут
   await nextTick()
   columnTitle.value.focus()
 }
@@ -90,6 +97,7 @@ function updateInput () {
   })
 }
 
+// Метод для переноса задач
 function moveTask (active, toTask) {
   // Не обновлять если нет изменений
   if (toTask && active.id === toTask.id) {
