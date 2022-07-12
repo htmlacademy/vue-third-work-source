@@ -4,6 +4,7 @@
       <!--      Шапка доски-->
       <div class="desk__header">
         <h1 class="desk__title">Design Coffee Lab</h1>
+<!--        Добавили кнопку для добавления новой колонки-->
         <button
             class="desk__add"
             type="button"
@@ -57,12 +58,12 @@
       </div>
       <!--      Колонки и задачи-->
       <div v-if="columns.length" class="desk__columns">
+<!--        Показываем колонки-->
         <desk-column
             v-for="column in state.columns"
             :key="column.id"
             :column="column"
             :tasks="props.tasks"
-            :filters="props.filters"
             @update="updateColumn"
             @delete="deleteColumn"
             @updateTasks="$emit('updateTasks', $event)"

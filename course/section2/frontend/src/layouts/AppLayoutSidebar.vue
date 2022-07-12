@@ -1,9 +1,11 @@
 <template>
+  <!--  Отслеживает в какую колонку передана задача-->
   <AppDrop
       class="backlog"
       :class="{ 'backlog--hide': state.backlogIsHidden }"
       @drop="moveTask"
   >
+    <!--  Отвечает за открытие/закрытие беклога-->
     <button
         class="backlog__title"
         @click="state.backlogIsHidden = !state.backlogIsHidden"
@@ -32,6 +34,7 @@
           </div>
 
           <div class="backlog__target-area">
+            <!--  Задачи в беклоге-->
             <TaskCard
                 v-for="task in sidebarTasks"
                 :key="task.id"
@@ -57,15 +60,12 @@ const props = defineProps({
   tasks: {
     type: Array,
     required: true
-  },
-  filters: {
-    type: Object,
-    required: true
   }
 })
 
 const state = reactive({ taskStatuses, backlogIsHidden: false })
 
+// Фильтруем задачи, которые относятся к беклогу (columnId === null)
 const sidebarTasks = computed(() => {
   return props.tasks
       .filter(task => !task.columnId)

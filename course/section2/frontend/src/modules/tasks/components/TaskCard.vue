@@ -1,14 +1,16 @@
 <template>
+  <!--    Компонент AppDrop отслеживает куда упала задача -->
   <AppDrop
       data-test="app-drop"
       @drop="$emit('drop', $event)"
   >
+    <!--      Компонент AppDrag определяет какая задача перемещается -->
     <AppDrag :transfer-data="task">
       <div
           class="task"
-          data-test="task-card"
           @click="$emit('click', task.id)"
       >
+<!--        Данный блок показывает пользователя, который работает над задачей-->
         <div
             v-if="task.user"
             class="task__user"
@@ -23,6 +25,7 @@
           </div>
           {{ task.user.name }}
         </div>
+<!--        Данный блок показавает статусы задачи-->
         <div class="task__statuses">
           <span
               v-if="task.status"
@@ -43,6 +46,7 @@
         >
           {{ task.title }}
         </h5>
+<!--        Тэги задачи вынесены в отдельный компонент-->
         <TaskCardTags
             v-if="task.tags && task.tags.length"
             :tags="task.tags"
