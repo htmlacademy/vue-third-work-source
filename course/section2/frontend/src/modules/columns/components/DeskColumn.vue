@@ -50,7 +50,7 @@
 </template>
 
 <script setup>
-import { defineProps, reactive, defineEmits, computed, nextTick, ref } from 'vue'
+import { reactive, computed, nextTick, ref } from 'vue'
 import AppDrop from '@/common/components/AppDrop.vue'
 import AppIcon from '@/common/components/AppIcon.vue'
 import TaskCard from '@/modules/tasks/components/TaskCard.vue'

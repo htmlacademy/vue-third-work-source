@@ -50,7 +50,7 @@
 </template>
 
 <script setup>
-import { reactive, defineProps, defineEmits, computed } from 'vue'
+import { reactive, computed } from 'vue'
 import AppDrop from '@/common/components/AppDrop.vue'
 import TaskCard from '@/modules/tasks/components/TaskCard.vue'
 import { getTargetColumnTasks, addActive } from '@/common/helpers'

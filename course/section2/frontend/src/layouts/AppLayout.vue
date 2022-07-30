@@ -13,7 +13,6 @@
 </template>
 
 <script setup>
-import { defineEmits, defineProps } from 'vue'
 import AppLayoutHeader from './AppLayoutHeader.vue'
 import AppLayoutSidebar from './AppLayoutSidebar.vue'
 

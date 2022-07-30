@@ -58,7 +58,6 @@
 </template>
 
 <script setup>
-import { defineProps, defineEmits } from 'vue'
 import AppDrag from '@/common/components/AppDrag.vue'
 import AppDrop from '@/common/components/AppDrop.vue'
 import TaskCardTags from './TaskCardTags.vue'
