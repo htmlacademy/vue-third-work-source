@@ -81,7 +81,7 @@
 </template>
 
 <script setup>
-import { defineProps, reactive } from 'vue'
+import { reactive } from 'vue'
 import columns from '../mocks/columns.json'
 import users from '../mocks/users.json'
 import { STATUSES } from '../common/constants'
