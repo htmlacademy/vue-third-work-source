@@ -1,14 +1,13 @@
 <template>
   <div class="text-field">
     <textarea
-        :value="props.value"
-        :type="props.type"
+        :value="modelValue"
         :name="props.name"
         class="text-field__input"
         :class="{'text-field__input--error': showError}"
         :placeholder="props.placeholder"
         :required="props.required"
-        @input="$emit('input', $event.target.value)"
+        @input="$emit('update:modelValue', $event.target.value)"
     />
     <span
         v-if="showError"
@@ -23,17 +22,13 @@
 import { computed } from 'vue'
 
 const props = defineProps({
-  value: {
+  modelValue: {
     type: [String, Number],
     required: true
   },
   name: {
     type: String,
     required: true
-  },
-  type: {
-    type: String,
-    default: 'text'
   },
   placeholder: {
     type: String,
@@ -49,7 +44,7 @@ const props = defineProps({
   }
 })
 
-defineEmits(['input'])
+defineEmits(['update:modelValue'])
 
 const showError = computed(() => {
   return !props.value && !!props.errorText;

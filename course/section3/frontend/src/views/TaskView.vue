@@ -158,8 +158,11 @@ const closeDialog = function () {
   router.push('/')
 }
 
-const addCommentToList = function () {
-  console.log('add comment to list')
+const addCommentToList = function (comment) {
+  if (!task.value.comments) {
+    task.value.comments = []
+  }
+  task.value.comments.push(comment)
 }
 </script>
 

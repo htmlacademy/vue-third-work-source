@@ -12,7 +12,7 @@
         >
           <div class="comments__user">
             <img
-                :src="comment.user.avatar"
+                :src="getImage(comment.user.avatar)"
                 :alt="comment.user.name"
                 width="30"
                 height="30"
@@ -51,6 +51,7 @@ import { ref, computed, watch } from 'vue'
 import users from '@/mocks/users.json'
 import { validateFields, clearValidationErrors } from '../../../common/validator'
 import AppTextarea from '@/common/components/AppTextarea.vue'
+import { getImage } from '../../../common/helpers'
 
 const props = defineProps({
   taskId: {
@@ -73,6 +74,7 @@ const validations = ref({
   }
 })
 
+// Позже будет добавлен залогиненый пользователь. До этого будем использовать первого пользователя в списке
 const user = computed(() => users[0])
 
 watch(newComment, () => {
@@ -80,9 +82,9 @@ watch(newComment, () => {
 })
 
 const submit = function () {
-  if (!validateFields({ newComment }, validations)) return
+  if (!validateFields({ newComment }, validations.value)) return
   const comment = {
-    test: newComment,
+    text: newComment.value,
     taskId: props.taskId,
     userId: user.value.id,
     user: {
