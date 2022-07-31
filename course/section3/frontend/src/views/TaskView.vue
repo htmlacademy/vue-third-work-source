@@ -95,7 +95,7 @@
           v-if="task && task.ticks && task.ticks.length"
           class="task-card__block"
       >
-        <TaskCardViewTicksList
+        <task-card-view-ticks-list
             :ticks="task.ticks"
             disabled
         />
@@ -108,18 +108,18 @@
         <h4 class="task-card__title">
           Метки
         </h4>
-<!--        <TaskCardTags-->
-<!--            :tags="task.tags"-->
-<!--        />-->
+        <task-card-tags
+            :tags="task.tags"
+        />
       </div>
 
-<!--      <TaskCardViewComments-->
-<!--          v-if="task && (user || task.comments)"-->
-<!--          class="task-card__comments"-->
-<!--          :comments="task.comments || []"-->
-<!--          :task-id="task.id"-->
-<!--          @new-comment="addCommentToList"-->
-<!--      />-->
+      <task-card-view-comments
+          v-if="task"
+          class="task-card__comments"
+          :comments="task.comments || []"
+          :task-id="task.id"
+          @create-new-comment="addCommentToList"
+      />
     </section>
   </div>
 </template>
@@ -129,6 +129,8 @@ import { computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { getTimeAgo, getReadableDate, getImage } from '../common/helpers'
 import TaskCardViewTicksList from '../modules/tasks/components/TaskCardViewTicksList.vue'
+import TaskCardTags from '../modules/tasks/components/TaskCardTags.vue'
+import TaskCardViewComments from '../modules/tasks/components/TaskCardViewComments.vue'
 
 const router = useRouter()
 const route = useRoute()
@@ -155,10 +157,15 @@ const dueDate = computed(() => {
 const closeDialog = function () {
   router.push('/')
 }
+
+const addCommentToList = function () {
+  console.log('add comment to list')
+}
 </script>
 
 <style lang="scss" scoped>
 @import "@/assets/scss/app.scss";
+
 .task-card {
   position: fixed;
   z-index: 100;
@@ -367,6 +374,7 @@ const closeDialog = function () {
     background-color: transparent;
 
     @include r-s16-h21;
+
     &:after {
       position: absolute;
       top: 2px;
@@ -382,8 +390,10 @@ const closeDialog = function () {
       background-image: url("~@/assets/img/icon-pencil.svg");
       background-size: cover;
     }
+
     &:hover {
       text-decoration: none;
+
       &:after {
         opacity: 1;
       }

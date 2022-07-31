@@ -48,7 +48,7 @@
           class="task-card__icons"
           :class="{'task-card__icons--hidden': disabled}"
         >
-          <AppIcon
+          <app-icon
             class="icon--trash"
             @click="$emit('removeTick', { uuid: tick.uuid })"
           />

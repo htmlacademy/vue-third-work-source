@@ -1,6 +1,6 @@
 <template>
   <!--  Отслеживает в какую колонку передана задача-->
-  <AppDrop
+  <app-drop
       class="backlog"
       :class="{ 'backlog--hide': state.backlogIsHidden }"
       @drop="moveTask"
@@ -35,7 +35,7 @@
 
           <div class="backlog__target-area">
             <!--  Задачи в беклоге-->
-            <TaskCard
+            <task-card
                 v-for="task in sidebarTasks"
                 :key="task.id"
                 :task="task"
@@ -46,7 +46,7 @@
         </div>
       </div>
     </div>
-  </AppDrop>
+  </app-drop>
 </template>
 
 <script setup>

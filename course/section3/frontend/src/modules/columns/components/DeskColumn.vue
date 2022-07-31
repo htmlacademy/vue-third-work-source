@@ -1,6 +1,6 @@
 <template>
 <!--  Отслеживает в какую колонку передана задача-->
-  <AppDrop
+  <app-drop
       class="column"
       @drop="moveTask"
   >
@@ -22,14 +22,14 @@
       />
 
 <!--      Показывает иконку редактирования задачи-->
-      <AppIcon
+      <app-icon
           v-if="!state.isInputShowed"
           class="icon--edit"
           @click="showInput"
       />
 <!--      Показывает иконку удаления колонки-->
 <!--      Иконка не будет отображаться если в колонке есть задачи-->
-      <AppIcon
+      <app-icon
           v-if="!state.isInputShowed && !columnTasks.length"
           class="icon--trash"
           @click="$emit('delete', column.id)"
@@ -38,7 +38,7 @@
 
     <div class="column__target-area">
 <!--      Вынесли задачи в отдельный компонент-->
-      <TaskCard
+      <task-card
           v-for="task in columnTasks"
           :key="task.id"
           :task="task"
@@ -46,7 +46,7 @@
           @drop="moveTask($event, task)"
       />
     </div>
-  </AppDrop>
+  </app-drop>
 </template>
 
 <script setup>

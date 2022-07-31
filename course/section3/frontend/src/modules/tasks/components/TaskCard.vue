@@ -1,11 +1,11 @@
 <template>
   <!--    Компонент AppDrop отслеживает куда упала задача -->
-  <AppDrop
+  <app-drop
       data-test="app-drop"
       @drop="$emit('drop', $event)"
   >
     <!--      Компонент AppDrag определяет какая задача перемещается -->
-    <AppDrag :transfer-data="task">
+    <app-drag :transfer-data="task">
       <div
           class="task"
           @click="$router.push({ path: `/${task.id}` })"
@@ -47,14 +47,14 @@
           {{ task.title }}
         </h5>
 <!--        Тэги задачи вынесены в отдельный компонент-->
-        <TaskCardTags
+        <task-card-tags
             v-if="task.tags && task.tags.length"
             :tags="task.tags"
             data-test="task-card-tags"
         />
       </div>
-    </AppDrag>
-  </AppDrop>
+    </app-drag>
+  </app-drop>
 </template>
 
 <script setup>
