@@ -95,11 +95,10 @@
           v-if="task && task.ticks && task.ticks.length"
           class="task-card__block"
       >
-<!--        <TaskCardViewTicksList-->
-<!--            :ticks="task.ticks"-->
-<!--            disabled-->
-<!--            @updateTick="put"-->
-<!--        />-->
+        <TaskCardViewTicksList
+            :ticks="task.ticks"
+            disabled
+        />
       </div>
 
       <div
@@ -129,6 +128,7 @@
 import { computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { getTimeAgo, getReadableDate, getImage } from '../common/helpers'
+import TaskCardViewTicksList from '../modules/tasks/components/TaskCardViewTicksList.vue'
 
 const router = useRouter()
 const route = useRoute()
