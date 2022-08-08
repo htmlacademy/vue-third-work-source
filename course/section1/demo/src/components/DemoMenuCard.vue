@@ -1,6 +1,6 @@
 <template>
   <div class="card">
-    <h2 class="card__title"></h2>
+    <h2 class="card__title">{{ name }}</h2>
     <p class="card__apply">
       <router-link class="card__link" :to="link">Перейти к демонстрации</router-link>
     </p>
@@ -8,7 +8,7 @@
 </template>
 
 <script setup>
-const props = defineProps({
+defineProps({
   name: {
     type: String,
     required: true
