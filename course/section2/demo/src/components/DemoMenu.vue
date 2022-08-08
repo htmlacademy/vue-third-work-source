@@ -13,17 +13,7 @@
 
 <script setup>
 import DemoMenuCard from './DemoMenuCard.vue'
-
-const cards = [
-  {
-    name: 'Counter Base',
-    link: '/counter-0'
-  },
-  {
-    name: 'Counter Props & Events',
-    link: '/counter-1'
-  }
-]
+import cards from '../routes'
 </script>
 
 <style lang="scss" scoped>
