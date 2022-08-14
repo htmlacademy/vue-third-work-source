@@ -131,10 +131,10 @@
       </div>
 
       <div class="task-card__block">
-        <!--        <TaskCardCreatorTags-->
-        <!--          :tags="task.tags"-->
-        <!--          @setTags="$set(task, 'tags', $event)"-->
-        <!--        />-->
+        <task-card-creator-tags
+            :tags="task.tags"
+            @setTags="setTags"
+        />
       </div>
 
       <!--      <div class="task-card__buttons">-->
@@ -162,11 +162,13 @@ import { ref, onMounted } from 'vue'
 import TasksCardCreatorUserSelector from './TaskCardCreatorUserSelector.vue'
 import TasksCardCreatorDueDateSelector from './TaskCardCreatorDueDateSelector.vue'
 import TaskCardViewTicksList from './TaskCardViewTicksList.vue'
+import TaskCardCreatorTags from './TaskCardCreatorTags.vue'
 import { useRouter } from 'vue-router'
 import { getTimeAgo, createUUIDv4, createNewDate } from '@/common/helpers'
 import { STATUSES } from '@/common/constants'
 import taskStatuses from '@/common/enums/taskStatuses'
 import { taskCardDate } from '../../../common/composables'
+import { cloneDeep } from 'lodash'
 
 const createNewTask = () => ({
   userId: null,
@@ -200,7 +202,11 @@ const props = defineProps({
 })
 const emits = defineEmits('removeTask')
 
-const task = ref(createNewTask())
+const taskToWork = props.taskToEdit ?
+    cloneDeep(props.taskToEdit) :
+    createNewTask()
+
+const task = ref(taskToWork)
 const validations = ref({
   title: {
     error: '',
@@ -270,6 +276,7 @@ function removeTick ({ uuid, id }) {
   }
 }
 
+function setTags() {}
 </script>
 
 <style lang="scss" scoped>
