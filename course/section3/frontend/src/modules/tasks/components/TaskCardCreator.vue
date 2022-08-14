@@ -79,55 +79,55 @@
         </ul>
       </div>
 
-      <!--      <div class="task-card__block">-->
-      <!--        <div class="task-card__description">-->
-      <!--          <h4 class="task-card__title">-->
-      <!--            Описание-->
-      <!--          </h4>-->
-      <!--          <textarea-->
-      <!--            v-model="task.description"-->
-      <!--            name="task_description"-->
-      <!--            placeholder="Добавьте описание к задаче"-->
-      <!--          />-->
-      <!--        </div>-->
-      <!--      </div>-->
-
       <div class="task-card__block">
-        <div class="task-card__links">
-          <!--          <h4 class="task-card__title">-->
-          <!--            Ссылки-->
-          <!--          </h4>-->
-
-          <!--          <div class="task-card__links-item">-->
-          <!--            <input-->
-          <!--              v-model="task.url"-->
-          <!--              type="text"-->
-          <!--              name="task_link_url"-->
-          <!--              placeholder="Введите url"-->
-          <!--            />-->
-          <!--            <span-->
-          <!--              v-if="validations.url.error"-->
-          <!--              class="task-card__error-text"-->
-          <!--            >-->
-          <!--              {{ validations.url.error }}-->
-          <!--            </span>-->
-          <!--            <input-->
-          <!--              v-model="task.urlDescription"-->
-          <!--              type="text"-->
-          <!--              name="task_link_desc"-->
-          <!--              placeholder="Добавьте описание к ссылке"-->
-          <!--            />-->
-          <!--          </div>-->
+        <div class="task-card__description">
+          <h4 class="task-card__title">
+            Описание
+          </h4>
+          <textarea
+              v-model="task.description"
+              name="task_description"
+              placeholder="Добавьте описание к задаче"
+          />
         </div>
       </div>
 
       <div class="task-card__block">
-        <!--        <TaskCardViewTicksList-->
-        <!--          :ticks="task.ticks"-->
-        <!--          @createTick="createTick"-->
-        <!--          @updateTick="updateTick"-->
-        <!--          @removeTick="removeTick"-->
-        <!--        />-->
+        <div class="task-card__links">
+          <h4 class="task-card__title">
+            Ссылки
+          </h4>
+
+          <div class="task-card__links-item">
+            <input
+                v-model="task.url"
+                type="text"
+                name="task_link_url"
+                placeholder="Введите url"
+            />
+            <span
+                v-if="validations.url.error"
+                class="task-card__error-text"
+            >
+              {{ validations.url.error }}
+            </span>
+            <input
+                v-model="task.urlDescription"
+                type="text"
+                name="task_link_desc"
+                placeholder="Добавьте описание к ссылке"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="task-card__block">
+        <task-card-view-ticks-list
+            :ticks="task.ticks"
+            @createTick="createTick"
+            @updateTick="updateTick"
+            @removeTick="removeTick"
+        />
       </div>
 
       <div class="task-card__block">
@@ -158,9 +158,10 @@
 </template>
 
 <script setup>
-import { ref, reactive, onMounted } from 'vue'
+import { ref, onMounted } from 'vue'
 import TasksCardCreatorUserSelector from './TaskCardCreatorUserSelector.vue'
 import TasksCardCreatorDueDateSelector from './TaskCardCreatorDueDateSelector.vue'
+import TaskCardViewTicksList from './TaskCardViewTicksList.vue'
 import { useRouter } from 'vue-router'
 import { getTimeAgo, createUUIDv4, createNewDate } from '@/common/helpers'
 import { STATUSES } from '@/common/constants'
@@ -182,6 +183,7 @@ const createNewTask = () => ({
 })
 
 const createNewTick = () => ({
+  // Добавляем временный идентификатор до момента отправки на сервер
   uuid: createUUIDv4(),
   taskId: null,
   text: '',
@@ -209,7 +211,7 @@ const validations = ref({
     rules: ['url']
   }
 })
-const isFormValid = reactive(true)
+const isFormValid = ref(true)
 const statusList = ref(STATUSES.slice(0, 3))
 const dialog = ref(null)
 
@@ -236,6 +238,35 @@ function setStatus (status) {
     task.value.statusId = +key
   } else {
     task.value.statusId = null
+  }
+}
+
+function createTick () {
+  task.value.ticks.push(createNewTick())
+}
+
+function updateTick (tick) {
+  const index = task.value.ticks
+      .findIndex(({ uuid, id }) => {
+        if (uuid) {
+          return tick.uuid === uuid
+        }
+        if (id) {
+          return tick.id === id
+        }
+        return false
+      })
+  if (~index) {
+    task.value.ticks.splice(index, 1, tick)
+  }
+}
+
+function removeTick ({ uuid, id }) {
+  if (uuid) {
+    task.value.ticks = task.value.ticks.filter(tick => tick.uuid !== uuid)
+  }
+  if (id) {
+    task.value.ticks = task.value.ticks.filter(tick => tick.id !== id)
   }
 }
 
@@ -667,7 +698,7 @@ function setStatus (status) {
     transition: opacity $animationSpeed;
 
     opacity: 0;
-    background-image: url("~@/assets/img/icon-pencil.svg");
+    background-image: url("@/assets/img/icon-pencil.svg");
     background-size: cover;
   }
 
