@@ -75,7 +75,7 @@
       <div class="task-card__block">
         <ul class="task-card__params">
           <tasks-card-creator-user-selector v-model="task.userId"/>
-<!--          <TaskCardCreatorDueDateSelector v-model="task.dueDate"/>-->
+          <tasks-card-creator-due-date-selector v-model="task.dueDate"/>
         </ul>
       </div>
 
@@ -160,6 +160,7 @@
 <script setup>
 import { ref, reactive, onMounted } from 'vue'
 import TasksCardCreatorUserSelector from './TaskCardCreatorUserSelector.vue'
+import TasksCardCreatorDueDateSelector from './TaskCardCreatorDueDateSelector.vue'
 import { useRouter } from 'vue-router'
 import { getTimeAgo, createUUIDv4, createNewDate } from '@/common/helpers'
 import { STATUSES } from '@/common/constants'
@@ -515,46 +516,6 @@ function setStatus (status) {
     }
   }
 
-  ::v-deep &__link {
-    position: relative;
-
-    margin: 0;
-    padding: 0 23px 0 0;
-
-    cursor: pointer;
-    text-decoration: underline;
-
-    color: $blue-gray-600;
-    border: none;
-    background-color: transparent;
-
-    @include r-s16-h21;
-
-    &:after {
-      position: absolute;
-      top: 2px;
-      right: 0;
-
-      width: 14px;
-      height: 14px;
-
-      content: "";
-      transition: opacity $animationSpeed;
-
-      opacity: 0;
-      background-image: url("~@/assets/img/icon-pencil.svg");
-      background-size: cover;
-    }
-
-    &:hover {
-      text-decoration: none;
-
-      &:after {
-        opacity: 1;
-      }
-    }
-  }
-
   &__links-item {
     margin-top: 16px;
 
@@ -582,14 +543,6 @@ function setStatus (status) {
       font-style: normal;
       line-height: 21px;
     }
-  }
-
-  ::v-deep &__title {
-    margin: 0;
-
-    color: $gray-900;
-
-    @include m-s18-h21;
   }
 
   &__description {
@@ -630,26 +583,6 @@ function setStatus (status) {
     @include clear-list;
 
     margin-top: 15px;
-  }
-
-  ::v-deep &__item {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    margin-top: 10px;
-
-    &:hover {
-      .task-card__icons {
-        opacity: 1;
-      }
-    }
-  }
-
-  ::v-deep &__icons {
-    transition: opacity $animationSpeed;
-
-    opacity: 0;
   }
 
   &__buttons {
@@ -705,5 +638,73 @@ function setStatus (status) {
       color: $red-500;
     }
   }
+}
+
+:deep(.task-card__link) {
+  position: relative;
+
+  margin: 0;
+  padding: 0 23px 0 0;
+
+  cursor: pointer;
+  text-decoration: underline;
+
+  color: $blue-gray-600;
+  border: none;
+  background-color: transparent;
+
+  @include r-s16-h21;
+
+  &:after {
+    position: absolute;
+    top: 2px;
+    right: 0;
+
+    width: 14px;
+    height: 14px;
+
+    content: "";
+    transition: opacity $animationSpeed;
+
+    opacity: 0;
+    background-image: url("~@/assets/img/icon-pencil.svg");
+    background-size: cover;
+  }
+
+  &:hover {
+    text-decoration: none;
+
+    &:after {
+      opacity: 1;
+    }
+  }
+}
+
+:deep(.task-card__title) {
+  margin: 0;
+
+  color: $gray-900;
+
+  @include m-s18-h21;
+}
+
+:deep(.task-card__item) {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-top: 10px;
+
+  &:hover {
+    .task-card__icons {
+      opacity: 1;
+    }
+  }
+}
+
+:deep(.task-card__icons) {
+  transition: opacity $animationSpeed;
+
+  opacity: 0;
 }
 </style>

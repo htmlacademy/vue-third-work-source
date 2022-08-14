@@ -12,7 +12,8 @@
     "lodash": "^4.17.21",
     "pinia": "^2.0.14",
     "vue": "^3.2.35",
-    "vue-router": "^4.0.15"
+    "vue-router": "^4.0.15",
+    "vue3-datepicker": "^0.3.4"
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.1.3",
