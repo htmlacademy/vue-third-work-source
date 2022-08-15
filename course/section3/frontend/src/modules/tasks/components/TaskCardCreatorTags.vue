@@ -25,9 +25,18 @@ const props = defineProps({
 const emits = defineEmits(['setTags'])
 
 const showAnalyzer = ref(true)
+const timeout = ref(null)
 
 function setTags(tags, refresh) {
-  console.log(tags, refresh)
+  if (refresh) {
+    showAnalyzer.value = false
+    emits('setTags', tags)
+    timeout.value = setTimeout(() => {
+      showAnalyzer.value = true
+    })
+  } else {
+    emits('setTags', tags)
+  }
 }
 </script>
 

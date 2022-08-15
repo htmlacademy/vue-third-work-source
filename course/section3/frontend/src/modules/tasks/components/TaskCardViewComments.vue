@@ -51,7 +51,7 @@ import { ref, computed, watch } from 'vue'
 import users from '@/mocks/users.json'
 import { validateFields, clearValidationErrors } from '../../../common/validator'
 import AppTextarea from '@/common/components/AppTextarea.vue'
-import { getImage } from '../../../common/helpers'
+import { getImage } from '@/common/helpers'
 
 const props = defineProps({
   taskId: {

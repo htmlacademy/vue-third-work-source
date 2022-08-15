@@ -45,7 +45,7 @@ export const validateFields = (fields, validations) => {
   let isValid = true;
   Object.keys(validations).forEach(key => {
     validations[key].error = validator(
-      fields[key].value,
+      fields[key],
       validations[key].rules
     );
     if (validations[key].error) {

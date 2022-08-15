@@ -31,14 +31,13 @@
           >
             Удалить Задачу
           </a>
-
-          <span
-              v-if="validations.title.error"
-              class="task-card__error-text"
-          >
+        </div>
+        <span
+            v-if="validations.title.error"
+            class="task-card__error-text"
+        >
             {{ validations.title.error }}
           </span>
-        </div>
       </div>
 
       <div class="task-card__status">
@@ -137,37 +136,39 @@
         />
       </div>
 
-      <!--      <div class="task-card__buttons">-->
-      <!--        <AppButton-->
-      <!--          class="button&#45;&#45;border"-->
-      <!--          @click="closeDialog"-->
-      <!--        >-->
-      <!--          Отменить-->
-      <!--        </AppButton>-->
-      <!--        <AppButton-->
-      <!--          class="button&#45;&#45;primary"-->
-      <!--          :class="{'button&#45;&#45;disabled': !isFormValid}"-->
-      <!--          :disabled="!isFormValid"-->
-      <!--          @click="submit"-->
-      <!--        >-->
-      <!--          Сохранить-->
-      <!--        </AppButton>-->
-      <!--      </div>-->
+      <div class="task-card__buttons">
+        <app-button
+            class="button--border"
+            @click="closeDialog"
+        >
+          Отменить
+        </app-button>
+        <app-button
+            class="button--primary"
+            :class="{'button--disabled': !isFormValid}"
+            :disabled="!isFormValid"
+            @click="submit"
+        >
+          Сохранить
+        </app-button>
+      </div>
     </section>
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, watch } from 'vue'
 import TasksCardCreatorUserSelector from './TaskCardCreatorUserSelector.vue'
 import TasksCardCreatorDueDateSelector from './TaskCardCreatorDueDateSelector.vue'
 import TaskCardViewTicksList from './TaskCardViewTicksList.vue'
 import TaskCardCreatorTags from './TaskCardCreatorTags.vue'
+import AppButton from '@/common/components/AppButton.vue'
 import { useRouter } from 'vue-router'
-import { getTimeAgo, createUUIDv4, createNewDate } from '@/common/helpers'
+import { createUUIDv4, createNewDate } from '@/common/helpers'
 import { STATUSES } from '@/common/constants'
 import taskStatuses from '@/common/enums/taskStatuses'
-import { taskCardDate } from '../../../common/composables'
+import { validateFields } from '@/common/validator'
+import { taskCardDate } from '@/common/composables'
 import { cloneDeep } from 'lodash'
 
 const createNewTask = () => ({
@@ -192,22 +193,7 @@ const createNewTick = () => ({
   done: false
 })
 
-const router = useRouter()
-
-const props = defineProps({
-  taskToEdit: {
-    type: Object,
-    default: null
-  }
-})
-const emits = defineEmits('removeTask')
-
-const taskToWork = props.taskToEdit ?
-    cloneDeep(props.taskToEdit) :
-    createNewTask()
-
-const task = ref(taskToWork)
-const validations = ref({
+const setEmptyValidations = () => ({
   title: {
     error: '',
     rules: ['required']
@@ -217,9 +203,31 @@ const validations = ref({
     rules: ['url']
   }
 })
+
+const router = useRouter()
+
+const props = defineProps({
+  taskToEdit: {
+    type: Object,
+    default: null
+  }
+})
+const emits = defineEmits(['addTask', 'editTask', 'removeTask'])
+
+const taskToWork = props.taskToEdit ?
+    cloneDeep(props.taskToEdit) :
+    createNewTask()
+
+const task = ref(taskToWork)
+const validations = ref(setEmptyValidations())
 const isFormValid = ref(true)
 const statusList = ref(STATUSES.slice(0, 3))
 const dialog = ref(null)
+
+watch(task, () => {
+  isFormValid.value = true
+  validations.value = setEmptyValidations()
+}, { deep: true })
 
 onMounted(() => {
   // Фокусируем на диалоговом окне чтобы сработала клавиша esc без дополнительного клика на окне
@@ -276,7 +284,21 @@ function removeTick ({ uuid, id }) {
   }
 }
 
-function setTags() {}
+function setTags (tags) {
+  task.value.tags = tags
+}
+
+function submit () {
+  if (!validateFields(task.value, validations.value)) {
+    isFormValid.value = false
+    return
+  }
+  if (props.taskToEdit) {
+    emits('editTask', task.value)
+  } else {
+    emits('addTask', task.value)
+  }
+}
 </script>
 
 <style lang="scss" scoped>
