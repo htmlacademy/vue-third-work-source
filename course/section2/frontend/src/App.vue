@@ -63,9 +63,13 @@ const filteredTasks = computed(() => {
   })
 })
 
+// Обновить сортировку задач
 function updateTasks (tasksToUpdate) {
   tasksToUpdate.forEach(task => {
     const index = state.tasks.findIndex(({ id }) => id === task.id)
+    // findIndex вернет элемент массива или -1
+    // Используем bitwise not для определения если index === -1
+    // ~-1 вернет 0, а значит false
     if (~index) {
       state.tasks.splice(index, 1, task)
     }

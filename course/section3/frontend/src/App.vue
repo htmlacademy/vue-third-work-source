@@ -9,6 +9,9 @@
         :filters="state.filters"
         @updateTasks="updateTasks"
         @applyFilters="applyFilters"
+        @addTask="addTask"
+        @editTask="editTask"
+        @deleteTask="deleteTask"
     />
   </app-layout>
 </template>
@@ -16,9 +19,9 @@
 <script setup>
 import { reactive, computed } from 'vue'
 import { AppLayout } from '@/layouts'
-import { HomeView } from '@/views'
 import { normalizeTask } from './common/helpers'
 import tasks from './mocks/tasks.json'
+import users from './mocks/users.json'
 
 const state = reactive({
   tasks: tasks.map(task => normalizeTask(task)),
@@ -63,9 +66,13 @@ const filteredTasks = computed(() => {
   })
 })
 
+// Обновить сортировку задач
 function updateTasks (tasksToUpdate) {
   tasksToUpdate.forEach(task => {
     const index = state.tasks.findIndex(({ id }) => id === task.id)
+    // findIndex вернет элемент массива или -1
+    // Используем bitwise not для определения если index === -1
+    // ~-1 вернет 0, а значит false
     if (~index) {
       state.tasks.splice(index, 1, task)
     }
@@ -83,6 +90,36 @@ function applyFilters ({ item, entity }) {
         : resultValues.push(item)
     state.filters[entity] = resultValues
   }
+}
+
+function getTaskUserById(id) {
+  return users.find(user => user.id === id)
+}
+
+// Создаем новую задачу и добавляем в массив задач
+function addTask(task) {
+  // Нормализуем задачу
+  const newTask = normalizeTask(task)
+  // Добавляем идентификатор, последний элемент в списке задач
+  // После подключения сервера идентификатор будет присваиваться сервером
+  newTask.id = state.tasks.length + 1
+  // Добавляем задачу в конец списка задач в беклоге
+  newTask.sortOrder = state.tasks.filter(task => !task.columnId).length
+  // Если задаче присвоен исполнитель, то добавляем объект юзера в задачу
+  // Это будет добавлено сервером позже
+  if (newTask.userId) {
+    newTask.user = { ...getTaskUserById(newTask.userId) }
+  }
+  // Добавляем задачу в массив
+  state.tasks = [...state.tasks, newTask]
+}
+
+function editTask(task) {
+  console.log('edit task', task)
+}
+
+function deleteTask(id) {
+  console.log('delete task', id)
 }
 </script>
 
