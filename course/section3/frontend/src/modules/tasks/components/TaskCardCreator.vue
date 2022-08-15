@@ -27,7 +27,7 @@
           <a
               v-if="taskToEdit"
               class="task-card__edit task-card__edit--red"
-              @click="removeTask"
+              @click="deleteTask"
           >
             Удалить Задачу
           </a>
@@ -212,7 +212,7 @@ const props = defineProps({
     default: null
   }
 })
-const emits = defineEmits(['addTask', 'editTask', 'removeTask'])
+const emits = defineEmits(['addTask', 'editTask', 'deleteTask'])
 
 const taskToWork = props.taskToEdit ?
     cloneDeep(props.taskToEdit) :
@@ -238,8 +238,8 @@ function closeDialog () {
   router.push('/')
 }
 
-function removeTask () {
-  emits('removeTask', task.value.id)
+function deleteTask () {
+  emits('deleteTask', task.value.id)
   router.push('/')
 }
 
@@ -247,7 +247,6 @@ function setStatus (status) {
   const [key] = Object.entries(taskStatuses)
       .find(([_, value]) => value === status)
   const taskStatus = task.value.statusId
-  console.log(taskStatus !== key)
   if (!taskStatus || taskStatus !== +key) {
     task.value.statusId = +key
   } else {
@@ -298,6 +297,7 @@ function submit () {
   } else {
     emits('addTask', task.value)
   }
+  router.push('/')
 }
 </script>
 

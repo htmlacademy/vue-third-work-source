@@ -92,12 +92,12 @@ function applyFilters ({ item, entity }) {
   }
 }
 
-function getTaskUserById(id) {
+function getTaskUserById (id) {
   return users.find(user => user.id === id)
 }
 
 // Создаем новую задачу и добавляем в массив задач
-function addTask(task) {
+function addTask (task) {
   // Нормализуем задачу
   const newTask = normalizeTask(task)
   // Добавляем идентификатор, последний элемент в списке задач
@@ -114,12 +114,19 @@ function addTask(task) {
   state.tasks = [...state.tasks, newTask]
 }
 
-function editTask(task) {
-  console.log('edit task', task)
+function editTask (task) {
+  const index = state.tasks.findIndex(({ id }) => task.id === id)
+  if (~index) {
+    const newTask = normalizeTask(task)
+    if (newTask.userId) {
+      newTask.user = { ...getTaskUserById(newTask.userId) }
+    }
+    state.tasks.splice(index, 1, newTask)
+  }
 }
 
-function deleteTask(id) {
-  console.log('delete task', id)
+function deleteTask (id) {
+  state.tasks = state.tasks.filter(task => task.id !== id)
 }
 </script>
 

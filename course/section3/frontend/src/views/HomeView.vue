@@ -2,11 +2,16 @@
   <main class="content">
     <section class="desk">
       <!--      Отображение дочерних маршрутов-->
-      <router-view :tasks="props.tasks" />
+      <router-view
+          :tasks="props.tasks"
+          @addTask="$emit('addTask', $event)"
+          @editTask="$emit('editTask', $event)"
+          @deleteTask="$emit('deleteTask', $event)"
+      />
       <!--      Шапка доски-->
       <div class="desk__header">
         <h1 class="desk__title">Design Coffee Lab</h1>
-<!--        Добавили кнопку для добавления новой колонки-->
+        <!--        Добавили кнопку для добавления новой колонки-->
         <button
             class="desk__add"
             type="button"
@@ -60,7 +65,7 @@
       </div>
       <!--      Колонки и задачи-->
       <div v-if="columns.length" class="desk__columns">
-<!--        Показываем колонки-->
+        <!--        Показываем колонки-->
         <desk-column
             v-for="column in state.columns"
             :key="column.id"
@@ -116,7 +121,7 @@ function updateColumn (column) {
 }
 
 function deleteColumn (id) {
-  state.columns = state.columns.filter(column => column.id !== id);
+  state.columns = state.columns.filter(column => column.id !== id)
 }
 </script>
 
