@@ -1,14 +1,14 @@
 <template>
   <header class="header">
     <div class="header__logo">
-      <a href="#" class="logo">
+      <router-link to="/" class="logo">
         <img
           src="@/assets/img/logo.svg"
           alt="VueWork logo"
           width="147"
           height="23"
         />
-      </a>
+      </router-link>
     </div>
 
     <form action="#" class="header__search">
@@ -16,7 +16,7 @@
       <button type="submit">Найти</button>
     </form>
 
-    <a href="#" class="header__create-task">Создать карточку</a>
+    <router-link to="/tasks/create" class="header__create-task">Создать карточку</router-link>
 
     <a href="#" class="header__user">
       <img

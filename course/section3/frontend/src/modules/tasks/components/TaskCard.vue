@@ -8,7 +8,7 @@
     <app-drag :transfer-data="task">
       <div
           class="task"
-          @click="$emit('click', task.id)"
+          @click="$router.push({ path: `/${task.id}` })"
       >
 <!--        Данный блок показывает пользователя, который работает над задачей-->
         <div
@@ -47,7 +47,7 @@
           {{ task.title }}
         </h5>
 <!--        Тэги задачи вынесены в отдельный компонент-->
-        <TaskCardTags
+        <task-card-tags
             v-if="task.tags && task.tags.length"
             :tags="task.tags"
             data-test="task-card-tags"
