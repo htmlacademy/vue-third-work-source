@@ -64,14 +64,15 @@ export const getImage = image => {
 }
 
 export const getTimeAgo = date => {
+	// Проверяем если дата приходит в корректном формате
   if (isNaN(Date.parse(date))) {
     return '... время не указано ...';
   }
   const seconds = Math.floor((new Date() - Date.parse(date)) / 1000);
-  let interval = seconds / YEAR_IN_SEC;
-  function getString(number, pronounce) {
+  function getFinalString(number, pronounce) {
     return `${number} ${pronounce} назад`;
   }
+	// Определяем правильное окончание
   function getPronounce(number, single, pluralTwoFour, pluralFive) {
     return number === 1
       ? single
@@ -79,34 +80,40 @@ export const getTimeAgo = date => {
         ? pluralTwoFour
         : pluralFive;
   }
+	// Проверяем если задача создана более года назад
+	let interval = seconds / YEAR_IN_SEC;
   if (interval > 1) {
     const number = Math.floor(interval);
     const pronounce = getPronounce(number, 'год', 'года', 'лет');
-    return getString(number, pronounce);
+    return getFinalString(number, pronounce);
   }
+	// Проверяем если задача создана более месяца назад
   interval = seconds / MONTH_IN_SEC;
   if (interval > 1) {
     const number = Math.floor(interval);
     const pronounce = getPronounce(number, 'месяц', 'месяца', 'месяцев');
-    return getString(number, pronounce);
+    return getFinalString(number, pronounce);
   }
+	// Проверяем если задача создана более одного дня назад
   interval = seconds / DAY_IN_SEC;
   if (interval > 1) {
     const number = Math.floor(interval);
     const pronounce = getPronounce(number, 'день', 'дня', 'дней');
-    return getString(number, pronounce);
+    return getFinalString(number, pronounce);
   }
+	// Проверяем если задача создана более одного часа назад
   interval = seconds / HOUR_IN_SEC;
   if (interval > 1) {
     const number = Math.floor(interval);
     const pronounce = getPronounce(number, 'час', 'часа', 'часов');
-    return getString(number, pronounce);
+    return getFinalString(number, pronounce);
   }
+	// Проверяем если задача создана более одной минуты назад
   interval = seconds / MINUTE_IN_SEC;
   if (interval > 1) {
     const number = Math.floor(interval);
     const pronounce = getPronounce(number, 'минуту', 'минуты', 'минут');
-    return getString(number, pronounce);
+    return getFinalString(number, pronounce);
   }
   return 'сейчас';
 };

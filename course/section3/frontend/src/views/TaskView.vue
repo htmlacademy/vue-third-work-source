@@ -2,24 +2,28 @@
   <div
       class="task-card"
       tabindex="0"
+      ref="dialog"
       @click.self="closeDialog"
       @keydown.esc="closeDialog"
   >
     <section class="task-card__wrapper">
+<!--Закрытие задачи-->
       <button
           class="task-card__close"
           type="button"
           @click="closeDialog"
       />
+<!--Шапка задачи-->
       <div class="task-card__block">
         <div class="task-card__row">
+<!--Наименование задачи-->
           <h1 class="task-card__name task-card__name--min">
             {{ task ? task.title : '' }}
           </h1>
-
+<!--Кнопка редактирования задачи-->
           <a
               class="task-card__edit"
-              @click="$router.push({
+              @click="router.push({
                 name: 'TaskEdit',
                 params: { id: $route.params.id }
               })"
@@ -27,13 +31,15 @@
             Редактировать задачу
           </a>
         </div>
+<!--Дата создания задачи-->
         <p class="task-card__date">
           {{ taskCardDate(task) }}
         </p>
       </div>
-
+<!--Участник задачи и срок выполнения-->
       <div class="task-card__block">
         <ul class="task-card__params">
+<!--Участник задачи-->
           <li v-if="task && task.user">
             Участник:
             <div class="task-card__participant">
@@ -49,6 +55,7 @@
               </button>
             </div>
           </li>
+<!--Срок выполнения-->
           <li v-if="dueDate">
             Срок:
             <button
@@ -60,7 +67,7 @@
           </li>
         </ul>
       </div>
-
+<!--Описание задачи-->
       <div class="task-card__block">
         <div
             v-if="task && task.description"
@@ -72,9 +79,9 @@
           <p>{{ task.description }}</p>
         </div>
       </div>
-
+<!--Дополнительная ссылка-->
       <div
-          v-if="task && task.url && task.urlDescription"
+          v-if="task && task.url"
           class="task-card__block task-card__links"
       >
         <h4 class="task-card__title">
@@ -90,7 +97,7 @@
           </a>
         </div>
       </div>
-
+<!--Чеклист-->
       <div
           v-if="task && task.ticks && task.ticks.length"
           class="task-card__block"
@@ -100,7 +107,7 @@
             disabled
         />
       </div>
-
+<!--Метки-->
       <div
           v-if="task && task.tags && task.tags.length"
           class="task-card__block"
@@ -112,7 +119,7 @@
             :tags="task.tags"
         />
       </div>
-
+<!--Комментарии-->
       <task-card-view-comments
           v-if="task"
           class="task-card__comments"
@@ -125,9 +132,9 @@
 </template>
 
 <script setup>
-import { computed } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { getTimeAgo, getReadableDate, getImage } from '../common/helpers'
+import { getReadableDate, getImage } from '../common/helpers'
 import { taskCardDate } from '../common/composables'
 import TaskCardViewTicksList from '../modules/tasks/components/TaskCardViewTicksList.vue'
 import TaskCardTags from '../modules/tasks/components/TaskCardTags.vue'
@@ -143,8 +150,16 @@ const props = defineProps({
   }
 })
 
+const dialog = ref(null)
+
+onMounted(() => {
+  // Фокусируем на диалоговом окне чтобы сработала клавиша esc без дополнительного клика на окне
+  dialog.value.focus()
+})
+
+// Найдем задачу по id из массива задач
 const task = computed(() => {
-  return props.tasks.find(task => task.id.toString() === route.params.id.toString())
+  return props.tasks.find(task => task.id == route.params.id)
 })
 
 const dueDate = computed(() => {

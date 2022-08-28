@@ -41,7 +41,7 @@ const render = () => {
   })
 
   const updateTags = event => {
-    // Note: remove duplicates
+    // Удаляем дубликаты
     const uniqValues = uniq(
         event.target.textContent
             .split(TAG_SEPARATOR)

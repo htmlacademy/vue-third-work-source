@@ -4,6 +4,7 @@
       Комментарии
     </h2>
     <div class="comments">
+      <!--      Список комментариев-->
       <ul class="comments__list">
         <li
             v-for="comment in comments"
@@ -23,6 +24,7 @@
         </li>
       </ul>
 
+      <!--      Блок добавления нового комментария-->
       <form
           v-if="user"
           action="#"
@@ -35,12 +37,13 @@
             placeholder="Введите текст комментария"
             :error-text="validations.newComment.error"
         />
-        <button
-            type="submit"
+        <app-button
+            class="comments__form__button"
+            :type="'submit'"
             @click.prevent="submit"
         >
           Написать комментарий
-        </button>
+        </app-button>
       </form>
     </div>
   </div>
@@ -51,6 +54,7 @@ import { ref, computed, watch } from 'vue'
 import users from '@/mocks/users.json'
 import { validateFields, clearValidationErrors } from '../../../common/validator'
 import AppTextarea from '@/common/components/AppTextarea.vue'
+import AppButton from '@/common/components/AppButton.vue'
 import { getImage } from '@/common/helpers'
 
 const props = defineProps({
@@ -70,19 +74,24 @@ const newComment = ref('')
 const validations = ref({
   newComment: {
     error: '',
-    rules: ['isNotEmpty']
+    rules: ['required']
   }
 })
 
 // Позже будет добавлен залогиненый пользователь. До этого будем использовать первого пользователя в списке
 const user = computed(() => users[0])
 
+// Отслеживаем значение поля комментария и очищаем ошибку при изменении
 watch(newComment, () => {
-  clearValidationErrors(validations.value)
+  if (validations.value.newComment.error) {
+    clearValidationErrors(validations.value)
+  }
 })
 
 const submit = function () {
+  // Проверяем валидно ли поле комментария
   if (!validateFields({ newComment }, validations.value)) return
+  // Создаем объект комментария
   const comment = {
     text: newComment.value,
     taskId: props.taskId,
@@ -93,7 +102,9 @@ const submit = function () {
       avatar: user.value.avatar
     }
   }
+  // Отправляем комментарий в родительский компонент
   emits('createNewComment', comment)
+  // Очищаем поле комментария
   newComment.value = ''
 }
 
@@ -164,7 +175,7 @@ const submit = function () {
   &__form {
     margin-top: 24px;
 
-    button {
+    &__button {
       display: block;
 
       margin: 0;
