@@ -2,6 +2,7 @@
   <div class="task-card__check-list">
     <h4 class="task-card__title">
       Чеклист
+      <!--Кнопка создания новой подзадачи-->
       <button
           v-if="!disabled"
           type="button"
@@ -9,6 +10,7 @@
           @click="$emit('createTick')"
       />
     </h4>
+    <!--Список подзадач-->
     <ul
         v-if="ticks.length"
         class="task-card__list"

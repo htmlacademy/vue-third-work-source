@@ -2,13 +2,13 @@
   <app-layout
       :tasks="filteredTasks"
       :filters="state.filters"
-      @updateTasks="updateTasks"
+      @update-tasks="updateTasks"
   >
     <home-view
         :tasks="filteredTasks"
         :filters="state.filters"
-        @updateTasks="updateTasks"
-        @applyFilters="applyFilters"
+        @update-tasks="updateTasks"
+        @apply-filters="applyFilters"
     />
   </app-layout>
 </template>

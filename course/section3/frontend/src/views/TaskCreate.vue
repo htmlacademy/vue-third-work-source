@@ -1,5 +1,5 @@
 <template>
-  <task-card-creator @addTask="$emit('addTask', $event)" />
+  <task-card-creator @add-task="$emit('addTask', $event)" />
 </template>
 
 <script setup>

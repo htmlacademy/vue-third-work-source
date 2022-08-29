@@ -5,7 +5,7 @@
       <app-layout-sidebar
           :tasks="props.tasks"
           :filters="props.filters"
-          @updateTasks="$emit('updateTasks', $event)"
+          @update-tasks="$emit('updateTasks', $event)"
       />
       <slot/>
     </div>

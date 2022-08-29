@@ -1,9 +1,6 @@
 <template>
   <!--    Компонент AppDrop отслеживает куда упала задача -->
-  <app-drop
-      data-test="app-drop"
-      @drop="$emit('drop', $event)"
-  >
+  <app-drop @drop="$emit('drop', $event)">
     <!--      Компонент AppDrag определяет какая задача перемещается -->
     <app-drag :transfer-data="task">
       <div
@@ -30,13 +27,11 @@
           <span
               v-if="task.status"
               class="task__status"
-              data-test="task-status"
               :class="`task__status--${task.status}`"
           />
           <span
               v-if="task.timeStatus"
               class="task__status"
-              data-test="task-time-status"
               :class="`task__status--${task.timeStatus}`"
           />
         </div>
@@ -50,7 +45,6 @@
         <task-card-tags
             v-if="task.tags && task.tags.length"
             :tags="task.tags"
-            data-test="task-card-tags"
         />
       </div>
     </app-drag>

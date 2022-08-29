@@ -2,16 +2,16 @@
   <app-layout
       :tasks="filteredTasks"
       :filters="state.filters"
-      @updateTasks="updateTasks"
+      @update-tasks="updateTasks"
   >
     <router-view
         :tasks="filteredTasks"
         :filters="state.filters"
-        @updateTasks="updateTasks"
-        @applyFilters="applyFilters"
-        @addTask="addTask"
-        @editTask="editTask"
-        @deleteTask="deleteTask"
+        @update-tasks="updateTasks"
+        @apply-filters="applyFilters"
+        @add-task="addTask"
+        @edit-task="editTask"
+        @delete-task="deleteTask"
     />
   </app-layout>
 </template>

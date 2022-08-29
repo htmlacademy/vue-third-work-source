@@ -29,10 +29,13 @@ const timeout = ref(null)
 
 function setTags(tags, refresh) {
   if (refresh) {
+    // При обновлении тегов очищаем текущую строку
     showAnalyzer.value = false
     emits('setTags', tags)
+    // Обновляем анализатор за минимальное время
     timeout.value = setTimeout(() => {
       showAnalyzer.value = true
+      clearTimeout(timeout.value)
     })
   } else {
     emits('setTags', tags)

@@ -24,5 +24,5 @@ export default [
 				meta: { layout: 'AppLayoutMain' }
 			}
 		]
-	},
+	}
 ]

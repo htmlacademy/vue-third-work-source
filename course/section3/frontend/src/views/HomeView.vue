@@ -4,9 +4,9 @@
       <!--      Отображение дочерних маршрутов-->
       <router-view
           :tasks="props.tasks"
-          @addTask="$emit('addTask', $event)"
-          @editTask="$emit('editTask', $event)"
-          @deleteTask="$emit('deleteTask', $event)"
+          @add-task="$emit('addTask', $event)"
+          @edit-task="$emit('editTask', $event)"
+          @delete-task="$emit('deleteTask', $event)"
       />
       <!--      Шапка доски-->
       <div class="desk__header">
@@ -73,7 +73,7 @@
             :tasks="props.tasks"
             @update="updateColumn"
             @delete="deleteColumn"
-            @updateTasks="$emit('updateTasks', $event)"
+            @update-tasks="$emit('updateTasks', $event)"
         />
       </div>
       <!--      Пустая доска-->

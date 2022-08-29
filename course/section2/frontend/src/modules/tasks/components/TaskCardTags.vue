@@ -3,7 +3,6 @@
     <li
       v-for="(tag, index) in tagsArray"
       :key="index"
-      data-test="tag"
     >
       <span class="task__tag">
         {{ tag }}

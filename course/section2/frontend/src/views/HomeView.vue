@@ -66,7 +66,7 @@
             :tasks="props.tasks"
             @update="updateColumn"
             @delete="deleteColumn"
-            @updateTasks="$emit('updateTasks', $event)"
+            @update-tasks="$emit('updateTasks', $event)"
         />
       </div>
       <!--      Пустая доска-->

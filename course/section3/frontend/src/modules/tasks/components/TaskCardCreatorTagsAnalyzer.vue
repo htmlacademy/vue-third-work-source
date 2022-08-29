@@ -16,6 +16,7 @@ const props = defineProps({
 })
 const emits = defineEmits(['setTags'])
 
+// Разделяем строку тегов на массив
 const splitTags = props.tags ? ref(getTagsArrayFromString(props.tags)) : ref([])
 
 watch(
@@ -30,6 +31,7 @@ async function setTags (tags) {
 }
 
 const render = () => {
+  // Создаем дочерние элементы с тегами
   const elements = splitTags.value.map(tag => {
     return h(
         'span',
