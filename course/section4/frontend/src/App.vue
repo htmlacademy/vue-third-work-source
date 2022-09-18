@@ -1,9 +1,5 @@
 <template>
-  <app-layout
-      :tasks="filteredTasks"
-      :filters="state.filters"
-      @update-tasks="updateTasks"
-  >
+  <app-layout>
     <router-view
         :tasks="filteredTasks"
         :filters="state.filters"

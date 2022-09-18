@@ -48,6 +48,12 @@ export const useTasksStore = defineStore('tasks', {
 		getTaskUserById: () => id => {
 			const usersStore = useUsersStore()
 			return usersStore.users.find(user => user.id === id)
+		},
+		// Фильтруем задачи, которые относятся к беклогу (columnId === null)
+		sidebarTasks: state => {
+			return state.tasks
+				.filter(task => !task.columnId)
+				.sort((a, b) => a.sortOrder - b.sortOrder)
 		}
 	},
 	actions: {
