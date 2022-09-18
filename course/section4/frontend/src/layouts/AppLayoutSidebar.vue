@@ -54,12 +54,11 @@ import { reactive, computed } from 'vue'
 import AppDrop from '@/common/components/AppDrop.vue'
 import TaskCard from '@/modules/tasks/components/TaskCard.vue'
 import { getTargetColumnTasks, addActive } from '@/common/helpers'
-import taskStatuses from '@/common/enums/taskStatuses'
 import { useTasksStore } from '@/stores/tasks'
 
 const tasksStore = useTasksStore()
 
-const state = reactive({ taskStatuses, backlogIsHidden: false })
+const state = reactive({ backlogIsHidden: false })
 
 function moveTask (active, toTask) {
   // Note: prevent update if task is not moving
