@@ -9,7 +9,6 @@
 
 <script setup>
 import TaskCardCreator from '../modules/tasks/components/TaskCardCreator.vue'
-import { ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { createNewDate } from '../common/helpers'
 
