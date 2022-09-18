@@ -54,7 +54,6 @@ import { reactive, computed } from 'vue'
 import AppDrop from '@/common/components/AppDrop.vue'
 import TaskCard from '@/modules/tasks/components/TaskCard.vue'
 import { getTargetColumnTasks, addActive } from '@/common/helpers'
-import taskStatuses from '@/common/enums/taskStatuses'
 
 const props = defineProps({
   tasks: {
@@ -63,7 +62,7 @@ const props = defineProps({
   }
 })
 
-const state = reactive({ taskStatuses, backlogIsHidden: false })
+const state = reactive({ backlogIsHidden: false })
 
 // Фильтруем задачи, которые относятся к беклогу (columnId === null)
 const sidebarTasks = computed(() => {
