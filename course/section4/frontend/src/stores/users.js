@@ -1,15 +1,15 @@
 import { defineStore } from "pinia";
+import users from '../mocks/users.json'
 
-export const useTasksStore = defineStore('tasks', {
+export const useUsersStore = defineStore('users', {
   state: () => ({
-    counter: 0,
+    users: [],
   }),
-  getters: {
-    doubleCount: (state) => state.counter * 2,
-  },
+  getters: {},
   actions: {
-    increment() {
-      this.counter++;
+		async fetchUsers() {
+      // Получение данных из json файла будет заменено в последующих разделах
+	    this.users = users;
     },
   },
 });

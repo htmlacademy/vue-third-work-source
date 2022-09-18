@@ -18,10 +18,26 @@
 
 <script setup>
 import { reactive, computed } from 'vue'
-import { AppLayout } from '@/layouts'
+import { AppLayout } from './layouts'
 import { normalizeTask } from './common/helpers'
+import { useTasksStore } from './stores/tasks'
+import { useUsersStore } from './stores/users'
+import { useColumnsStore } from './stores/columns'
 import tasks from './mocks/tasks.json'
 import users from './mocks/users.json'
+
+// Определяем хранилища
+const tasksStore = useTasksStore()
+const usersStore = useUsersStore()
+const columnsStore = useColumnsStore()
+
+// Загрузка первоначальных данных
+// Загружаем задачи
+void tasksStore.fetchTasks()
+// Загружаем пользователей
+void usersStore.fetchUsers()
+// Загружаем колонки
+void columnsStore.fetchColumns()
 
 const state = reactive({
   tasks: tasks.map(task => normalizeTask(task)),

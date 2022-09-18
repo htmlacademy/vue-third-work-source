@@ -1,15 +1,15 @@
 import { defineStore } from "pinia";
+import columns from '@/mocks/columns.json'
 
-export const useTasksStore = defineStore('tasks', {
+export const useColumnsStore = defineStore('columns', {
   state: () => ({
-    counter: 0,
+    columns: [],
   }),
-  getters: {
-    doubleCount: (state) => state.counter * 2,
-  },
+  getters: {},
   actions: {
-    increment() {
-      this.counter++;
+		async fetchColumns() {
+      // Получение данных из json файла будет заменено в последующих разделах
+	    this.columns = columns;
     },
   },
 });
