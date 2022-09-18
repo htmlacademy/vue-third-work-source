@@ -43,10 +43,7 @@
                   :key="value"
                   class="meta-filter__item"
                   :class="{ active: filtersStore.filters.statuses.some(s => s === value) }"
-                  @click="$emit(
-                    'applyFilters',
-                    { item: value, entity: 'statuses' }
-                  )"
+                  @click="filtersStore.applyFilters({ item: value, entity: 'statuses' })"
               >
                 <a
                     class="meta-filter__status"
