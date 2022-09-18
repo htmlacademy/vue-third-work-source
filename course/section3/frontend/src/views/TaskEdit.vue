@@ -26,12 +26,13 @@ const props = defineProps({
 defineEmits(['editTask', 'deleteTask'])
 
 // Находим задачу из массива задач по id из строки URL
-const task = ref(props.tasks.find(task => +task.id === +route.params.id))
+const task = props.tasks.find(task => +task.id === +route.params.id)
 
-if (task.value) {
-  const taskDate = task.value.dueDate
-  task.value.dueDate = taskDate ? new Date(taskDate) : createNewDate()
+if (task) {
+  const taskDate = task.dueDate
+  task.dueDate = taskDate ? new Date(taskDate) : createNewDate()
 } else {
+  // Перенаправляем на главную страницу если задача не найдена
   router.push('/')
 }
 </script>
