@@ -83,7 +83,7 @@ export const useTasksStore = defineStore('tasks', {
 			// Если задаче присвоен исполнитель, то добавляем объект юзера в задачу
 			// Это будет добавлено сервером позже
 			if (newTask.userId) {
-				newTask.user = { ...getTaskUserById(newTask.userId) }
+				newTask.user = { ...this.getTaskUserById(newTask.userId) }
 			}
 			// Добавляем задачу в массив
 			this.tasks = [...this.tasks, newTask]
