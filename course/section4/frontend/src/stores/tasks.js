@@ -93,7 +93,7 @@ export const useTasksStore = defineStore('tasks', {
 			if (~index) {
 				const newTask = normalizeTask(task)
 				if (newTask.userId) {
-					newTask.user = { ...getTaskUserById(newTask.userId) }
+					newTask.user = { ...this.getTaskUserById(newTask.userId) }
 				}
 				this.tasks.splice(index, 1, newTask)
 			}
