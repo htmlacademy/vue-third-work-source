@@ -71,7 +71,7 @@ const emits = defineEmits(['update', 'delete'])
 
 // Фильтруем задачи, которые относятся к конкретной колонке
 const columnTasks = computed(() => {
-  return tasksStore.tasks
+  return tasksStore.filteredTasks
     .filter(task => task.columnId === props.column.id)
     .sort((a, b) => a.sortOrder - b.sortOrder)
 })

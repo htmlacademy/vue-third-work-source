@@ -51,7 +51,7 @@ export const useTasksStore = defineStore('tasks', {
 		},
 		// Фильтруем задачи, которые относятся к беклогу (columnId === null)
 		sidebarTasks: state => {
-			return state.tasks
+			return state.filteredTasks
 				.filter(task => !task.columnId)
 				.sort((a, b) => a.sortOrder - b.sortOrder)
 		}
