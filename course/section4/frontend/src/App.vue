@@ -16,9 +16,7 @@
 import { reactive, computed } from 'vue'
 import { AppLayout } from './layouts'
 import { normalizeTask } from './common/helpers'
-import { useTasksStore } from './stores/tasks'
-import { useUsersStore } from './stores/users'
-import { useColumnsStore } from './stores/columns'
+import { useTasksStore, useColumnsStore, useUsersStore } from './stores'
 import tasks from './mocks/tasks.json'
 import users from './mocks/users.json'
 
