@@ -1,6 +1,6 @@
 <template>
   <div class="app_layout">
-    <app-layout-header/>
+    <app-layout-header />
     <div class="content">
       <app-layout-sidebar
           :tasks="props.tasks"

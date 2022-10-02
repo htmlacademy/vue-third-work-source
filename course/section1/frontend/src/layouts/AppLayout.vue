@@ -1,12 +1,12 @@
 <template>
   <div class="app_layout">
-    <app-header />
+    <app-layout-header />
     <slot />
   </div>
 </template>
 
 <script setup>
-import AppHeader from "./AppHeader.vue";
+import AppLayoutHeader from "./AppLayoutHeader.vue";
 </script>
 
 <style lang="scss" scoped>
