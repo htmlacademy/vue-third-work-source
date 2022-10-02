@@ -21,6 +21,11 @@
                   :key="user.id"
                   :title="user.name"
                   class="user-filter__item"
+                  :class="{ active: filters.users.some(id => id === user.id) }"
+                  @click="$emit(
+                    'applyFilters',
+                    { item: user.id, entity: 'users' }
+                  )"
               >
                 <a class="user-filter__button">
                   <img

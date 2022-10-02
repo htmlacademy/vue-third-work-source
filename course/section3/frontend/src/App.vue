@@ -80,6 +80,7 @@ function updateTasks (tasksToUpdate) {
 }
 
 function applyFilters ({ item, entity }) {
+  console.log(item, entity)
   if (!Array.isArray(state.filters[entity])) {
     state.filters[entity] = item
   } else {
