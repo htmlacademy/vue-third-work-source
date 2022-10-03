@@ -61,7 +61,7 @@ const tasksStore = useTasksStore()
 const state = reactive({ backlogIsHidden: false })
 
 function moveTask (active, toTask) {
-  // Note: prevent update if task is not moving
+  // Не обновляем массив если задача фактически не перемещалась
   if (toTask && active.id === toTask.id) {
     return
   }

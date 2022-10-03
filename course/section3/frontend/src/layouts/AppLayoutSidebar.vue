@@ -74,7 +74,7 @@ const sidebarTasks = computed(() => {
 const emits = defineEmits(['updateTasks'])
 
 function moveTask (active, toTask) {
-  // Note: prevent update if task is not moving
+  // Не обновляем массив если задача фактически не перемещалась
   if (toTask && active.id === toTask.id) {
     return
   }
