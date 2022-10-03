@@ -3,10 +3,7 @@
   <app-drop @drop="$emit('drop', $event)">
     <!--      Компонент AppDrag определяет какая задача перемещается -->
     <app-drag :transfer-data="task">
-      <div
-          class="task"
-          @click="$emit('click', task.id)"
-      >
+      <div class="task">
 <!--        Данный блок показывает пользователя, который работает над задачей-->
         <div
             v-if="task.user"
@@ -64,7 +61,7 @@ const props = defineProps({
   }
 })
 
-defineEmits(['drop', 'click'])
+defineEmits(['drop'])
 </script>
 
 <style lang="scss" scoped>
