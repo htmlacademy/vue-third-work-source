@@ -1,4 +1,4 @@
-export { useUsersStore } from '@/stores/users'
-export { useTasksStore } from '@/stores/tasks'
-export { useColumnsStore } from '@/stores/columns'
-export { useFiltersStore } from '@/stores/filters'
+export { useUsersStore } from './users'
+export { useTasksStore } from './tasks'
+export { useColumnsStore } from './columns'
+export { useFiltersStore } from './filters'

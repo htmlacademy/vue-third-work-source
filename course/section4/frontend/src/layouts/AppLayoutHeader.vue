@@ -1,5 +1,7 @@
 <template>
   <header class="header">
+
+    <!--    Логотип-->
     <div class="header__logo">
       <router-link to="/" class="logo">
         <img
@@ -10,7 +12,7 @@
         />
       </router-link>
     </div>
-
+    <!--    Поиск-->
     <form action="#" class="header__search">
       <input
           type="search"
@@ -21,9 +23,9 @@
       />
       <button type="submit">Найти</button>
     </form>
-
+    <!--    Кнопка создания новой задачи-->
     <router-link to="/tasks/create" class="header__create-task">Создать карточку</router-link>
-
+    <!--    Аватар пользователя-->
     <a href="#" class="header__user">
       <img
         src="@/assets/img/admin.jpg"
@@ -32,7 +34,7 @@
         height="40"
       />
     </a>
-
+    <!--    Панель пользователя-->
     <div class="header__menu">
       <div class="user-menu">
         <img

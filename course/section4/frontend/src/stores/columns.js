@@ -13,6 +13,7 @@ export const useColumnsStore = defineStore('columns', {
 			this.columns = columns
 		},
 		addColumn () {
+			// При создании колонки мы добавляем дефолтную колонку, которую можем изменить позже
 			this.columns.push({ id: uniqueId('column_'), title: 'Новый столбец' })
 		},
 		updateColumn (column) {

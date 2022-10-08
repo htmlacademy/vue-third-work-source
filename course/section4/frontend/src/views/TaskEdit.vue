@@ -23,6 +23,7 @@ if (task) {
   const taskDate = task.dueDate
   task.dueDate = taskDate ? new Date(taskDate) : createNewDate()
 } else {
+  // Перенаправляем на главную страницу если задача не найдена
   router.push('/')
 }
 </script>

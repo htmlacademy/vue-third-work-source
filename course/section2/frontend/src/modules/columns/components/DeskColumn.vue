@@ -68,7 +68,7 @@ const props = defineProps({
 })
 const columnTitle = ref(null)
 const state = reactive({ isInputShowed: false, columnTitle: props.column.title })
-const emits = defineEmits(['update', 'updateTasks'])
+const emits = defineEmits(['update', 'delete', 'updateTasks'])
 
 // Фильтруем задачи, которые относятся к конкретной колонке
 const columnTasks = computed(() => {
