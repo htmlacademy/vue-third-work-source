@@ -7,17 +7,17 @@
       @keydown.esc="closeDialog"
   >
     <section class="task-card__wrapper">
-<!--      Кнопка закрытия диалога задачи-->
+      <!--      Кнопка закрытия диалога задачи-->
       <button
           class="task-card__close"
           type="button"
           @click="closeDialog"
       />
 
-<!--      Блок ввода имени и удаления задачи-->
+      <!--      Блок ввода имени и удаления задачи-->
       <div class="task-card__block">
         <div class="task-card__row">
-<!--          Поле ввода имени задачи-->
+          <!--          Поле ввода имени задачи-->
           <input
               v-model="task.title"
               type="text"
@@ -25,7 +25,7 @@
               class="task-card__name"
               max="37"
           />
-<!--          Кнопка удаления задачи-->
+          <!--          Кнопка удаления задачи-->
           <a
               v-if="taskToEdit"
               class="task-card__edit task-card__edit--red"
@@ -34,7 +34,7 @@
             Удалить Задачу
           </a>
         </div>
-<!--        Ошибка валидации поля ввода имени -->
+        <!--        Ошибка валидации поля ввода имени -->
         <span
             v-if="validations.title.error"
             class="task-card__error-text"
@@ -43,13 +43,13 @@
         </span>
       </div>
 
-<!--      Блок статуса задачи-->
+      <!--      Блок статуса задачи-->
       <div class="task-card__status">
         <h4 class="task-card__title">
           Выберите статус:
         </h4>
 
-<!--        Список статусов задачи-->
+        <!--        Список статусов задачи-->
         <ul class="meta-filter task-card__meta">
           <li
               v-for="({ value, label }) in statusList"
@@ -67,7 +67,7 @@
         </ul>
       </div>
 
-<!--      Блок даты выполнения задачи-->
+      <!--      Блок даты выполнения задачи-->
       <div
           v-if="task.id"
           class="task-card__block"
@@ -77,17 +77,17 @@
         </p>
       </div>
 
-<!--      Блок ввода пользователя и даты срока выполнения-->
+      <!--      Блок ввода пользователя и даты срока выполнения-->
       <div class="task-card__block">
         <ul class="task-card__params">
-<!--          Блок выбора пользователя-->
+          <!--          Блок выбора пользователя-->
           <tasks-card-creator-user-selector v-model="task.userId"/>
-<!--          Блок выбора даты выполнения-->
+          <!--          Блок выбора даты выполнения-->
           <tasks-card-creator-due-date-selector v-model="task.dueDate"/>
         </ul>
       </div>
 
-<!--      Блок описания задачи-->
+      <!--      Блок описания задачи-->
       <div class="task-card__block">
         <div class="task-card__description">
           <h4 class="task-card__title">
@@ -101,7 +101,7 @@
         </div>
       </div>
 
-<!--      Блок внешней ссылки-->
+      <!--      Блок внешней ссылки-->
       <div class="task-card__block">
         <div class="task-card__links">
           <h4 class="task-card__title">
@@ -109,21 +109,21 @@
           </h4>
 
           <div class="task-card__links-item">
-<!--            Поле ввода ссылки-->
+            <!--            Поле ввода ссылки-->
             <input
                 v-model="task.url"
                 type="text"
                 name="task_link_url"
                 placeholder="Введите url"
             />
-<!--            Ошибка валидации поля ввода ссылки-->
+            <!--            Ошибка валидации поля ввода ссылки-->
             <span
                 v-if="validations.url.error"
                 class="task-card__error-text"
             >
               {{ validations.url.error }}
             </span>
-<!--            Описание ссылки-->
+            <!--            Описание ссылки-->
             <input
                 v-model="task.urlDescription"
                 type="text"
@@ -134,9 +134,9 @@
         </div>
       </div>
 
-<!--      Блок подзадач-->
+      <!--      Блок подзадач-->
       <div class="task-card__block">
-<!--        Список подзадач-->
+        <!--        Список подзадач-->
         <task-card-view-ticks-list
             :ticks="task.ticks"
             @createTick="createTick"
@@ -145,25 +145,25 @@
         />
       </div>
 
-<!--      Блок тегов-->
+      <!--      Блок тегов-->
       <div class="task-card__block">
-<!--        Компонент создания тегов-->
+        <!--        Компонент создания тегов-->
         <task-card-creator-tags
             :tags="task.tags"
             @setTags="setTags"
         />
       </div>
 
-<!--      Блок сохранения и отмены изменений-->
+      <!--      Блок сохранения и отмены изменений-->
       <div class="task-card__buttons">
-<!--        Кнопка отмены изменений-->
+        <!--        Кнопка отмены изменений-->
         <app-button
             class="button--border"
             @click="closeDialog"
         >
           Отменить
         </app-button>
-<!--        Кнопка сохранения изменений-->
+        <!--        Кнопка сохранения изменений-->
         <app-button
             class="button--primary"
             :class="{'button--disabled': !isFormValid}"
@@ -316,7 +316,7 @@ function setTags (tags) {
   task.value.tags = tags
 }
 
-function submit () {
+async function submit () {
   // Валидируем задачу
   if (!validateFields(task.value, validations.value)) {
     isFormValid.value = false
@@ -327,10 +327,26 @@ function submit () {
     tasksStore.editTask(task.value)
   } else {
     // Новая задача
-    tasksStore.addTask(task.value)
+    await tasksStore.addTask(task.value)
   }
   // Переход на главную страницу
-  router.push('/')
+  await router.push('/')
+}
+
+async function submitTicks (taskId, ticks) {
+  const promises = ticks
+      .filter(tick => !tick.id)
+      .map(tick => {
+        if (!tick.text) {
+          return
+        }
+        delete tick.uuid
+        tick.taskId = taskId
+        // return tick.id
+        //     ? this.ticksPut(tick)
+        //     : this.ticksPost(tick)
+      })
+  await Promise.all(promises)
 }
 </script>
 

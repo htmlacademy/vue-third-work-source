@@ -3,6 +3,7 @@ import tasks from '../mocks/tasks.json'
 import { normalizeTask } from '../common/helpers'
 import { useFiltersStore } from './filters'
 import { useUsersStore } from '@/stores/users'
+import tasksService from '@/services/tasks-service'
 
 export const useTasksStore = defineStore('tasks', {
 	state: () => ({
@@ -59,7 +60,7 @@ export const useTasksStore = defineStore('tasks', {
 	actions: {
 		async fetchTasks () {
 			// Получение данных из json файла будет заменено в последующих разделах
-			this.tasks = tasks.map(task => normalizeTask(task))
+			this.tasks = await tasksService.fetchTasks()
 		},
 		updateTasks (tasksToUpdate) {
 			tasksToUpdate.forEach(task => {
@@ -72,23 +73,15 @@ export const useTasksStore = defineStore('tasks', {
 				}
 			})
 		},
-		addTask (task) {
-			// Нормализуем задачу
-			const newTask = normalizeTask(task)
-			// Добавляем идентификатор, последний элемент в списке задач
-			// После подключения сервера идентификатор будет присваиваться сервером
-			newTask.id = this.tasks.length + 1
+		async addTask (task) {
 			// Добавляем задачу в конец списка задач в беклоге
-			newTask.sortOrder = this.tasks.filter(task => !task.columnId).length
-			// Если задаче присвоен исполнитель, то добавляем объект юзера в задачу
-			// Это будет добавлено сервером позже
-			if (newTask.userId) {
-				newTask.user = { ...this.getTaskUserById(newTask.userId) }
-			}
+			task.sortOrder = this.tasks.filter(task => !task.columnId).length
+			const newTask = await tasksService.createTask(task)
 			// Добавляем задачу в массив
 			this.tasks = [...this.tasks, newTask]
 		},
-		editTask (task) {
+		async editTask (task) {
+			await tasksService.updateTask(task)
 			const index = this.tasks.findIndex(({ id }) => task.id === id)
 			if (~index) {
 				const newTask = normalizeTask(task)
@@ -98,7 +91,9 @@ export const useTasksStore = defineStore('tasks', {
 				this.tasks.splice(index, 1, newTask)
 			}
 		},
-		deleteTask (id) {
+		async deleteTask (id) {
+			console.log(id)
+			await tasksService.deleteTask(id)
 			this.tasks = this.tasks.filter(task => task.id !== id)
 		}
 	},

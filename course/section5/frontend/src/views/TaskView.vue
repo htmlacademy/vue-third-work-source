@@ -40,7 +40,7 @@
       <div class="task-card__block">
         <ul class="task-card__params">
 <!--Участник задачи-->
-          <li v-if="task && task.user">
+          <li v-if="task && taskUser">
             Участник:
             <div class="task-card__participant">
               <button
@@ -48,10 +48,10 @@
                   class="task-card__user"
               >
                 <img
-                    :src="getImage(task.user.avatar)"
-                    :alt="task.user.name"
+                    :src="getPublicImage(taskUser.avatar)"
+                    :alt="taskUser.name"
                 />
-                {{ task.user.name }}
+                {{ taskUser.name }}
               </button>
             </div>
           </li>
@@ -134,13 +134,14 @@
 <script setup>
 import { computed, onMounted, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { getReadableDate, getImage } from '../common/helpers'
+import { getReadableDate, getPublicImage } from '../common/helpers'
 import { taskCardDate } from '../common/composables'
 import TaskCardViewTicksList from '../modules/tasks/components/TaskCardViewTicksList.vue'
 import TaskCardTags from '../modules/tasks/components/TaskCardTags.vue'
 import TaskCardViewComments from '../modules/tasks/components/TaskCardViewComments.vue'
-import { useTasksStore } from '@/stores'
+import { useTasksStore, useUsersStore } from '@/stores'
 
+const usersStore = useUsersStore()
 const tasksStore = useTasksStore()
 
 const router = useRouter()
@@ -161,6 +162,10 @@ const task = computed(() => {
 const dueDate = computed(() => {
   return getReadableDate(task.value.dueDate || '')
 })
+const users = usersStore.users
+// const taskUser = computed(() => {
+//   return usersStore.users.find(user => user.id === task.userId)
+// })
 
 const closeDialog = function () {
   router.push('/')
