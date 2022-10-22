@@ -1,4 +1,6 @@
 export default class FetchProvider {
+	interceptors = []
+	
   computeQueryParams(query) {
     if (!query) return ''
     const queryParams = new URLSearchParams(query)
@@ -6,7 +8,6 @@ export default class FetchProvider {
   }
 
   request(options) {
-    this.onRequest(options)
     const body = options.data ? JSON.stringify(options.data) : null
     return fetch(
       options.baseUrl + options.path + this.computeQueryParams(options.query),
@@ -21,25 +22,33 @@ export default class FetchProvider {
       .then((response) => {
         return response.json()
       })
-      .then((response) => {
-        this.onResponse(response)
+      .then((data) => {
         return data
       })
-      .catch((response) => {
-        this.onError(response)
+      .catch(async (response) => {
+				const message = await this.onError(response)
+	      throw Error(message)
       })
   }
 
-  onError(response) {
-    console.error(response)
+	addInterceptor(interceptor) {
+    if (interceptor && interceptor.onError) {
+      this.interceptors.push(interceptor)
+    } else {
+      throw Error('Empty interceptor')
+    }
+    return this
   }
-
-  onRequest(request) {
-    console.log('on request')
-  }
-
-  onResponse(response) {
-    console.log('on response')
+	
+  async onError(response) {
+		const { error } = await response.json()
+	  const { message, statusCode } = error
+    this.interceptors.forEach((interceptor) => {
+      if (interceptor.onError) {
+        interceptor.onError(statusCode, message)
+      }
+    })
+	  throw Error(message)
   }
 
   get(path, requestOptions) {

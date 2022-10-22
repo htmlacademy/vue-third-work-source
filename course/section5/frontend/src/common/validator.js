@@ -66,7 +66,6 @@ export const validateFields = (fields, validations) => {
 }
 
 export const clearValidationErrors = (validations) => {
-	console.log('validate')
 	if (!validations) {
 		return
 	}

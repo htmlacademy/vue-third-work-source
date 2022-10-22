@@ -1,11 +1,13 @@
+const AUTH_KEY = 'vue-work-auth-key'
+
 export async function getToken() {
-  // get from local storage
+  localStorage.getItem(AUTH_KEY)
 }
 
 export function setToken(token) {
-  // set token to local storage
+  localStorage.setItem(AUTH_KEY, token)
 }
 
 export function removeToken() {
-  // delete token
+  localStorage.removeItem(AUTH_KEY)
 }

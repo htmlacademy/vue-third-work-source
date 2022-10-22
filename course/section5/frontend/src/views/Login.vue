@@ -57,12 +57,13 @@
           Войти
         </app-button>
       </div>
+      <div v-if="serverErrorMessage" class="server-error-message">{{ serverErrorMessage }}</div>
     </form>
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import AppButton from '@/common/components/AppButton.vue'
 import AppInput from '@/common/components/AppInput.vue'
 import { validateFields, clearValidationErrors } from '@/common/validator'
@@ -86,6 +87,19 @@ const setEmptyValidations = () => ({
 const email = ref('')
 const password = ref('')
 const validations = ref(setEmptyValidations())
+const serverErrorMessage = ref(null)
+
+watch(email, () => {
+  // Очищаем поля ошибок при вводе новых данных
+  if (serverErrorMessage.value ) serverErrorMessage.value = null
+  if (validations.value.email.error) clearValidationErrors(validations.value)
+})
+
+watch(password, () => {
+  // Очищаем поля ошибок при вводе новых данных
+  if (serverErrorMessage.value ) serverErrorMessage.value = null
+  if (validations.value.password.error) clearValidationErrors(validations.value)
+})
 
 async function login () {
   if (!validateFields(
@@ -94,8 +108,14 @@ async function login () {
   )) {
     return
   }
-  await authStore.login(email, password)
-  await router.push('/')
+  const responseMessage = await authStore.login(email.value, password.value)
+  // Проверяем если возвращается статус не "ок", то показываем ошибку сервера
+  if (responseMessage !== 'ok') {
+    serverErrorMessage.value = responseMessage
+  } else {
+    // Если логин прошел без ошибок, перенаправляем на главную страницу
+    // await router.push('/')
+  }
 }
 </script>
 
@@ -204,5 +224,10 @@ async function login () {
       }
     }
   }
+}
+
+.server-error-message {
+  margin-top: 20px;
+  color: $red-700;
 }
 </style>

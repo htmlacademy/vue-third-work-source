@@ -16,18 +16,11 @@ export class HttpClient {
 		const { headers, ...rest } = options
 		const token = await this.getToken()
 		
-		if (!token) {
-			console.log(options)
-			throw Error(
-				'[HttpClient]: Cant build a request in HttpClient. Token is empty'
-			)
-		}
-		
 		return {
 			baseUrl: this.baseUrl,
 			headers: {
 				'Content-Type': 'application/json',
-				Authorization: token,
+				Authorization: token || '',
 				...headers,
 			},
 			...rest,
