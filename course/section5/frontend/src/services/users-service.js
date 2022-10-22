@@ -4,7 +4,7 @@ import httpProvider from '@/services/providers'
 
 const BASE_URL = 'http://localhost:3000/users'
 
-class UserService extends HttpClient {
+class UsersService extends HttpClient {
 	async fetchUsers() {
 		try {
 			return this.get('/')
@@ -14,7 +14,7 @@ class UserService extends HttpClient {
 	}
 }
 
-export default new UserService({
+export default new UsersService({
 	httpProvider,
 	baseURL: BASE_URL,
 	getToken,
