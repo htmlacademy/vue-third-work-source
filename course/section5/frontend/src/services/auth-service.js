@@ -1,7 +1,6 @@
 import { HttpClient } from './HttpClient'
-import FetchProvider from './providers/FetchProvider'
 import { getToken } from './token-manager'
-import router from '@/router'
+import httpProvider from '@/services/providers'
 
 const BASE_URL = 'http://localhost:3000'
 
@@ -34,18 +33,6 @@ class AuthService extends HttpClient {
 		}
 	}
 }
-
-const httpProvider = new FetchProvider()
-httpProvider.addInterceptor(
-	{
-		onError: async (status) => {
-			if (status === 401) {
-				// Logout
-				router.push({ name: 'Login' })
-			}
-		},
-	}
-)
 
 export default new AuthService({
 	httpProvider,
