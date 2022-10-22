@@ -17,6 +17,14 @@ class AuthService extends HttpClient {
 			throw Error(e)
 		}
 	}
+	
+	async whoAmI () {
+		try {
+			return await this.get('/whoAmI')
+		} catch (e) {
+			throw Error(e)
+		}
+	}
 }
 
 const httpProvider = new FetchProvider()

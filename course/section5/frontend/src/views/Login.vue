@@ -113,6 +113,7 @@ async function login () {
   if (responseMessage !== 'ok') {
     serverErrorMessage.value = responseMessage
   } else {
+    await authStore.getMe()
     // Если логин прошел без ошибок, перенаправляем на главную страницу
     // await router.push('/')
   }

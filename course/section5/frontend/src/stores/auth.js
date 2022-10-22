@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import authService from '../services/auth-service'
-import { setToken } from '@/services/token-manager'
+import { getToken, setToken } from '@/services/token-manager'
 
 export const useAuthStore = defineStore('auth', {
 	state: () => ({
@@ -15,6 +15,7 @@ export const useAuthStore = defineStore('auth', {
 			try {
 				const data = await authService.login(email, password)
 				setToken(data.token)
+				console.log(data.token)
 				this.isAuthenticated = true
 				return 'ok'
 			} catch (e) {
@@ -22,6 +23,9 @@ export const useAuthStore = defineStore('auth', {
 			}
  		},
 		async logout(sendRequest = true) {},
-		async getMe() {},
+		async getMe() {
+			const data = await authService.whoAmI()
+			console.log(data)
+		},
 	},
 })
