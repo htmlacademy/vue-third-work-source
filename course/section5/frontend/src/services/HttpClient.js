@@ -8,9 +8,8 @@ export class HttpClient {
 		this.baseUrl = options.baseURL
 	}
 	
-	async buildRequest (options = {}) {
+	buildRequest (options = {}) {
 		const token = this.getToken()
-		console.log(token, 'http')
 		let headers = {
 			'Content-Type': 'application/json',
 			Authorization: token ? `Bearer ${token}` : '',
@@ -37,21 +36,21 @@ export class HttpClient {
 	
 	async get (path, options) {
 		this.checkPath(path)
-		return this.httpProvider.get(path, await this.buildRequest(options))
+		return this.httpProvider.get(path, this.buildRequest(options))
 	}
 	
 	async post (path, options) {
 		this.checkPath(path)
-		return this.httpProvider.post(path, await this.buildRequest(options))
+		return this.httpProvider.post(path, this.buildRequest(options))
 	}
 	
 	async put (path, options) {
 		this.checkPath(path)
-		return this.httpProvider.put(path, await this.buildRequest(options))
+		return this.httpProvider.put(path, this.buildRequest(options))
 	}
 	
 	async delete (path, options) {
 		this.checkPath(path)
-		return this.httpProvider.delete(path, await this.buildRequest(options))
+		return this.httpProvider.delete(path, this.buildRequest(options))
 	}
 }

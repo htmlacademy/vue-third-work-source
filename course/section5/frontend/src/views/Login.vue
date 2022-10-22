@@ -68,7 +68,7 @@ import AppButton from '@/common/components/AppButton.vue'
 import AppInput from '@/common/components/AppInput.vue'
 import { validateFields, clearValidationErrors } from '@/common/validator'
 import { useRouter } from 'vue-router'
-import { useAuthStore } from '@/stores/auth'
+import { useAuthStore } from '@/stores'
 
 const router = useRouter()
 const authStore = useAuthStore()
@@ -115,7 +115,7 @@ async function login () {
   } else {
     await authStore.getMe()
     // Если логин прошел без ошибок, перенаправляем на главную страницу
-    // await router.push('/')
+    await router.push('/')
   }
 }
 </script>

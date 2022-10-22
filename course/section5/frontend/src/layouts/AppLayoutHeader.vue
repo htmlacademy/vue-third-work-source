@@ -5,10 +5,10 @@
     <div class="header__logo">
       <router-link to="/" class="logo">
         <img
-          src="@/assets/img/logo.svg"
-          alt="VueWork logo"
-          width="147"
-          height="23"
+            src="@/assets/img/logo.svg"
+            alt="VueWork logo"
+            width="147"
+            height="23"
         />
       </router-link>
     </div>
@@ -24,37 +24,73 @@
       <button type="submit">Найти</button>
     </form>
     <!--    Кнопка создания новой задачи-->
-    <router-link to="/tasks/create" class="header__create-task">Создать карточку</router-link>
+    <router-link
+        v-if="authStore.getUserAttribute('isAdmin')"
+        to="/tasks/create"
+        class="header__create-task"
+    >
+      Создать карточку
+    </router-link>
     <!--    Аватар пользователя-->
-    <a href="#" class="header__user">
+    <a
+        v-if="authStore.user"
+        href="#"
+        class="header__user"
+        @click.stop="toggleUserMenu"
+    >
       <img
-        src="@/assets/img/admin.jpg"
-        alt="Администратор"
-        width="40"
-        height="40"
+          :src="userImage"
+          alt="Администратор"
+          width="40"
+          height="40"
       />
     </a>
     <!--    Панель пользователя-->
-    <div class="header__menu">
+    <div
+        v-if="isUserMenuOpened"
+        v-click-outside="toggleUserMenu"
+        class="header__menu"
+    >
       <div class="user-menu">
         <img
-          src="@/assets/img/admin.jpg"
-          width="56"
-          height="56"
-          alt="Администратор"
+            :src="userImage"
+            width="56"
+            height="56"
+            alt="Администратор"
         />
-        <span>Администратор</span>
-        <a href="#" class="user-menu__link">Мой аккаунт</a>
-        <a href="#" class="user-menu__link">Выйти</a>
+        <span>{{ authStore.user.name }}</span>
+        <a href="#" class="user-menu__link" @click="logout">Выйти</a>
       </div>
     </div>
+    <a
+        v-if="!authStore.isAuthenticated"
+        class="header__login"
+        @click="$router.push('/login')"
+    >
+      Войти
+    </a>
   </header>
 </template>
 
 <script setup>
-import { useFiltersStore } from '@/stores'
+import { useFiltersStore, useAuthStore } from '@/stores'
+import { ref } from 'vue'
+import { getPublicImage } from '@/common/helpers'
 
 const filtersStore = useFiltersStore()
+const authStore = useAuthStore()
+
+const isUserMenuOpened = ref(false)
+const userImage = getPublicImage(authStore.user?.avatar)
+
+function toggleUserMenu () {
+  isUserMenuOpened.value = !isUserMenuOpened.value
+}
+
+function logout () {
+  authStore.logout()
+  isUserMenuOpened.value = false
+}
 </script>
 
 <style lang="scss" scoped>
@@ -181,10 +217,57 @@ const filtersStore = useFiltersStore()
   &__menu {
     position: absolute;
     z-index: 10;
-    top: 0;
-    right: 0;
-
-    display: none;
+    top: 1px;
+    right: 1px;
   }
 }
+.user-menu {
+  width: 240px;
+  padding-top: 32px;
+  padding-bottom: 24px;
+
+  text-align: center;
+
+  border-radius: 6px 0 0 6px;
+  background-color: $white-900;
+  box-shadow: 0 4px 8px $shadow-500;
+
+  img {
+    display: block;
+
+    margin: 0 auto;
+  }
+
+  span {
+    display: block;
+
+    margin-top: 16px;
+    padding-bottom: 16px;
+
+    color: $black-900;
+    border-bottom: 1px solid $gray-100;
+
+    @include m-s18-h21;
+  }
+
+  &__link {
+    display: block;
+
+    margin-top: 16px;
+    padding: 5px 0;
+
+    color: $blue-gray-600;
+
+    @include m-s14-h21;
+
+    &:hover {
+      background-color: $gray-100;
+    }
+
+    &:active {
+      color: $gray-900;
+    }
+  }
+}
+
 </style>

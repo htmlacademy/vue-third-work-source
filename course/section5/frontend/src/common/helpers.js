@@ -138,3 +138,7 @@ export const createNewDate = () => {
   return new Date(new Date().setHours(23,59,59,999));
 };
 
+export const getPublicImage = path => {
+	const publicUrl = 'http://localhost:3000'
+	return `${publicUrl}/${path}`
+}

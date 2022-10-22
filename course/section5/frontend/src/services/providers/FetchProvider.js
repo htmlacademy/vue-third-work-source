@@ -20,6 +20,7 @@ export default class FetchProvider {
 				return response
 			})
 			.then((response) => {
+				if (response.status > 201) return Promise.resolve(response)
 				return response.json()
 			})
 			.then((data) => {

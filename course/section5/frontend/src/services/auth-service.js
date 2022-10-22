@@ -25,6 +25,14 @@ class AuthService extends HttpClient {
 			throw Error(e)
 		}
 	}
+	
+	async logout () {
+		try {
+			await this.delete('/logout')
+		} catch (e) {
+			throw Error(e)
+		}
+	}
 }
 
 const httpProvider = new FetchProvider()
