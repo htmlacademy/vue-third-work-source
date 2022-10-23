@@ -191,7 +191,7 @@ import taskStatuses from '@/common/enums/taskStatuses'
 import { validateFields } from '@/common/validator'
 import { taskCardDate } from '@/common/composables'
 import { cloneDeep } from 'lodash'
-import { useTasksStore } from '@/stores'
+import { useTasksStore, useTicksStore } from '@/stores'
 
 // Функция для создания новых задач
 const createNewTask = () => ({
@@ -238,6 +238,7 @@ const props = defineProps({
 
 // Определяем хранилище задач
 const tasksStore = useTasksStore()
+const ticksStore = useTicksStore()
 
 // Определяем если мы работаем над редактированием задачи или создаем новую
 const taskToWork = props.taskToEdit ?
@@ -322,29 +323,32 @@ async function submit () {
     isFormValid.value = false
     return
   }
+  let taskId = task.value.id
   if (props.taskToEdit) {
     // Редактируемая задача
-    tasksStore.editTask(task.value)
+    await tasksStore.editTask(task.value)
   } else {
     // Новая задача
-    await tasksStore.addTask(task.value)
+    const newTask = await tasksStore.addTask(task.value)
+    taskId = newTask.id
   }
+  // Создать или обновить подзадачи
+  await submitTicks(taskId, task.value.ticks)
   // Переход на главную страницу
   await router.push('/')
 }
 
 async function submitTicks (taskId, ticks) {
   const promises = ticks
-      .filter(tick => !tick.id)
       .map(tick => {
         if (!tick.text) {
           return
         }
         delete tick.uuid
         tick.taskId = taskId
-        // return tick.id
-        //     ? this.ticksPut(tick)
-        //     : this.ticksPost(tick)
+        return tick.id
+            ? ticksStore.updateTick(tick)
+            : ticksStore.addTick(tick)
       })
   await Promise.all(promises)
 }

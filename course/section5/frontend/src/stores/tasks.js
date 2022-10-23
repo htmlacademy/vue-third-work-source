@@ -1,6 +1,5 @@
 import { defineStore } from 'pinia'
-import { useFiltersStore } from './filters'
-import { useUsersStore } from '@/stores/users'
+import { useUsersStore, useFiltersStore, useTicksStore } from '@/stores'
 import { tasksService } from '@/services'
 
 export const useTasksStore = defineStore('tasks', {
@@ -44,6 +43,13 @@ export const useTasksStore = defineStore('tasks', {
 						!filtersStore.filters[key].length || callback(task))
 			})
 		},
+		getTaskById: state => id => {
+			const ticksStore = useTicksStore()
+			const task = state.tasks.find(task => task.id == id)
+			// Добавляем подзадачи
+			task.ticks = ticksStore.getTicksByTaskId(task.id)
+			return task
+		},
 		getTaskUserById: () => id => {
 			const usersStore = useUsersStore()
 			return usersStore.users.find(user => user.id === id)
@@ -77,6 +83,7 @@ export const useTasksStore = defineStore('tasks', {
 			const newTask = await tasksService.createTask(task)
 			// Добавляем задачу в массив
 			this.tasks = [...this.tasks, newTask]
+			return newTask
 		},
 		async editTask (task) {
 			const newTask = await tasksService.updateTask(task)
@@ -87,6 +94,7 @@ export const useTasksStore = defineStore('tasks', {
 				}
 				this.tasks.splice(index, 1, newTask)
 			}
+			return newTask
 		},
 		async deleteTask (id) {
 			await tasksService.deleteTask(id)

@@ -156,7 +156,7 @@ onMounted(() => {
 
 // Найдем задачу по id из массива задач
 const task = computed(() => {
-  return tasksStore.tasks.find(task => task.id == route.params.id)
+  return tasksStore.getTaskById(route.params.id)
 })
 
 const dueDate = computed(() => {

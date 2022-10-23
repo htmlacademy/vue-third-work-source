@@ -8,6 +8,7 @@ const BASE_URL = 'http://localhost:3000/tasks'
 
 class TasksService extends HttpClient {
 	createRequest(task) {
+		// Убираем ненужные параметры из задачи
     const { ticks, comments, status, timeStatus, user, ...request } = task
     return request
 	}
@@ -24,13 +25,6 @@ class TasksService extends HttpClient {
 		try {
 			const tasks = await this.get('/')
 			return tasks.map(task => this.normalizeTask(task))
-		} catch (e) {
-			throw Error(e)
-		}
-	}
-	async getTaskById(id) {
-		try {
-			return this.get(`/${id}`)
 		} catch (e) {
 			throw Error(e)
 		}
