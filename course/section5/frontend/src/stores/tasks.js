@@ -67,12 +67,14 @@ export const useTasksStore = defineStore('tasks', {
 			this.tasks = await tasksService.fetchTasks()
 		},
 		updateTasks (tasksToUpdate) {
-			tasksToUpdate.forEach(task => {
+			tasksToUpdate.forEach(async task => {
 				const index = this.tasks.findIndex(({ id }) => id === task.id)
 				// findIndex вернет элемент массива или -1
 				// Используем bitwise not для определения если index === -1
 				// ~-1 вернет 0, а значит false
 				if (~index) {
+					// Обновить порядок сортировки на сервере
+					await tasksService.updateTask(task)
 					this.tasks.splice(index, 1, task)
 				}
 			})
