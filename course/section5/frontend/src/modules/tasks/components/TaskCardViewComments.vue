@@ -51,24 +51,20 @@
 
 <script setup>
 import { ref, computed, watch } from 'vue'
-import users from '@/mocks/users.json'
 import { validateFields, clearValidationErrors } from '../../../common/validator'
 import AppTextarea from '@/common/components/AppTextarea.vue'
 import AppButton from '@/common/components/AppButton.vue'
 import { getPublicImage } from '@/common/helpers'
-import { useAuthStore } from '@/stores'
+import { useAuthStore, useCommentsStore } from '@/stores'
 
 const authStore = useAuthStore()
+const commentsStore = useCommentsStore()
 
 const props = defineProps({
   taskId: {
     type: Number,
     required: true
   },
-  comments: {
-    type: Array,
-    default: () => []
-  }
 })
 
 const emits = defineEmits(['createNewComment'])
@@ -82,7 +78,9 @@ const validations = ref({
 })
 
 const user = authStore.user
-
+const comments = computed(() => {
+  return commentsStore.getCommentsByTaskId(props.taskId)
+})
 // Отслеживаем значение поля комментария и очищаем ошибку при изменении
 watch(newComment, () => {
   if (validations.value.newComment.error) {
@@ -90,7 +88,7 @@ watch(newComment, () => {
   }
 })
 
-const submit = function () {
+const submit = async function () {
   // Проверяем валидно ли поле комментария
   if (!validateFields({ newComment }, validations.value)) return
   // Создаем объект комментария
@@ -98,14 +96,9 @@ const submit = function () {
     text: newComment.value,
     taskId: props.taskId,
     userId: user.id,
-    user: {
-      id: user.id,
-      name: user.name,
-      avatar: user.avatar
-    }
   }
-  // Отправляем комментарий в родительский компонент
-  emits('createNewComment', comment)
+  // Создаем комментарий
+  await commentsStore.addComment(comment)
   // Очищаем поле комментария
   newComment.value = ''
 }

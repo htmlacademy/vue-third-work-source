@@ -124,9 +124,7 @@
       <task-card-view-comments
           v-if="task && authStore.isAuthenticated"
           class="task-card__comments"
-          :comments="task.comments || []"
           :task-id="task.id"
-          @create-new-comment="addCommentToList"
       />
     </section>
   </div>
@@ -140,12 +138,11 @@ import { taskCardDate } from '../common/composables'
 import TaskCardViewTicksList from '../modules/tasks/components/TaskCardViewTicksList.vue'
 import TaskCardTags from '../modules/tasks/components/TaskCardTags.vue'
 import TaskCardViewComments from '../modules/tasks/components/TaskCardViewComments.vue'
-import { useTasksStore, useUsersStore, useAuthStore, useCommentsStore } from '@/stores'
+import { useTasksStore, useUsersStore, useAuthStore } from '@/stores'
 
 const usersStore = useUsersStore()
 const tasksStore = useTasksStore()
 const authStore = useAuthStore()
-const commentsStore = useCommentsStore()
 
 const router = useRouter()
 const route = useRoute()
@@ -169,19 +166,8 @@ const taskUser = computed(() => {
   return usersStore.users.find(user => user.id === task.value.userId)
 })
 
-const taskComments = computed(() => {
-  return commentsStore.comments
-})
-
 const closeDialog = function () {
   router.push('/')
-}
-
-const addCommentToList = function (comment) {
-  if (!task.value.comments) {
-    task.value.comments = []
-  }
-  task.value.comments.push(comment)
 }
 </script>
 
