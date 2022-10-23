@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import { useFiltersStore } from './filters'
 import { useUsersStore } from '@/stores/users'
-import tasksService from '@/services/tasks-service'
+import { tasksService } from '@/services'
 
 export const useTasksStore = defineStore('tasks', {
 	state: () => ({

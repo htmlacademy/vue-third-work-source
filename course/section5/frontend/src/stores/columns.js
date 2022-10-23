@@ -1,6 +1,5 @@
 import { defineStore } from 'pinia'
-import { uniqueId } from 'lodash'
-import columnsService from '@/services/columns-service'
+import { columnsService } from '@/services'
 
 export const useColumnsStore = defineStore('columns', {
 	state: () => ({

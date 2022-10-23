@@ -140,11 +140,12 @@ import { taskCardDate } from '../common/composables'
 import TaskCardViewTicksList from '../modules/tasks/components/TaskCardViewTicksList.vue'
 import TaskCardTags from '../modules/tasks/components/TaskCardTags.vue'
 import TaskCardViewComments from '../modules/tasks/components/TaskCardViewComments.vue'
-import { useTasksStore, useUsersStore, useAuthStore } from '@/stores'
+import { useTasksStore, useUsersStore, useAuthStore, useCommentsStore } from '@/stores'
 
 const usersStore = useUsersStore()
 const tasksStore = useTasksStore()
 const authStore = useAuthStore()
+const commentsStore = useCommentsStore()
 
 const router = useRouter()
 const route = useRoute()
@@ -166,6 +167,10 @@ const dueDate = computed(() => {
 })
 const taskUser = computed(() => {
   return usersStore.users.find(user => user.id === task.value.userId)
+})
+
+const taskComments = computed(() => {
+  return commentsStore.comments
 })
 
 const closeDialog = function () {

@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import users from '../mocks/users.json'
-import userService from '@/services/users-service'
+import { userService } from '@/services'
 
 export const useUsersStore = defineStore('users', {
   state: () => ({

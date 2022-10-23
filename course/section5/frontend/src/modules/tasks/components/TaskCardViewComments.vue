@@ -13,7 +13,7 @@
         >
           <div class="comments__user">
             <img
-                :src="getImage(comment.user.avatar)"
+                :src="getPublicImage(comment.user.avatar)"
                 :alt="comment.user.name"
                 width="30"
                 height="30"
@@ -55,7 +55,10 @@ import users from '@/mocks/users.json'
 import { validateFields, clearValidationErrors } from '../../../common/validator'
 import AppTextarea from '@/common/components/AppTextarea.vue'
 import AppButton from '@/common/components/AppButton.vue'
-import { getImage } from '@/common/helpers'
+import { getPublicImage } from '@/common/helpers'
+import { useAuthStore } from '@/stores'
+
+const authStore = useAuthStore()
 
 const props = defineProps({
   taskId: {
@@ -78,8 +81,7 @@ const validations = ref({
   }
 })
 
-// Позже будет добавлен залогиненый пользователь. До этого будем использовать первого пользователя в списке
-const user = computed(() => users[0])
+const user = authStore.user
 
 // Отслеживаем значение поля комментария и очищаем ошибку при изменении
 watch(newComment, () => {
@@ -95,11 +97,11 @@ const submit = function () {
   const comment = {
     text: newComment.value,
     taskId: props.taskId,
-    userId: user.value.id,
+    userId: user.id,
     user: {
-      id: user.value.id,
-      name: user.value.name,
-      avatar: user.value.avatar
+      id: user.id,
+      name: user.name,
+      avatar: user.avatar
     }
   }
   // Отправляем комментарий в родительский компонент
