@@ -1,6 +1,4 @@
 import { defineStore } from 'pinia'
-import tasks from '../mocks/tasks.json'
-import { normalizeTask } from '../common/helpers'
 import { useFiltersStore } from './filters'
 import { useUsersStore } from '@/stores/users'
 import tasksService from '@/services/tasks-service'
@@ -81,10 +79,9 @@ export const useTasksStore = defineStore('tasks', {
 			this.tasks = [...this.tasks, newTask]
 		},
 		async editTask (task) {
-			await tasksService.updateTask(task)
-			const index = this.tasks.findIndex(({ id }) => task.id === id)
+			const newTask = await tasksService.updateTask(task)
+			const index = this.tasks.findIndex(({ id }) => newTask.id === id)
 			if (~index) {
-				const newTask = normalizeTask(task)
 				if (newTask.userId) {
 					newTask.user = { ...this.getTaskUserById(newTask.userId) }
 				}
@@ -92,7 +89,6 @@ export const useTasksStore = defineStore('tasks', {
 			}
 		},
 		async deleteTask (id) {
-			console.log(id)
 			await tasksService.deleteTask(id)
 			this.tasks = this.tasks.filter(task => task.id !== id)
 		}

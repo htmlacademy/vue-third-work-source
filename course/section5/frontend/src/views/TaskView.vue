@@ -22,6 +22,7 @@
           </h1>
 <!--Кнопка редактирования задачи-->
           <a
+              v-if="authStore.getUserAttribute('isAdmin')"
               class="task-card__edit"
               @click="router.push({
                 name: 'TaskEdit',
@@ -121,7 +122,7 @@
       </div>
 <!--Комментарии-->
       <task-card-view-comments
-          v-if="task"
+          v-if="task && authStore.isAuthenticated"
           class="task-card__comments"
           :comments="task.comments || []"
           :task-id="task.id"
@@ -139,10 +140,11 @@ import { taskCardDate } from '../common/composables'
 import TaskCardViewTicksList from '../modules/tasks/components/TaskCardViewTicksList.vue'
 import TaskCardTags from '../modules/tasks/components/TaskCardTags.vue'
 import TaskCardViewComments from '../modules/tasks/components/TaskCardViewComments.vue'
-import { useTasksStore, useUsersStore } from '@/stores'
+import { useTasksStore, useUsersStore, useAuthStore } from '@/stores'
 
 const usersStore = useUsersStore()
 const tasksStore = useTasksStore()
+const authStore = useAuthStore()
 
 const router = useRouter()
 const route = useRoute()
@@ -162,10 +164,9 @@ const task = computed(() => {
 const dueDate = computed(() => {
   return getReadableDate(task.value.dueDate || '')
 })
-const users = usersStore.users
-// const taskUser = computed(() => {
-//   return usersStore.users.find(user => user.id === task.userId)
-// })
+const taskUser = computed(() => {
+  return usersStore.users.find(user => user.id === task.value.userId)
+})
 
 const closeDialog = function () {
   router.push('/')
