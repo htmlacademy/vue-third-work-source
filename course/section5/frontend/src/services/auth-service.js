@@ -2,7 +2,7 @@ import { HttpClient } from './HttpClient'
 import { getToken } from './token-manager'
 import httpProvider from '@/services/providers'
 
-const BASE_URL = 'http://localhost:3000'
+const BASE_URL = '/api'
 
 class AuthService extends HttpClient {
 	async login (email, password) {

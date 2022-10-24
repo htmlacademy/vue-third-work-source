@@ -4,7 +4,7 @@ import httpProvider from '@/services/providers'
 import taskStatuses from '@/common/enums/taskStatuses'
 import { getTimeStatus } from '@/common/helpers'
 
-const BASE_URL = 'http://localhost:3000/tasks'
+const BASE_URL = '/api/tasks'
 
 class TasksService extends HttpClient {
 	createRequest(task) {

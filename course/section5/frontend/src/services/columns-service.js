@@ -2,7 +2,7 @@ import { HttpClient } from './HttpClient'
 import { getToken } from './token-manager'
 import httpProvider from '@/services/providers'
 
-const BASE_URL = 'http://localhost:3000/columns'
+const BASE_URL = '/api/columns'
 
 class ColumnsService extends HttpClient {
 	async fetchColumns() {
