@@ -139,6 +139,6 @@ export const createNewDate = () => {
 };
 
 export const getPublicImage = path => {
-	const publicUrl = 'http://localhost:3000'
+	const publicUrl = '/api'
 	return `${publicUrl}/${path}`
 }

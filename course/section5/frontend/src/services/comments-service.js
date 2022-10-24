@@ -2,7 +2,7 @@ import { HttpClient } from './HttpClient'
 import { getToken } from './token-manager'
 import httpProvider from '@/services/providers'
 
-const BASE_URL = 'http://localhost:3000/comments'
+const BASE_URL = '/api/comments'
 
 class CommentsService extends HttpClient {
 	async fetchComments() {
