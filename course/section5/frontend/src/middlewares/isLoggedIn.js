@@ -1,12 +1,12 @@
 import { useAuthStore } from '@/stores'
 
-export default async function isLoggedIn({ next, nextMiddleware }) {
+export default async function isLoggedIn() {
 	const authStore = useAuthStore()
 	
   if (!authStore.isAuthenticated) {
 		console.log()
 		// Logout
-    next('/login');
+    return { path: '/login' };
   }
-  return nextMiddleware();
+  return true;
 }

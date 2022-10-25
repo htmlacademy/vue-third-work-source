@@ -46,6 +46,7 @@ export const useTasksStore = defineStore('tasks', {
 		getTaskById: state => id => {
 			const ticksStore = useTicksStore()
 			const task = state.tasks.find(task => task.id == id)
+			if (!task) return null
 			// Добавляем подзадачи
 			task.ticks = ticksStore.getTicksByTaskId(task.id)
 			return task
