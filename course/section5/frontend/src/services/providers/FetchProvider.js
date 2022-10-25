@@ -1,12 +1,12 @@
 export default class FetchProvider {
 	interceptors = []
-	
+	// Метод для добавления параметров запроса
 	computeQueryParams (query) {
 		if (!query) return ''
 		const queryParams = new URLSearchParams(query)
 		return '?' + queryParams.toString()
 	}
-	
+	// Метод для конкретного запроса
 	request (options) {
 		const body = options.data ? JSON.stringify(options.data) : null
 		return fetch(
@@ -31,7 +31,7 @@ export default class FetchProvider {
 				throw Error(message)
 			})
 	}
-	
+	// Метод для добавления перехватчиков
 	addInterceptor (interceptor) {
 		if (interceptor && interceptor.onError) {
 			this.interceptors.push(interceptor)
@@ -40,7 +40,7 @@ export default class FetchProvider {
 		}
 		return this
 	}
-	
+	// Метод для отработки ошибок
 	async onError (response) {
 		if (response.json) {
 			const { error } = await response.json()
