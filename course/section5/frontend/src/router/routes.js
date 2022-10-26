@@ -4,7 +4,7 @@ export default [
   {
     path: '/login',
     name: 'Login',
-    component: () => import('../views/Login.vue'),
+    component: () => import('../views/AppLogin.vue'),
     meta: {
       layout: 'AppLayoutDefault',
     }

@@ -34,7 +34,7 @@
         </div>
 <!--Дата создания задачи-->
         <p class="task-card__date">
-          {{ taskCardDate(task) }}
+          {{ useTaskCardDate(task) }}
         </p>
       </div>
 <!--Участник задачи и срок выполнения-->
@@ -134,7 +134,7 @@
 import { computed, onMounted, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { getReadableDate, getPublicImage } from '../common/helpers'
-import { taskCardDate } from '../common/composables'
+import { useTaskCardDate } from '../common/composables'
 import TaskCardViewTicksList from '../modules/tasks/components/TaskCardViewTicksList.vue'
 import TaskCardTags from '../modules/tasks/components/TaskCardTags.vue'
 import TaskCardViewComments from '../modules/tasks/components/TaskCardViewComments.vue'

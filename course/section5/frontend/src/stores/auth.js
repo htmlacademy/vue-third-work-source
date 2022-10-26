@@ -4,10 +4,10 @@ import { setToken, removeToken } from '@/services/token-manager'
 
 export const useAuthStore = defineStore('auth', {
 	state: () => ({
-    isAuthenticated: false,
     user: null
 	}),
 	getters: {
+		isAuthenticated: state => !!state.user,
 		getUserAttribute: state => attr => state.user ? state.user[attr] : ''
 	},
 	actions: {
@@ -15,7 +15,6 @@ export const useAuthStore = defineStore('auth', {
 			try {
 				const data = await authService.login(email, password)
 				setToken(data.token)
-				this.isAuthenticated = true
 				return 'ok'
 			} catch (e) {
 				return e.message
@@ -26,7 +25,6 @@ export const useAuthStore = defineStore('auth', {
 		},
 		async logout(sendRequest = true) {
 			await authService.logout()
-			this.isAuthenticated = false
 			this.user = null
 			removeToken()
 		},
