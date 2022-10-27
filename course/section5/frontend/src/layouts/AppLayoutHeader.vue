@@ -269,5 +269,4 @@ function logout () {
     }
   }
 }
-
 </style>

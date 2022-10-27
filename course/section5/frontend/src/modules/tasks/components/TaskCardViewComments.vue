@@ -102,7 +102,6 @@ const submit = async function () {
   // Очищаем поле комментария
   newComment.value = ''
 }
-
 </script>
 
 <style lang="scss" scoped>
