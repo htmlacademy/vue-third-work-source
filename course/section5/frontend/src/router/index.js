@@ -7,24 +7,6 @@ const router = createRouter({
   routes,
 });
 
-router.beforeEach((to, from, next) => {
-  const middlewares = to.meta.middlewares;
-  if (!middlewares?.length) {
-    return next();
-  }
-
-  // Запускаем обход по цепочке проверок
-  const context = { to, from, next };
-  const firstMiddlewareIndex = 0;
-  const nextMiddlewareIndex = 1;
-  return middlewares[firstMiddlewareIndex]({
-    ...context,
-    nextMiddleware: middlewarePipeline(
-      context,
-      middlewares,
-      nextMiddlewareIndex
-    )
-  });
-});
+middlewarePipeline(router);
 
 export default router;

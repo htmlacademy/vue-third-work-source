@@ -21,7 +21,6 @@ if (token) {
 	try {
 		const authStore = useAuthStore()
 		await authStore.getMe()
-		authStore.isAuthenticated = true
 		await router.push('/')
 	} catch (e) {
 		removeToken()

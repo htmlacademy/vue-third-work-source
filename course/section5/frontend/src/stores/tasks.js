@@ -45,9 +45,13 @@ export const useTasksStore = defineStore('tasks', {
 		},
 		getTaskById: state => id => {
 			const ticksStore = useTicksStore()
+			const usersStore = useUsersStore()
 			const task = state.tasks.find(task => task.id == id)
+			if (!task) return null
 			// Добавляем подзадачи
 			task.ticks = ticksStore.getTicksByTaskId(task.id)
+			// Добавляем пользователя
+			task.user = usersStore.users.find(user => user.id === task.userId)
 			return task
 		},
 		getTaskUserById: () => id => {
