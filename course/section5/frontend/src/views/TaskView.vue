@@ -41,7 +41,7 @@
       <div class="task-card__block">
         <ul class="task-card__params">
 <!--Участник задачи-->
-          <li v-if="taskUser">
+          <li v-if="task && task.user">
             Участник:
             <div class="task-card__participant">
               <button
@@ -49,10 +49,10 @@
                   class="task-card__user"
               >
                 <img
-                    :src="getPublicImage(taskUser.avatar)"
-                    :alt="taskUser.name"
+                    :src="getPublicImage(task.user.avatar)"
+                    :alt="task.user.name"
                 />
-                {{ taskUser.name }}
+                {{ task.user.name }}
               </button>
             </div>
           </li>
@@ -138,9 +138,8 @@ import { useTaskCardDate } from '../common/composables'
 import TaskCardViewTicksList from '../modules/tasks/components/TaskCardViewTicksList.vue'
 import TaskCardTags from '../modules/tasks/components/TaskCardTags.vue'
 import TaskCardViewComments from '../modules/tasks/components/TaskCardViewComments.vue'
-import { useTasksStore, useUsersStore, useAuthStore } from '@/stores'
+import { useTasksStore, useAuthStore } from '@/stores'
 
-const usersStore = useUsersStore()
 const tasksStore = useTasksStore()
 const authStore = useAuthStore()
 
@@ -166,9 +165,6 @@ if (!task.value) {
 
 const dueDate = computed(() => {
   return getReadableDate(task.value.dueDate || '')
-})
-const taskUser = computed(() => {
-  return usersStore.users.find(user => user.id === task.value.userId)
 })
 
 const closeDialog = function () {
