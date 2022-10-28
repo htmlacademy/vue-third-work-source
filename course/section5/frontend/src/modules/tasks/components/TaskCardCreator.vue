@@ -310,6 +310,7 @@ function removeTick ({ uuid, id }) {
   }
   if (id) {
     task.value.ticks = task.value.ticks.filter(tick => tick.id !== id)
+    ticksStore.deleteTick(id)
   }
 }
 
