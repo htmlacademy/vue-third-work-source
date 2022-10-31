@@ -24,14 +24,19 @@ const router = createRouter({
       component: () => import("../demo5/Server.vue"),
     },
 	  {
-      path: "/animation1",
+      path: "/animation-1",
       name: "animation-one",
       component: () => import("../demo6/AnimationOne.vue"),
     },
 	  {
-      path: "/animation2",
+      path: "/animation-2",
       name: "animation-two",
       component: () => import("../demo6/AnimationTwo.vue"),
+    },
+	  {
+      path: "/animation-list",
+      name: "animation-list",
+      component: () => import("../demo6/AnimationList.vue"),
     },
   ],
 });

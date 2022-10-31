@@ -13,10 +13,14 @@ export default [
   },
 	{
     name: 'Simple animation One',
-    link: '/animation1'
+    link: '/animation-1'
   },
 	{
     name: 'Simple animation Two',
-    link: '/animation2'
+    link: '/animation-2'
+  },
+	{
+    name: 'Simple animation List',
+    link: '/animation-list'
   }
 ]
