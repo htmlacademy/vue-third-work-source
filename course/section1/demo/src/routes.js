@@ -1,6 +1,7 @@
 export default [
   {
-    name: 'Counter',
-    link: '/counter-0'
-  }
-]
+    name: 'Counter Base',
+    path: '/counter-0',
+    component: () => import("./demo0/DemoCounter.vue"),
+  },
+];
