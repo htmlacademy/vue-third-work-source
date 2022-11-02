@@ -6,7 +6,7 @@
       @click.self="closeDialog"
       @keydown.esc="closeDialog"
   >
-    <section class="task-card__wrapper">
+    <section v-if="task" class="task-card__wrapper">
 <!--Закрытие задачи-->
       <button
           class="task-card__close"
@@ -18,7 +18,7 @@
         <div class="task-card__row">
 <!--Наименование задачи-->
           <h1 class="task-card__name task-card__name--min">
-            {{ task ? task.title : '' }}
+            {{ task.title }}
           </h1>
 <!--Кнопка редактирования задачи-->
           <a
@@ -34,14 +34,14 @@
         </div>
 <!--Дата создания задачи-->
         <p class="task-card__date">
-          {{ taskCardDate(task) }}
+          {{ useTaskCardDate(task) }}
         </p>
       </div>
 <!--Участник задачи и срок выполнения-->
       <div class="task-card__block">
         <ul class="task-card__params">
 <!--Участник задачи-->
-          <li v-if="task && taskUser">
+          <li v-if="task && task.user">
             Участник:
             <div class="task-card__participant">
               <button
@@ -49,10 +49,10 @@
                   class="task-card__user"
               >
                 <img
-                    :src="getPublicImage(taskUser.avatar)"
-                    :alt="taskUser.name"
+                    :src="getPublicImage(task.user.avatar)"
+                    :alt="task.user.name"
                 />
-                {{ taskUser.name }}
+                {{ task.user.name }}
               </button>
             </div>
           </li>
@@ -71,7 +71,7 @@
 <!--Описание задачи-->
       <div class="task-card__block">
         <div
-            v-if="task && task.description"
+            v-if="task.description"
             class="task-card__description"
         >
           <h4 class="task-card__title">
@@ -82,7 +82,7 @@
       </div>
 <!--Дополнительная ссылка-->
       <div
-          v-if="task && task.url"
+          v-if="task.url"
           class="task-card__block task-card__links"
       >
         <h4 class="task-card__title">
@@ -100,7 +100,7 @@
       </div>
 <!--Чеклист-->
       <div
-          v-if="task && task.ticks && task.ticks.length"
+          v-if="task.ticks && task.ticks.length"
           class="task-card__block"
       >
         <task-card-view-ticks-list
@@ -110,7 +110,7 @@
       </div>
 <!--Метки-->
       <div
-          v-if="task && task.tags && task.tags.length"
+          v-if="task.tags && task.tags.length"
           class="task-card__block"
       >
         <h4 class="task-card__title">
@@ -122,7 +122,7 @@
       </div>
 <!--Комментарии-->
       <task-card-view-comments
-          v-if="task && authStore.isAuthenticated"
+          v-if="authStore.isAuthenticated"
           class="task-card__comments"
           :task-id="task.id"
       />
@@ -134,13 +134,12 @@
 import { computed, onMounted, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { getReadableDate, getPublicImage } from '../common/helpers'
-import { taskCardDate } from '../common/composables'
+import { useTaskCardDate } from '../common/composables'
 import TaskCardViewTicksList from '../modules/tasks/components/TaskCardViewTicksList.vue'
 import TaskCardTags from '../modules/tasks/components/TaskCardTags.vue'
 import TaskCardViewComments from '../modules/tasks/components/TaskCardViewComments.vue'
-import { useTasksStore, useUsersStore, useAuthStore } from '@/stores'
+import { useTasksStore, useAuthStore } from '@/stores'
 
-const usersStore = useUsersStore()
 const tasksStore = useTasksStore()
 const authStore = useAuthStore()
 
@@ -159,11 +158,13 @@ const task = computed(() => {
   return tasksStore.getTaskById(route.params.id)
 })
 
+if (!task.value) {
+  // Вернуть пользователя на главную страницу если задача не найдена
+  router.push('/')
+}
+
 const dueDate = computed(() => {
   return getReadableDate(task.value.dueDate || '')
-})
-const taskUser = computed(() => {
-  return usersStore.users.find(user => user.id === task.value.userId)
 })
 
 const closeDialog = function () {

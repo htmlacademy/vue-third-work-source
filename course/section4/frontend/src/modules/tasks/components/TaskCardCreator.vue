@@ -73,7 +73,7 @@
           class="task-card__block"
       >
         <p class="task-card__date">
-          {{ taskCardDate(task) }}
+          {{ useTaskCardDate(task) }}
         </p>
       </div>
 
@@ -189,7 +189,7 @@ import { createUUIDv4, createNewDate } from '@/common/helpers'
 import { STATUSES } from '@/common/constants'
 import taskStatuses from '@/common/enums/taskStatuses'
 import { validateFields } from '@/common/validator'
-import { taskCardDate } from '@/common/composables'
+import { useTaskCardDate } from '@/common/composables'
 import { cloneDeep } from 'lodash'
 import { useTasksStore } from '@/stores'
 

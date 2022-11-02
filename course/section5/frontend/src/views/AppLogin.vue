@@ -1,5 +1,6 @@
 <template>
   <div class="sign-form sign-in">
+<!--    Шапка формы входа-->
     <div class="sign-form__header">
       <router-link
           to="/"
@@ -16,18 +17,19 @@
       <button
           class="sign-form__close"
           type="button"
-          @click="$router.push('/')"
+          @click="router.push('/')"
       />
     </div>
 
     <h3 class="sign-form__title">
       Войти
     </h3>
-
+<!--    Форма входа-->
     <form
         class="sign-form__shape"
         @submit.prevent="login"
     >
+<!--      Поле электронной почты-->
       <label class="sign-form__input">
         <app-input
             v-model="email"
@@ -38,6 +40,7 @@
             :error-text="validations.email.error"
         />
       </label>
+<!--      Поле пароля-->
       <label class="sign-form__input">
         <app-input
             v-model="password"
@@ -48,7 +51,7 @@
             :error-text="validations.password.error"
         />
       </label>
-
+<!--      Кнопка отправки формы-->
       <div class="sign-form__wrap">
         <app-button
             class="button--primary"
@@ -57,6 +60,7 @@
           Войти
         </app-button>
       </div>
+<!--       Поле ошибок сервера-->
       <div v-if="serverErrorMessage" class="server-error-message">{{ serverErrorMessage }}</div>
     </form>
   </div>
@@ -113,6 +117,7 @@ async function login () {
   if (responseMessage !== 'ok') {
     serverErrorMessage.value = responseMessage
   } else {
+    // Получаем данные пользователя
     await authStore.getMe()
     // Если логин прошел без ошибок, перенаправляем на главную страницу
     await router.push('/')

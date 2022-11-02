@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { commentsService } from '@/services'
-import { useUsersStore } from '@/stores/users'
+import { useUsersStore } from '@/stores'
 
 export const useCommentsStore = defineStore('comments', {
 	state: () => ({
