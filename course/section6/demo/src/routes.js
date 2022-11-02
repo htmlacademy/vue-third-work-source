@@ -33,5 +33,10 @@ export default [
     name: 'Simple animation List',
     path: '/animation-list',
 		component: () => import("./demo6/AnimationList.vue"),
+  },
+	{
+    name: 'Bouncing Ball',
+    path: '/bouncing-ball',
+		component: () => import("./demo6/BouncingBall.vue"),
   }
 ];
