@@ -1,26 +1,37 @@
 export default [
   {
     name: 'Counter Base',
-    link: '/counter-0'
+    path: '/counter-0',
+    component: () => import("./demo0/DemoCounter.vue"),
   },
   {
     name: 'Counter Props & Events',
-    link: '/counter-1'
+    path: '/counter-1',
+    component: () => import("./demo1/DemoCounter.vue"),
+  },
+  {
+    name: 'State management',
+    path: '/counter-4',
+    component: () => import("./demo4/DemoCounter.vue"),
   },
   {
     name: 'Server',
-    link: '/server'
+    path: '/server',
+	  component: () => import("./demo5/Server.vue"),
   },
-	{
+		{
     name: 'Simple animation One',
-    link: '/animation-1'
+    path: '/animation-1',
+		component: () => import("./demo6/AnimationOne.vue"),
   },
 	{
     name: 'Simple animation Two',
-    link: '/animation-2'
+    path: '/animation-2',
+		component: () => import("./demo6/AnimationTwo.vue"),
   },
 	{
     name: 'Simple animation List',
-    link: '/animation-list'
+    path: '/animation-list',
+		component: () => import("./demo6/AnimationList.vue"),
   }
-]
+];

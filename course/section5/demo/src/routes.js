@@ -1,14 +1,22 @@
 export default [
   {
     name: 'Counter Base',
-    link: '/counter-0'
+    path: '/counter-0',
+    component: () => import("./demo0/DemoCounter.vue"),
   },
   {
     name: 'Counter Props & Events',
-    link: '/counter-1'
+    path: '/counter-1',
+    component: () => import("./demo1/DemoCounter.vue"),
+  },
+  {
+    name: 'State management',
+    path: '/counter-4',
+    component: () => import("./demo4/DemoCounter.vue"),
   },
   {
     name: 'Server',
-    link: '/server'
+    path: '/server',
+	  component: () => import("./demo5/Server.vue"),
   }
-]
+];
