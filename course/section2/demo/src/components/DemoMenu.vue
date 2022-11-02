@@ -2,18 +2,18 @@
   <div class="main-container">
     <div class="cards">
       <demo-menu-card
-        v-for="({ name, text, link }, index) in cards"
+        v-for="({ name, text, path }, index) in routes"
         :key="index"
         :name="name"
         :text="text"
-        :link="link"/>
+        :link="path"/>
     </div>
   </div>
 </template>
 
 <script setup>
 import DemoMenuCard from './DemoMenuCard.vue'
-import cards from '../routes'
+import routes from '../routes'
 </script>
 
 <style lang="scss" scoped>
