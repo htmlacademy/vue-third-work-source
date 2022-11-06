@@ -3,9 +3,9 @@
     <demo-button @click="isComponentA = !isComponentA">
       Изменить компонент
     </demo-button>
-    <Transition name="slide" mode="out-in">
+    <transition name="slide" mode="out-in">
       <component :is="currentComponent"/>
-    </Transition>
+    </transition>
   </demo-container>
 </template>
 

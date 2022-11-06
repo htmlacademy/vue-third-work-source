@@ -2,9 +2,9 @@
   <demo-container>
     <demo-button @click="show = !show">Показать</demo-button>
     <br>
-    <Transition name="bounce">
+    <transition name="bounce">
       <img v-if="show" :src="imageLink" alt="img">
-    </Transition>
+    </transition>
   </demo-container>
 </template>
 

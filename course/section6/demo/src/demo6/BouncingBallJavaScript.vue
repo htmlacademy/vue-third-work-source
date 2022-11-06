@@ -2,13 +2,13 @@
   <demo-container>
     <demo-button @click="show = !show">Показать</demo-button>
     <br>
-    <Transition
+    <transition
         @enter="enterAnimation"
         @leave="leaveAnimation"
         :css="false"
     >
       <img v-if="show" :src="imageLink" alt="">
-    </Transition>
+    </transition>
   </demo-container>
 </template>
 
