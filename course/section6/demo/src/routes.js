@@ -38,5 +38,10 @@ export default [
     name: 'Bouncing Ball',
     path: '/bouncing-ball',
 		component: () => import("./demo6/BouncingBall.vue"),
+  },
+	{
+    name: 'Bouncing Ball JavaScript',
+    path: '/bouncing-ball-js',
+		component: () => import("./demo6/BouncingBallJavaScript.vue"),
   }
 ];

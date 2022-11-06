@@ -1,13 +1,16 @@
 <template>
-  <button @click="open = !open">
-    Показать/скрыть
-  </button>
-  <Transition>
-    <p v-if="open">Элемент</p>
-  </Transition>
+  <demo-container>
+    <button @click="open = !open">
+      Показать/скрыть
+    </button>
+    <transition>
+      <p v-if="open">Элемент</p>
+    </transition>
+  </demo-container>
 </template>
 
 <script setup>
+import DemoContainer from '../components/DemoContainer.vue'
 import { ref } from 'vue'
 
 const open = ref(false)

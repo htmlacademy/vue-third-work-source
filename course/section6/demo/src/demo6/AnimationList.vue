@@ -1,11 +1,15 @@
 <template>
-  <button @click="add">Add</button>
-  <TransitionGroup name="card" tag="ul">
-    <li class="card" v-for="({ id }) in items" :key="id">Id: {{ id }}</li>
-  </TransitionGroup>
+  <demo-container>
+    <button @click="add">Add</button>
+    <br>
+    <transition-group name="card" tag="ul">
+      <li class="card" v-for="({ id }) in items" :key="id">Id: {{ id }}</li>
+    </transition-group>
+  </demo-container>
 </template>
 
 <script setup>
+import DemoContainer from '../components/DemoContainer.vue'
 import { reactive } from 'vue'
 
 const items = reactive([

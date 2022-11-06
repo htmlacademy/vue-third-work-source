@@ -1,13 +1,16 @@
 <template>
-  <button @click="isComponentA = !isComponentA">
-    Изменить компонент
-  </button>
-  <Transition name="slide" mode="out-in">
-    <component :is="currentComponent"/>
-  </Transition>
+  <demo-container>
+    <button @click="isComponentA = !isComponentA">
+      Изменить компонент
+    </button>
+    <Transition name="slide" mode="out-in">
+      <component :is="currentComponent"/>
+    </Transition>
+  </demo-container>
 </template>
 
 <script setup>
+import DemoContainer from '../components/DemoContainer.vue'
 import { ref, computed } from 'vue'
 import ComponentA from './ComponentA.vue'
 import ComponentB from './ComponentB.vue'
@@ -23,10 +26,12 @@ const currentComponent = computed(() => {
 .slide-enter-active {
   transition: all 0.4s
 }
+
 .slide-enter {
   opacity: 0;
   margin-left: 90px;
 }
+
 .slide-leave-active {
   transition: all 0.4s;
   opacity: 0;
