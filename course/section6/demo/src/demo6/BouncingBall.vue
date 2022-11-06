@@ -1,6 +1,6 @@
 <template>
   <demo-container>
-    <button @click="show = !show">Показать</button>
+    <demo-button @click="show = !show">Показать</demo-button>
     <br>
     <Transition name="bounce">
       <img v-if="show" :src="imageLink" alt="img">
@@ -10,6 +10,7 @@
 
 <script setup>
 import DemoContainer from '../components/DemoContainer.vue'
+import DemoButton from './DemoButton.vue'
 import { ref } from 'vue'
 
 const imageLink = 'https://freepngimg.com/thumb/ball/75396-cricket-tennis-green-ball-hq-image-free-png-thumb.png'

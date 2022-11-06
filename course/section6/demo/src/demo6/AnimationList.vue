@@ -1,6 +1,6 @@
 <template>
   <demo-container>
-    <button @click="add">Add</button>
+    <demo-button @click="add">Add</demo-button>
     <br>
     <transition-group name="card" tag="ul">
       <li class="card" v-for="({ id }) in items" :key="id">Id: {{ id }}</li>
@@ -10,6 +10,7 @@
 
 <script setup>
 import DemoContainer from '../components/DemoContainer.vue'
+import DemoButton from './DemoButton.vue'
 import { reactive } from 'vue'
 
 const items = reactive([

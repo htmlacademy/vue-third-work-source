@@ -1,8 +1,8 @@
 <template>
   <demo-container>
-    <button @click="isComponentA = !isComponentA">
+    <demo-button @click="isComponentA = !isComponentA">
       Изменить компонент
-    </button>
+    </demo-button>
     <Transition name="slide" mode="out-in">
       <component :is="currentComponent"/>
     </Transition>
@@ -11,6 +11,7 @@
 
 <script setup>
 import DemoContainer from '../components/DemoContainer.vue'
+import DemoButton from './DemoButton.vue'
 import { ref, computed } from 'vue'
 import ComponentA from './ComponentA.vue'
 import ComponentB from './ComponentB.vue'
