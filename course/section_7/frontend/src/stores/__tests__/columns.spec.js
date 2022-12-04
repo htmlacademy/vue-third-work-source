@@ -36,7 +36,7 @@ describe('columns store', () => {
 	it('should update column', async () => {
 		const newTitle = 'Наша новая колонка'
 		await columnsStore.updateColumn({ id: 1, title: newTitle })
-		// Проверяем что у нас все еще 6 элементов (5 изначально и один добавлен в прошлом тесте)
+		// Проверяем что у нас все еще 6 элементов (5 изначально и один добавлен в предыдущем тесте)
 		expect(columnsStore.columns.length).toBe(6)
 		// Проверяем что изменилось название первой колонки
 		expect(columnsStore.columns[0].title).toBe(newTitle)
