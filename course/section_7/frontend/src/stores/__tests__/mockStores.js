@@ -1,13 +1,18 @@
 import columnsJSON from '../../mocks/columns.json'
+import tasksJSON from '../../mocks/tasks.json'
 import { vi } from 'vitest'
 
 vi.mock('@/services', () => {
 	return {
 		columnsService: {
-			fetchColumns: vi.fn(async () => columnsJSON),
+			// В версии node.js 17+ можно использовать structuredClone для глубокого клонирования
+			fetchColumns: vi.fn(async () => JSON.parse(JSON.stringify(columnsJSON))),
 			createColumn: vi.fn(async () => ({ id: 6 })),
 			updateColumns: vi.fn(),
 			deleteColumns: vi.fn()
+		},
+		tasksService: {
+			fetchTasks: vi.fn(async () => JSON.parse(JSON.stringify(tasksJSON)))
 		}
 	}
 })

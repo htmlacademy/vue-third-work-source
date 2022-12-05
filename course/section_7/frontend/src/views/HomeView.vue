@@ -1,5 +1,5 @@
 <template>
-  <main class="content">
+  <main class="content" data-test="home-view">
     <section class="desk">
       <!--      Отображение дочерних маршрутов-->
       <router-view />
