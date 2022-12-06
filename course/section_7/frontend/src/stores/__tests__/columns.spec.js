@@ -1,5 +1,5 @@
 import { it, afterEach, describe, beforeEach, expect } from 'vitest'
-import '@/stores/__tests__/mockStores'
+import '@/stores/__tests__/mockServices'
 // Из-за того, что vi.mock всплывает на самый верх файла, у него нет доступа к глобальным переменным
 // Поэтому важно делать импорт до использования основными файлами
 import { createPinia, setActivePinia } from 'pinia'

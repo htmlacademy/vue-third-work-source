@@ -36,7 +36,10 @@
       />
     </h2>
 
-    <div class="column__target-area">
+    <div
+        data-test="column-target-area"
+        class="column__target-area"
+    >
       <!--      Вынесли задачи в отдельный компонент-->
       <transition-group name="tasks">
         <div

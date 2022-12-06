@@ -28,6 +28,7 @@
                   v-for="user in usersStore.users"
                   :key="user.id"
                   :title="user.name"
+                  data-test="user-filter"
                   class="user-filter__item"
                   :class="{ active: filtersStore.filters.users.some(id => id === user.id) }"
                   @click="filtersStore.applyFilters({ item: user.id, entity: 'users' })"
@@ -95,6 +96,10 @@ import { useUsersStore, useColumnsStore, useFiltersStore } from '@/stores'
 const usersStore = useUsersStore()
 const columnsStore = useColumnsStore()
 const filtersStore = useFiltersStore()
+
+const test = usersStore.users
+console.log(test)
+console.log('mounted')
 </script>
 
 <style lang="scss" scoped>

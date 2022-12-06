@@ -38,6 +38,7 @@
         <h5
             class="task__title"
             :class="{ 'task__title--first': !task.user }"
+            data-test="task-title"
         >
           {{ task.title }}
         </h5>
