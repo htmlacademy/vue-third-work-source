@@ -1,15 +1,21 @@
 <template>
-  <main class="content" data-test="home-view">
+  <main class="content">
     <section class="desk">
       <!--      Отображение дочерних маршрутов-->
-      <router-view />
+      <router-view/>
       <!--      Шапка доски-->
       <div class="desk__header">
-        <h1 class="desk__title">Design Coffee Lab</h1>
+        <h1
+            class="desk__title"
+            data-test="desk-title"
+        >
+          Design Coffee Lab
+        </h1>
         <!--        Добавили кнопку для добавления новой колонки-->
         <button
             class="desk__add"
             type="button"
+            data-test="desk-add"
             @click="columnsStore.addColumn"
         >
           Добавить столбец

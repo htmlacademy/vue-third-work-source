@@ -29,7 +29,6 @@ describe('columns store', () => {
 		expect(columnsLength).toBe(6)
 		// id новой колонки должно быть 6 (как мы определили в файле mockStore.js)
 		expect(columnsStore.columns[columnsLength - 1].id).toBe(6)
-		columnsStore.columns = []
 	})
 	it('should update column', async () => {
 		await columnsStore.fetchColumns()

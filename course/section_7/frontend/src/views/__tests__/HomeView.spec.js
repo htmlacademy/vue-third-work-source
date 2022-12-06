@@ -1,26 +1,29 @@
-import { mount } from '@vue/test-utils'
-import { it, describe, beforeEach, afterEach, expect } from 'vitest'
+import { mount, shallowMount } from '@vue/test-utils'
+import { it, describe, beforeEach, afterEach, expect, vi, vitest } from 'vitest'
 import '@/stores/__tests__/mockStores'
-import { createPinia, setActivePinia } from 'pinia'
+import { setActivePinia } from 'pinia'
+import { createTestingPinia } from '@pinia/testing'
 import { useColumnsStore, useTasksStore } from '@/stores'
 import { HomeView } from '@/views'
 import DeskColumn from '@/modules/columns/components/DeskColumn.vue'
-import TaskCard from '@/modules/tasks/components/TaskCard.vue'
 import router from '@/router'
 
-const pinia = createPinia()
-
 describe('HomeView.vue', () => {
-	let columnsStore, tasksStore, wrapper
-	beforeEach(() => {
-		setActivePinia(pinia)
-		columnsStore = useColumnsStore()
-		tasksStore = useTasksStore()
+	
+	let columnsStore, wrapper
+	
+	beforeEach(async () => {
 		wrapper = mount(HomeView, {
 			global: {
-				plugins: [pinia, router],
+				plugins: [createTestingPinia({
+					createSpy: vi.fn,
+					stubActions: false,
+					fakeApp: true
+				}), router],
 			}
 		})
+		columnsStore = useColumnsStore()
+		await columnsStore.fetchColumns()
 	})
 	afterEach(async () => {
 		await columnsStore.$reset()
@@ -30,16 +33,23 @@ describe('HomeView.vue', () => {
 		expect(wrapper.exists()).toBeTruthy()
 	})
 	
-	it('should have initial columns', async () => {
-		// Получаем колонки
-		await columnsStore.fetchColumns()
-		const deskColumns = wrapper.findAllComponents(DeskColumn)
-		expect(deskColumns.length).toBe(5)
+	it('should have a proper title', () => {
+		const deskTitle = wrapper.find('[data-test="desk-title"]')
+		expect(deskTitle.text()).toBe('Design Coffee Lab')
 	})
 	
-	it.skip('should have initial tasks', async () => {
-		await tasksStore.fetchTasks()
-		const taskCards = wrapper.findAllComponents(TaskCard)
-		expect(taskCards.length).toBe(20)
+	it('should have initial columns', async () => {
+		const deskColumns = wrapper.findAll('[data-test="desk-column-title"]')
+		expect(deskColumns[0].text()).toBe('Запланировано')
+		expect(deskColumns[1].text()).toBe('В работе')
+		expect(deskColumns[2].text()).toBe('На проверке')
+		expect(deskColumns[3].text()).toBe('Выполнено')
+		expect(deskColumns[4].text()).toBe('На удаление')
+	})
+	
+	it('should trigger addColumn action', async () => {
+		const addColumnButton = wrapper.find('[data-test="desk-add"]')
+		addColumnButton.trigger('click')
+		expect(columnsStore.addColumn).toHaveBeenCalledTimes(1)
 	})
 })

@@ -6,7 +6,7 @@
   >
     <h2 class="column__name">
       <!--      Показывает наименование колонки-->
-      <span v-if="!state.isInputShowed">
+      <span v-if="!state.isInputShowed" data-test="desk-column-title">
         {{ state.columnTitle }}
       </span>
 
