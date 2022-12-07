@@ -7,7 +7,7 @@
         @leave="leaveAnimation"
         :css="false"
     >
-      <img v-if="show" :src="imageLink" alt="">
+      <img v-if="show" src="@/assets/ball.png" alt="img">
     </transition>
   </demo-container>
 </template>
@@ -17,7 +17,6 @@ import DemoContainer from '../components/DemoContainer.vue'
 import DemoButton from './DemoButton.vue'
 import { ref } from 'vue'
 
-const imageLink = 'https://freepngimg.com/thumb/ball/75396-cricket-tennis-green-ball-hq-image-free-png-thumb.png'
 const show = ref(true)
 
 function clearAnimations (el, done) {
