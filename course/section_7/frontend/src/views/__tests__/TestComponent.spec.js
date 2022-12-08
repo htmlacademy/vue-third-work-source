@@ -9,18 +9,22 @@ import router from '@/router'
 describe('TestComponent', () => {
 	let wrapper, usersStore, tasksStore, columnsStore
 	beforeEach(async () => {
+		// Создаем экземпляр Pinia
 		const pinia = createTestingPinia({
 					createSpy: vi.fn,
 					stubActions: false,
 				})
+		// Создаем экземпляр компонента
 		wrapper = mount(TestComponent, {
 			global: {
-				plugins: [pinia, router]
+				plugins: [pinia, router] // добавляем Pinia и vue-router к компонент
 			}
 		})
+		// Создаем экземпляры хранилищ
 		usersStore = useUsersStore()
 		tasksStore = useTasksStore()
 		columnsStore = useColumnsStore()
+		// Делаем изначальные запросы для заполнения хранилищ
 		await usersStore.fetchUsers()
 		await tasksStore.fetchTasks()
 		await columnsStore.fetchColumns()
@@ -58,7 +62,7 @@ describe('TestComponent', () => {
 		expect(columns[3].text()).toBe('Выполнено')
 		expect(columns[4].text()).toBe('На удаление')
 	})
-	it.skip('should have tasks in the first column', () => {
+	it('should have tasks in the first column', () => {
 		const firstColumn = wrapper.find('[data-test="column-target-area"]')
 		const taskTitles = firstColumn.findAll('[data-test="task-title"]')
 		expect(taskTitles.length).toBe(5)
