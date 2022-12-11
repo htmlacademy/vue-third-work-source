@@ -29,11 +29,7 @@ sync_section6:
 	mucli project sync
 
 sync_section7:
-	cd course/section7; echo "...Sync section7" && \
-	mucli project sync
-
-sync_section8:
-	cd course/section8; echo "...Sync section8" && \
+	cd course/section_7; echo "...Sync section7" && \
 	mucli project sync
 
 sync_all: sync_section0 sync_section1 sync_section2 sync_section3 \
