@@ -2,16 +2,10 @@
 
 ## Начальные требования
 - Docker
-- Docker-compose
 - NodeJS >= 16
 
 ## Docker установка
 https://docs.docker.com/get-docker/
-
-https://dker.ru/docs/ (рус)
-
-## Docker-compose установка
-https://docs.docker.com/compose/install/
 
 ## Node js установка
 Мы рекоммендуем использовать Node Version Manager для удобного управления версиями node.js
@@ -61,7 +55,7 @@ make --version
 В директории `frontend` возможно выполнить следующие скрипты:
 
 ```
-npm run serve - запуск проекта (только клиент) в режиме разработки
+npm run dev - запуск проекта (только клиент) в режиме разработки
 npm run build - создание продакшн сборки проекта
 npm run test:unit - запуск юнит тестов
 npm run lint - запуск линтера
@@ -99,13 +93,13 @@ npm run lint - запуск линтера
 
 - Сборка проекта
 
-`$ docker-compose build`
+`$ docker compose build`
 
 ### Запуск проекта с Docker
 
-`$ docker-compose down -v`
+`$ docker compose down -v`
 
-`$ docker-compose up`
+`$ docker compose up`
 
 Сервер будет доступен по адресу `localhost:3000`
 
@@ -139,7 +133,7 @@ cd frontend && npm run dev
 Клиент будет доспупен по адресу `localhost:8080`
 
 
-## Вход в приложение
+## Вход (логин) в приложение
 
 Мы подготовили несколько готовых пользователей в базе данных.
 Список пользователей, электронные почты и пароли для входа доступны здесь
