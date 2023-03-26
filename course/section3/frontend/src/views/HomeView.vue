@@ -112,6 +112,8 @@ const props = defineProps({
   }
 })
 
+defineEmits(['applyFilters', 'updateTasks', 'addTask', 'editTask', 'deleteTask'])
+
 const state = reactive({ columns })
 
 function addColumn () {
