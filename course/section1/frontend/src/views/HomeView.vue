@@ -51,6 +51,7 @@
 <!--            Задачи-->
             <div
                 v-for="task in columnTasks[column.id]"
+                :key="column.id"
                 class="column__task"
             >
               <div class="task">
