@@ -49,7 +49,7 @@ const props = defineProps({
 defineEmits(['update:modelValue'])
 
 const showError = computed(() => {
-  return !props.value && !!props.errorText;
+  return !props.modelValue && !!props.errorText;
 })
 </script>
 

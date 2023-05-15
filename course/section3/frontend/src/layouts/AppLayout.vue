@@ -17,11 +17,15 @@ watch(
   () => route.meta,
     async meta => {
       try {
-        // Пробуем найти компонент из свойства meta и динамически импортировать его
-        const component = await import(`./${meta.layout}.vue`)
-        layout.value = component?.default || AppLayoutDefault
+        if (meta.layout) {
+          // Пробуем найти компонент из свойства meta и динамически импортировать его
+          const component = await import(`./${meta.layout}.vue`)
+          layout.value = component?.default || AppLayoutDefault
+        } else {
+          layout.value = AppLayoutDefault
+        }
       } catch (e) {
-        // Если компонент не найдет, добавляем шаблон по-умолчанию
+        console.error('Динамический шаблон не найден. Установлен шаблон по-умолчанию.', e)
         layout.value = AppLayoutDefault
       }
     }
