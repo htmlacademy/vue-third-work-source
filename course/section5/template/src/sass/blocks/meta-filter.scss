@@ -1,5 +1,8 @@
+@use "../ds-system/ds-colors";
+@use "../mixins/m_clear-list";
+
 .meta-filter {
-  @include clear-list;
+  @include m_clear-list.clear-list;
 
   display: flex;
   align-items: center;
@@ -22,13 +25,13 @@
     cursor: pointer;
     transition: 0.3s;
 
-    border: 1px solid $white-900;
+    border: 1px solid ds-colors.$white-900;
     border-radius: 50%;
     outline: none;
     background-color: transparent;
 
     &:hover {
-      border-color: $blue-600;
+      border-color: ds-colors.$blue-600;
     }
 
     &--color {
@@ -37,15 +40,15 @@
     }
 
     &--green {
-      background-color: $green-600;
+      background-color: ds-colors.$green-600;
     }
 
     &--orange {
-      background-color: $orange-600;
+      background-color: ds-colors.$orange-600;
     }
 
     &--red {
-      background-color: $red-600;
+      background-color: ds-colors.$red-600;
     }
 
     &--time {
@@ -67,8 +70,8 @@
     }
 
     &--current {
-      border-color: $white-900;
-      box-shadow: 0 0 0 1px $blue-600;
+      border-color: ds-colors.$white-900;
+      box-shadow: 0 0 0 1px ds-colors.$blue-600;
     }
   }
 }
