@@ -1,25 +1,29 @@
+@use "../ds-system/ds-colors";
+@use "../ds-system/ds-typography";
+@use "../mixins/m_center";
+
 .user-params {
-  @include pf_center-all;
+  @include m_center.pf_center-all;
 
   display: none;
 
   width: 628px;
 
-  background-color: $white-900;
-  box-shadow: 0 4px 8px $shadow-500;
+  background-color: ds-colors.$white-900;
+  box-shadow: 0 4px 8px ds-colors.$shadow-500;
 
   &__header {
     padding: 25px;
   }
 
   &__title {
-    @include m-s24-h21;
+    @include ds-typography.m-s24-h21;
 
     width: 100%;
     margin-top: 0;
     margin-bottom: 30px;
 
-    color: $blue-gray-600;
+    color: ds-colors.$blue-gray-600;
   }
 
   &__form {
@@ -29,7 +33,7 @@
 
     padding: 40px 64px;
 
-    border-top: 1px solid $blue-gray-50;
+    border-top: 1px solid ds-colors.$blue-gray-50;
   }
 
   &__input {
@@ -59,7 +63,7 @@
     }
 
     input {
-      @include m-s24-h21;
+      @include ds-typography.m-s24-h21;
 
       margin: 0;
       margin-top: 20px;
@@ -67,7 +71,7 @@
 
       cursor: pointer;
 
-      color: $gray-900;
+      color: ds-colors.$gray-900;
       border: none;
       background-color: transparent;
 
@@ -77,12 +81,12 @@
     }
 
     p {
-      @include m-s18-h21;
+      @include ds-typography.m-s18-h21;
 
       margin-top: 5px;
       margin-bottom: 0;
 
-      color: $gray-900;
+      color: ds-colors.$gray-900;
     }
   }
 }
