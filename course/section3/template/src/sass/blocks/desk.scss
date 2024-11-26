@@ -1,3 +1,7 @@
+@use "../ds-system/ds-colors";
+@use "../ds-system/ds-typography";
+@use "../mixins/m_center";
+
 .desk {
   $bl: ".desk";
 
@@ -8,7 +12,7 @@
   width: calc(100% - 400px);
   padding-top: 27px;
 
-  background-color: $white-900;
+  background-color: ds-colors.$white-900;
 
   &__header {
     display: flex;
@@ -20,16 +24,16 @@
   }
 
   &__title {
-    @include m-s24-h21;
+    @include ds-typography.m-s24-h21;
 
     margin: 0;
     margin-right: auto;
 
-    color: $black-900;
+    color: ds-colors.$black-900;
   }
 
   &__add {
-    @include m-s10-h12;
+    @include ds-typography.m-s10-h12;
 
     position: relative;
 
@@ -39,13 +43,13 @@
 
     cursor: pointer;
 
-    color: $blue-gray-600;
+    color: ds-colors.$blue-gray-600;
     border: none;
     outline: none;
     background-color: transparent;
 
     &::before {
-      @include p_center-v;
+      @include m_center.p_center-v;
 
       width: 23px;
       height: 23px;
@@ -75,6 +79,6 @@
     overflow-y: hidden;
     flex-grow: 1;
 
-    border-top: 1px solid $blue-gray-200;
+    border-top: 1px solid ds-colors.$blue-gray-200;
   }
 }

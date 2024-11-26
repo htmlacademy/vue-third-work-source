@@ -1,12 +1,16 @@
+@use "../ds-system/ds-colors";
+@use "../ds-system/ds-typography";
+@use "../mixins/m_center";
+
 .sign-form {
-  @include pf_center-all;
+  @include m_center.pf_center-all;
 
   display: none;
 
   width: 628px;
 
-  background-color: $white-900;
-  box-shadow: 0 4px 8px $shadow-500;
+  background-color: ds-colors.$white-900;
+  box-shadow: 0 4px 8px ds-colors.$shadow-500;
 
   &__shape {
     padding-right: 64px;
@@ -17,17 +21,17 @@
   &__header {
     padding: 25px 64px;
 
-    background-color: $blue-600;
+    background-color: ds-colors.$blue-600;
   }
 
   &__title {
-    @include m-s24-h21;
+    @include ds-typography.m-s24-h21;
 
     margin: 30px 0;
 
     text-align: center;
 
-    color: $blue-gray-600;
+    color: ds-colors.$blue-gray-600;
   }
 
   &__input {
@@ -49,7 +53,7 @@
   }
 
   &__link {
-    color: $blue-600;
+    color: ds-colors.$blue-600;
 
     &:hover {
       text-decoration: underline;

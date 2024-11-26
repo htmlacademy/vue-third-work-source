@@ -1,3 +1,6 @@
+@use "../ds-system/ds-colors";
+@use "../ds-system/ds-typography";
+
 .column {
   $bl: ".column";
 
@@ -6,17 +9,17 @@
 
   padding-top: 15px;
 
-  border-left: 1px solid $blue-gray-200;
+  border-left: 1px solid ds-colors.$blue-gray-200;
 
   &__name {
-    @include m-s14-h21;
+    @include ds-typography.m-s14-h21;
 
     display: flex;
     align-items: center;
 
     margin: 0 8px;
 
-    color: $blue-gray-600;
+    color: ds-colors.$blue-gray-600;
 
     &:hover {
       #{$bl}__button {
