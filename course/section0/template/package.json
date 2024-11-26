@@ -23,6 +23,7 @@
     "gulp-svgstore": "^9.0.0",
     "gulp-uglify": "^3.0.2",
     "postcss-object-fit-images": "^1.1.2",
+    "sass": "^1.81.0",
     "stylelint": "^15.11.0",
     "stylelint-config-htmlacademy": "^2.0.6"
   },
