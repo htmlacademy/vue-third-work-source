@@ -1,5 +1,9 @@
+@use "../ds-system/ds-colors";
+@use "../ds-system/ds-typography";
+@use "../mixins/m_clear-list";
+
 .user-filter {
-  @include clear-list;
+  @include m_clear-list.clear-list;
 
   display: flex;
   flex-direction: row-reverse;
@@ -18,13 +22,13 @@
     cursor: pointer;
     transition: 0.3s;
 
-    border: 1px solid $white-900;
+    border: 1px solid ds-colors.$white-900;
     border-radius: 50%;
     outline: none;
-    background-color: $blue-gray-50;
+    background-color: ds-colors.$blue-gray-50;
 
     &:hover {
-      border-color: $blue-600;
+      border-color: ds-colors.$blue-600;
     }
 
     img {
@@ -35,7 +39,7 @@
     }
 
     span {
-      @include m-s14-h21;
+      @include ds-typography.m-s14-h21;
 
       display: block;
 
@@ -45,13 +49,13 @@
 
       text-align: center;
 
-      color: $white-900;
-      background-color: $green-700;
+      color: ds-colors.$white-900;
+      background-color: ds-colors.$green-700;
     }
 
     &--current {
-      border-color: $white-900;
-      box-shadow: 0 0 0 1px $blue-600;
+      border-color: ds-colors.$white-900;
+      box-shadow: 0 0 0 1px ds-colors.$blue-600;
     }
   }
 }
