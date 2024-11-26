@@ -1,3 +1,6 @@
+@use "../ds-system/ds-colors";
+@use "../ds-system/ds-typography";
+
 .backlog {
   $bl: ".backlog";
 
@@ -9,7 +12,7 @@
   max-width: 400px;
   padding-top: 16px;
 
-  background-color: $blue-gray-50;
+  background-color: ds-colors.$blue-gray-50;
 
   &__title {
     position: relative;
@@ -23,7 +26,7 @@
     cursor: pointer;
     text-align: left;
 
-    color: $blue-gray-600;
+    color: ds-colors.$blue-gray-600;
     border: none;
     background-color: transparent;
 
@@ -46,7 +49,7 @@
     }
 
     span {
-      @include m-s14-h21;
+      @include ds-typography.m-s14-h21;
     }
   }
 
@@ -81,7 +84,7 @@
   &__collapse {
     padding-bottom: 1px;
 
-    border-bottom: 1px solid $blue-gray-200;
+    border-bottom: 1px solid ds-colors.$blue-gray-200;
   }
 
   &__user {
@@ -112,7 +115,7 @@
     max-width: 80%;
     margin-right: auto;
 
-    @include m-s18-h21;
+    @include ds-typography.m-s18-h21;
 
     img {
       width: 32px;
@@ -132,9 +135,9 @@
     text-align: center;
 
     border-radius: 50%;
-    background-color: $blue-gray-100;
+    background-color: ds-colors.$blue-gray-100;
 
-    @include m-s18-h21;
+    @include ds-typography.m-s18-h21;
   }
 
   &__arrow {

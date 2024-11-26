@@ -1,3 +1,7 @@
+@use "../ds-system/ds-colors";
+@use "../ds-system/ds-typography";
+@use "../mixins/m_clear-list";
+
 .task {
   $bl: ".task";
 
@@ -9,8 +13,8 @@
   cursor: pointer;
 
   border-radius: 6px;
-  background-color: $white-900;
-  box-shadow: 0 4px 8px $shadow-500;
+  background-color: ds-colors.$white-900;
+  box-shadow: 0 4px 8px ds-colors.$shadow-500;
 
   &--backlog {
     box-shadow: none;
@@ -31,7 +35,7 @@
   }
 
   &__user {
-    @include m-s10-h21;
+    @include ds-typography.m-s10-h21;
 
     display: flex;
     align-items: center;
@@ -75,15 +79,15 @@
     }
 
     &--green {
-      background-color: $green-600;
+      background-color: ds-colors.$green-600;
     }
 
     &--orange {
-      background-color: $orange-600;
+      background-color: ds-colors.$orange-600;
     }
 
     &--red {
-      background-color: $red-600;
+      background-color: ds-colors.$red-600;
     }
 
     &--time {
@@ -106,7 +110,7 @@
   }
 
   &__title {
-    @include r-s14-h21;
+    @include ds-typography.r-s14-h21;
 
     width: 100%;
     margin-top: 9px;
@@ -114,7 +118,7 @@
   }
 
   &__tags {
-    @include clear-list;
+    @include m_clear-list.clear-list;
 
     display: flex;
     flex-wrap: wrap;
