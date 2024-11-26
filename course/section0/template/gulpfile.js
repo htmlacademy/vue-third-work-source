@@ -77,7 +77,8 @@ gulp.task('style', function () {
   return gulp.src('src/sass/style.scss')
     .pipe(plumber())
     .pipe(sass({
-      outputStyle: 'expanded'
+      outputStyle: 'expanded',
+      silenceDeprecations: ['legacy-js-api'],
     }))
     .pipe(postcss([
       autoprefixer(),
