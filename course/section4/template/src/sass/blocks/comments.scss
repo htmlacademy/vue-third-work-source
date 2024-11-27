@@ -1,24 +1,28 @@
+@use "../ds-system/ds-colors";
+@use "../ds-system/ds-typography";
+@use "../mixins/m_clear-list";
+
 .comments {
   &__list {
-    @include clear-list;
+    @include m_clear-list.clear-list;
   }
 
   &__item {
     margin-top: 24px;
 
     p {
-      @include r-s14-h21;
+      @include ds-typography.r-s14-h21;
     }
 
     strong {
-      @include r-s14-h21;
+      @include ds-typography.r-s14-h21;
 
-      color: $blue-600;
+      color: ds-colors.$blue-600;
     }
   }
 
   &__user {
-    @include r-s14-h16;
+    @include ds-typography.r-s14-h16;
 
     display: flex;
     align-items: center;
@@ -40,7 +44,7 @@
     }
 
     span {
-      @include m-s14-h21;
+      @include ds-typography.m-s14-h21;
 
       display: block;
 
@@ -52,9 +56,9 @@
 
       text-align: center;
 
-      color: $white-900;
+      color: ds-colors.$white-900;
       border-radius: 50%;
-      background-color: $green-700;
+      background-color: ds-colors.$green-700;
     }
   }
 
@@ -62,7 +66,7 @@
     margin-top: 24px;
 
     textarea {
-      @include r-s14-h21;
+      @include ds-typography.r-s14-h21;
 
       display: block;
 
@@ -75,18 +79,18 @@
       resize: none;
       transition: border-color 0.3s;
 
-      color: $blue-gray-600;
-      border: 1px solid $blue-gray-50;
+      color: ds-colors.$blue-gray-600;
+      border: 1px solid ds-colors.$blue-gray-50;
       border-radius: 6px;
       outline: none;
 
       &:focus {
-        border-color: $blue-600;
+        border-color: ds-colors.$blue-600;
       }
     }
 
     button {
-      @include m-s14-h21;
+      @include ds-typography.m-s14-h21;
 
       display: block;
 
@@ -99,7 +103,7 @@
       transition: opacity 0.3s;
 
       opacity: 0.5;
-      color: $blue-gray-600;
+      color: ds-colors.$blue-gray-600;
       border: none;
       outline: none;
       background-color: transparent;

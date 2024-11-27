@@ -1,3 +1,7 @@
+@use "../ds-system/ds-colors";
+@use "../ds-system/ds-typography";
+@use "../mixins/m_center";
+
 .checkbox {
   display: block;
 
@@ -24,7 +28,7 @@
   }
 
   span {
-    @include r-s14-h16;
+    @include ds-typography.r-s14-h16;
 
     position: relative;
 
@@ -32,11 +36,11 @@
 
     padding-left: 35px;
 
-    color: $blue-gray-600;
+    color: ds-colors.$blue-gray-600;
 
     &::before,
     &::after {
-      @include p_center-v;
+      @include m_center.p_center-v;
 
       width: 24px;
       height: 24px;
@@ -57,12 +61,12 @@
     &::before {
       box-sizing: border-box;
 
-      border: 1px solid $blue-gray-600;
+      border: 1px solid ds-colors.$blue-gray-600;
     }
   }
 
   [type="text"] {
-    @include r-s14-h21;
+    @include ds-typography.r-s14-h21;
 
     display: block;
 
@@ -74,7 +78,7 @@
     cursor: pointer;
     transition: background-color 0.3s;
 
-    color: $gray-900;
+    color: ds-colors.$gray-900;
     border: none;
     outline: none;
     background-color: transparent;
@@ -82,7 +86,7 @@
     &:focus {
       cursor: text;
 
-      background-color: $blue-300;
+      background-color: ds-colors.$blue-300;
     }
   }
 }

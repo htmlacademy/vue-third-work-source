@@ -1,3 +1,7 @@
+@use "../ds-system/ds-colors";
+@use "../ds-system/ds-typography";
+@use "../mixins/m_clear-list";
+
 .task-card {
   $bl: ".task-card";
 
@@ -40,7 +44,7 @@
       content: "";
       transition: background-color 0.3s;
 
-      background-color: $blue-gray-300;
+      background-color: ds-colors.$blue-gray-300;
     }
 
     &::after {
@@ -54,7 +58,7 @@
     &:hover {
       &::before,
       &::after {
-        background-color: $blue-700;
+        background-color: ds-colors.$blue-700;
       }
     }
   }
@@ -66,13 +70,13 @@
     margin: 0 auto;
     padding: 40px;
 
-    background-color: $white-900;
-    box-shadow: 0 4px 8px $shadow-500;
+    background-color: ds-colors.$white-900;
+    box-shadow: 0 4px 8px ds-colors.$shadow-500;
   }
 
   &__name,
   &__name input {
-    @include m-s24-h21;
+    @include ds-typography.m-s24-h21;
 
     display: block;
 
@@ -81,7 +85,7 @@
     padding: 0;
     padding-bottom: 5px;
 
-    color: $gray-900;
+    color: ds-colors.$gray-900;
     border: none;
     border-bottom: 1px solid transparent;
     border-radius: 0;
@@ -90,7 +94,7 @@
     &:focus:not(:disabled) {
       cursor: text;
 
-      border-color: $blue-gray-200;
+      border-color: ds-colors.$blue-gray-200;
     }
   }
 
@@ -112,21 +116,21 @@
   }
 
   &__date {
-    @include r-s14-h21;
+    @include ds-typography.r-s14-h21;
 
     margin-top: 5px;
     margin-bottom: 40px;
 
-    color: $blue-gray-300;
+    color: ds-colors.$blue-gray-300;
   }
 
   &__params {
-    @include clear-list;
-    @include r-s16-h21;
+    @include m_clear-list.clear-list;
+    @include ds-typography.r-s16-h21;
 
     margin-bottom: 40px;
 
-    color: $gray-900;
+    color: ds-colors.$gray-900;
 
     li {
       margin-bottom: 24px;
@@ -153,12 +157,12 @@
     width: 210px;
 
     border-radius: 6px;
-    background-color: $white-900;
-    box-shadow: 0 4px 8px $shadow-500;
+    background-color: ds-colors.$white-900;
+    box-shadow: 0 4px 8px ds-colors.$shadow-500;
   }
 
   &__user {
-    @include r-s14-h16;
+    @include ds-typography.r-s14-h16;
 
     display: inline-flex;
     align-items: center;
@@ -208,7 +212,7 @@
     }
 
     span {
-      @include m-s14-h21;
+      @include ds-typography.m-s14-h21;
 
       display: block;
 
@@ -220,14 +224,14 @@
 
       text-align: center;
 
-      color: $white-900;
+      color: ds-colors.$white-900;
       border-radius: 50%;
-      background-color: $green-700;
+      background-color: ds-colors.$green-700;
     }
   }
 
   &__link {
-    @include r-s16-h21;
+    @include ds-typography.r-s16-h21;
 
     position: relative;
 
@@ -238,7 +242,7 @@
     cursor: pointer;
     text-decoration: underline;
 
-    color: $blue-gray-600;
+    color: ds-colors.$blue-gray-600;
     border: none;
     outline: none;
     background-color: transparent;
@@ -270,7 +274,7 @@
     &--text {
       text-decoration: none;
 
-      color: $gray-900;
+      color: ds-colors.$gray-900;
 
       &:hover {
         text-decoration: underline;
@@ -279,18 +283,18 @@
   }
 
   &__title {
-    @include m-s18-h21;
+    @include ds-typography.m-s18-h21;
 
     margin: 0;
 
-    color: $gray-900;
+    color: ds-colors.$gray-900;
   }
 
   &__description {
     margin-bottom: 40px;
 
     textarea {
-      @include r-s14-h21;
+      @include ds-typography.r-s14-h21;
 
       display: block;
 
@@ -303,13 +307,13 @@
       resize: none;
       transition: border-color 0.3s;
 
-      color: $blue-gray-600;
-      border: 1px solid $blue-gray-50;
+      color: ds-colors.$blue-gray-600;
+      border: 1px solid ds-colors.$blue-gray-50;
       border-radius: 6px;
       outline: none;
 
       &:focus {
-        border-color: $blue-600;
+        border-color: ds-colors.$blue-600;
       }
     }
 
@@ -354,34 +358,34 @@
   &__links-item {
     margin-top: 16px;
 
-    border-bottom: 1px solid $blue-gray-300;
+    border-bottom: 1px solid ds-colors.$blue-gray-300;
 
     &--border_none {
       border-bottom: 0;
     }
 
     input {
-      @include r-s14-h21;
+      @include ds-typography.r-s14-h21;
 
       display: block;
 
       width: 100%;
       margin-bottom: 10px;
 
-      color: $blue-gray-600;
+      color: ds-colors.$blue-gray-600;
       border: none;
       outline: none;
     }
 
     a {
-      @include r-s14-h21;
+      @include ds-typography.r-s14-h21;
 
       display: block;
 
       margin-bottom: 10px;
       padding-right: 24;
 
-      color: $blue-600;
+      color: ds-colors.$blue-600;
 
       &::after {
         display: inline-block;
@@ -418,17 +422,17 @@
     }
 
     p {
-      @include r-s14-h21;
+      @include ds-typography.r-s14-h21;
 
       margin-top: 10px;
       margin-bottom: 0;
 
-      color: $blue-gray-300;
+      color: ds-colors.$blue-gray-300;
     }
   }
 
   &__list {
-    @include clear-list;
+    @include m_clear-list.clear-list;
 
     margin-top: 15px;
   }

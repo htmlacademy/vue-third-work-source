@@ -1,3 +1,6 @@
+@use "../ds-system/ds-colors";
+@use "../ds-system/ds-typography";
+
 .header {
   position: relative;
 
@@ -6,8 +9,8 @@
 
   padding: 15px 12px;
 
-  background-color: $blue-600;
-  box-shadow: 0 2px 4px $shadow-400;
+  background-color: ds-colors.$blue-600;
+  box-shadow: 0 2px 4px ds-colors.$shadow-400;
 
   &__logo {
     margin-right: auto;
@@ -19,7 +22,7 @@
     margin-right: 18px;
 
     input {
-      @include m-s14-h21;
+      @include ds-typography.m-s14-h21;
 
       margin: 0;
       padding-top: 11px;
@@ -27,8 +30,8 @@
       padding-bottom: 11px;
       padding-left: 40px;
 
-      color: $white-900;
-      border: 1px solid $white-800;
+      color: ds-colors.$white-900;
+      border: 1px solid ds-colors.$white-800;
       border-radius: 6px;
       background-color: transparent;
     }
@@ -57,7 +60,7 @@
   }
 
   &__create-task {
-    @include m-s14-h21;
+    @include ds-typography.m-s14-h21;
 
     margin-right: 18px;
     padding-top: 13px;
@@ -68,18 +71,18 @@
     transition: background-color 0.3s;
     text-transform: uppercase;
 
-    color: $black-700;
+    color: ds-colors.$black-700;
     border-radius: 6px;
-    background: $white-800;
-    box-shadow: 0 4px 8px $shadow-500;
+    background: ds-colors.$white-800;
+    box-shadow: 0 4px 8px ds-colors.$shadow-500;
 
     &:hover {
-      background-color: $yellow-300;
+      background-color: ds-colors.$yellow-300;
     }
   }
 
   &__login {
-    @include m-s14-h21;
+    @include ds-typography.m-s14-h21;
 
     position: relative;
 
@@ -87,7 +90,7 @@
 
     cursor: pointer;
 
-    color: $white-900;
+    color: ds-colors.$white-900;
 
     &::before {
       position: absolute;

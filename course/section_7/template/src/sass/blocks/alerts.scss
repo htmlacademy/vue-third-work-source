@@ -1,5 +1,9 @@
+@use "../ds-system/ds-colors";
+@use "../ds-system/ds-typography";
+@use "../mixins/m_clear-list";
+
 .alerts {
-  @include clear-list;
+  @include m_clear-list.clear-list;
 
   position: fixed;
   top: 100px;
@@ -16,19 +20,19 @@
   }
 
   &__item {
-    @include r-s14-h16;
+    @include ds-typography.r-s14-h16;
 
     margin-bottom: 20px;
     padding: 15px 20px;
 
-    background-color: $pink-200;
-    box-shadow: 0 2px 4px $shadow-400;
+    background-color: ds-colors.$pink-200;
+    box-shadow: 0 2px 4px ds-colors.$shadow-400;
 
     &--success {
       padding-left: 45px;
 
-      color: $white-900;
-      background-color: $green-600;
+      color: ds-colors.$white-900;
+      background-color: ds-colors.$green-600;
       background-image: url("../img/check.svg");
       background-repeat: no-repeat;
       background-position: 18px 14px;
@@ -38,8 +42,8 @@
     &--error {
       padding-left: 45px;
 
-      color: $white-900;
-      background-color: $red-600;
+      color: ds-colors.$white-900;
+      background-color: ds-colors.$red-600;
       background-image: url("../img/status-alert--white.svg");
       background-repeat: no-repeat;
       background-position: 18px center;
